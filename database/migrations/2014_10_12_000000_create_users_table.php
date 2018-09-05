@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreateUsersTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Migracion de los Usuarios.
      *
      * @return void
      */
@@ -15,16 +15,23 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->integer('carrera_id')->unsigned();
+            $table->string('nombres');
+            $table->string('apellidos');
+            $table->string('nick')->nullable();
+            $table->enum('tipo',['admin', 'coordinador','estudiante'])->default("estudiante");
             $table->string('email')->unique();
             $table->string('password');
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('cascade');
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Migracion reversa de los usuarios.
      *
      * @return void
      */
