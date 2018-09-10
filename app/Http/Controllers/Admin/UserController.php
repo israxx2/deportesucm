@@ -23,7 +23,7 @@ class UserController extends Controller
 
         $users = User::withTrashed()->
         orderBy('id', 'ASC')->get();
-        dd($users);
+
         //Se pasa la variable users a la vista
         return view('admin.users.index')
         ->with('users', $users);

@@ -35,7 +35,19 @@ Route::group(['prefix' => 'admin'], function () {
 		'show' => 'admin.user.show',
 		'edit' => 'admin.user.edit',
 		'update' => 'admin.user.update',
-	]]);
+    ]]);
+    Route::post('user/activar/{user}',[
+        'uses'  =>'Admin\UserController@activar',
+        'as'    =>'admin.user.activar'
+      ]);
+      Route::post('user/pw',[
+        'uses'  =>'Admin\UserController@pw',
+        'as'    =>'admin.user.pw'
+      ]);
+      Route::put('user/pw_save/{user}',[
+        'uses'  =>'Admin\UserController@pw_save',
+        'as'    =>'admin.user.pw_save'
+      ]);
 
 });
 

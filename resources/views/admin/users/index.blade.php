@@ -17,6 +17,7 @@
         <th>Nombres</th>
         <th>Apellidos</th>
         <th>Carrera</th>
+        <th>Estado</th>
 		<th>Detalles</th>
 		<th>Eliminar</th>
       </tr>
