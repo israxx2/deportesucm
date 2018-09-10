@@ -17,6 +17,7 @@ class CreateTorneosTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->date('fecha');
+            $table->enum('tipo', ['llave', 'grupo']);
             $table->softDeletes();
             $table->timestamps();
         });

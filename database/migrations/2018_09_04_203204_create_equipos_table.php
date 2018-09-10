@@ -16,6 +16,8 @@ class CreateEquiposTable extends Migration
         Schema::create('equipos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('modalidad_id')->unsigned();
+            $table->string('nombre');
+            $table->string('descripcion')->nullable();
             $table->integer('victorias_totales')->default(0);
             $table->integer('derrotas_totales')->default(0);
             $table->integer('puntos_favor_totales')->default(0);
