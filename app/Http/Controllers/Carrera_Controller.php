@@ -10,7 +10,7 @@ class Carrera_Controller extends Controller
     public function index()
     {
         $carrera= carrera::all();
-        
+        dd($carrera);
         return view('carrera.index');
     }
 }

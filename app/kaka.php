@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class carrera extends Model
+class kaka extends Model
 {
-    protected $table = 'carreras';
+    //
 }
