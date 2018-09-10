@@ -1,12 +1,12 @@
 @extends('admin.template.main')
 
-@section('title', 'Usuarios') 
+@section('title', 'Usuarios')
 
 
 
 @section('content')
 
-<br>	
+<br>
 <hr>
 
 <div class="table-responsive">
@@ -16,13 +16,7 @@
         <th>#</th>
         <th>Nombres</th>
         <th>Apellidos</th>
-      
         <th>Carrera</th>
-        <th>Elo</th>
-				<th>Juegos1v1</th>
-				<th>GF</th>
-				<th>GC</th>
-        <th>Estado</th>
 		<th>Detalles</th>
 		<th>Eliminar</th>
       </tr>
@@ -33,12 +27,8 @@
           <td>{{ $user->id }}</td>
           <td>{{ $user->nombres }}</td>
           <td>{{ $user->apellidos }}</td>
-    
+
           <td>{{ $user->carrera->nombre }}</td>
-          <td>{{ $user->elo }}</td>
-					<td>{{ $user->juegos_totales_1v1 }}</td>
-					<td>{{ $user->goles_totales }}</td>
-					<td>{{ $user->goles_contra }}</td>
           <td>
           	@if($user->deleted_at == null)
           		<p href="#" class="btn btn-success">
@@ -65,10 +55,10 @@
 	        		<i class="fas fa-trash-alt"></i>
 				</button>
 	      	@endif
-				
+
 			</td>
         </tr>
-			
+
 				<!-- Modal Delete-->
 				<div class="modal" tabindex="-1" role="dialog" id = "destroy{{ $user->id }}" style="top:20%;">
 				  <div class="modal-dialog" role="document">
