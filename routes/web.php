@@ -18,3 +18,22 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//RUTAS DEL ADMINISTRADOR
+Route::group(['prefix' => 'admin'], function () {
+
+	//Panel principal Administrador.
+	Route::get('/','Admin\AdminController@index');
+
+	//Rutas de los Usuarios
+	Route::resource('user', 'Admin\UserController', ['names' => [
+		'index' => 'admin.user.index',
+		'create' => 'admin.user.create',
+		'store' => 'admin.user.store',
+		'destroy' => 'admin.user.destroy',
+		'show' => 'admin.user.show',
+		'edit' => 'admin.user.edit',
+		'update' => 'admin.user.update',
+	]]);
+
+});
