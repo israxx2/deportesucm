@@ -91,15 +91,13 @@ class UserController extends Controller
         $user = User::find($id);
         $carreras= Carrera::orderBy('nombre', 'ASC')
         ->pluck('nombre','id');
-        $equipos= Equipo::orderBy('nombre', 'ASC')
-        ->get();
+
         $tipo = ['estudiante' => 'estudiante', 'admin' => 'admin'];
 
         return view('admin.users.edit')
         ->with('user', $user)
         ->with('tipo', $tipo)
-        ->with('carreras', $carreras)
-        ->with('equipos', $equipos);
+        ->with('carreras', $carreras);
     }
 
     public function pw(Request $request)
@@ -132,15 +130,9 @@ class UserController extends Controller
         $user->apellidos = strtoupper($request->apellidos);
         $user->email = $request->email;
         $user->carrera_id = $request->carrera_id;
-        if($request->equipo_id == 'NULL')
-        {
-            $user->equipo_id = null;
-        } else
-        {
-            $user->equipo_id = $request->equipo_id;
-        }
+
         $user->tipo = $request->tipo;
-        $user->torneos_ganados = $request->torneos_ganados;
+
         $user->save();
 
         return Redirect('/admin/user/'.$user->id);

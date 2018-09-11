@@ -11,6 +11,10 @@ class ModalidadesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('carreras')->insert([
+            'deporte_id' => 1,
+            'nombre' => 'FUTBOL',
+            'descripcion' => 'Esta es una breve descripción del deporte, aca se podrán especificar detalles del deporte como tal vez: reglas, modo de juego, etc...',
+        ]);
     }
 }

@@ -8,8 +8,11 @@
 <meta name="author" content="">
 
 <link rel="stylesheet" type="text/css"  href="{{ asset('bootstrap-4.1/css/bootstrap.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('fonts/font-awesome/css/font-awesome.css') }}">
 <script type="text/javascript" src="{{ asset('js/jquery.1.11.1.js') }}"></script>
 <script type="text/javascript" src="{{ asset('bootstrap-4.1/js/bootstrap.js') }}"></script>
+<script defer src="{{ asset('svg-with-js/js/fontawesome-all.js') }}"></script>
+
 
 </head>
 <body>
