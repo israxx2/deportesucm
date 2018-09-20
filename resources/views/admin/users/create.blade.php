@@ -6,7 +6,7 @@
 
 @section('content')
 
-
+<div class="container ">
 {!! Form::open(['route' => 'admin.user.store' , 'method' => 'POST']) !!}
     
     <div class="form-group">
@@ -55,7 +55,7 @@
     <br>
 
     
-
+</div>
 
 {!! Form::close() !!}
 <script>

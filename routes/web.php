@@ -49,7 +49,22 @@ Route::group(['prefix' => 'admin'], function () {
         'as'    =>'admin.user.pw_save'
       ]);
 
-});
+    //Rutas de las Carreras
+    Route::resource('carrera', 'Admin\CarreraController', ['names' => [
+      'index' => 'admin.carrera.index',
+      'create' => 'admin.carrera.create',
+      'store' => 'admin.carrera.store',
+      'destroy' => 'admin.carrera.destroy',
+      'show' => 'admin.carrera.show',
+      'edit' => 'admin.carrera.edit',
+      'update' => 'admin.carrera.update',
+      ]]);
+      Route::post('carrera/activar/{carrera}',[
+        'uses'  =>'Admin\CarreraController@activar',
+        'as'    =>'admin.carrera.activar'
+      ]);
+     
 
-Route::get('/carrera', 'Carrera_Controller@index');
+
+});
 
