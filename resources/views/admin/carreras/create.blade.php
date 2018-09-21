@@ -5,7 +5,7 @@
 
 
 @section('content')
-
+<hr>
 <div class="container ">
 {!! Form::open(['route' => 'admin.carrera.store' , 'method' => 'POST']) !!}
     

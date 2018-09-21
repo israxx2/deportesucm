@@ -18,7 +18,7 @@ class CarreraController extends Controller
      */
     public function index()
     {
-        //retorna todos los usuarios (hasta los borrados logicamente)
+        //retorna todos los carrera (hasta los borrados logicamente)
         //ordenados por id
         
         $carreras = Carrera::withTrashed()->
@@ -52,7 +52,7 @@ class CarreraController extends Controller
         $carreras->nombre = $request->nombre;
         $carreras->save();
 
-        return Redirect('/carrera/');
+        return Redirect('admin/carrera/');
 
     }
 
@@ -66,11 +66,10 @@ class CarreraController extends Controller
      */
     public function edit($id)
     {   
-        $carreras= Carrera::orderBy('nombre', 'ASC')
-        ->pluck('nombre','id');
-        dd($carreras);  
+        $carrera = Carrera::find($id);
+       
         return view('admin.carreras.edit')
-        ->with('carreras', $carreras);
+        ->with('carrera', $carrera);
     }
 
 
@@ -85,11 +84,11 @@ class CarreraController extends Controller
     public function update(Request $request, $id)
     {
         $carrera = Carrera::find($id);
-        $carrera->nombre = strtoupper($request->nombres);
+        $carrera->nombre = strtoupper($request->nombre);
   
         $carrera->save();
 
-        return Redirect('/carrera/'.$carrera->id);
+        return Redirect('/admin/carrera/');
     }
 
     /**
@@ -104,7 +103,7 @@ class CarreraController extends Controller
         $carrera->delete();
         $carrera->save();
 
-        return Redirect('carrera');
+        return Redirect('admin/carrera');
     }
 
     public function activar($id)
@@ -113,6 +112,6 @@ class CarreraController extends Controller
         ->where('id', '=', $id)
         ->restore();
 
-        return Redirect('/carrera');
+        return Redirect('admin/carrera');
     }
 }

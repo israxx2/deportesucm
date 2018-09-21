@@ -4,7 +4,7 @@
 
 
 @section('content')
-
+<hr>
 <div class="container ">
 {!! Form::open(['route' => 'admin.user.store' , 'method' => 'POST']) !!}
     

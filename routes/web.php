@@ -16,41 +16,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-//RUTAS DEL ADMINISTRADOR
-Route::group(['prefix' => 'admin'], function () {
-
-	//Panel principal Administrador.
-	Route::get('/','Admin\AdminController@index');
-
-	//Rutas de los Usuarios
-	Route::resource('user', 'Admin\UserController', ['names' => [
-		'index' => 'admin.user.index',
-		'create' => 'admin.user.create',
-		'store' => 'admin.user.store',
-		'destroy' => 'admin.user.destroy',
-		'show' => 'admin.user.show',
-		'edit' => 'admin.user.edit',
-		'update' => 'admin.user.update',
-    ]]);
-    Route::post('user/activar/{user}',[
-        'uses'  =>'Admin\UserController@activar',
-        'as'    =>'admin.user.activar'
-      ]);
-      Route::post('user/pw',[
-        'uses'  =>'Admin\UserController@pw',
-        'as'    =>'admin.user.pw'
-      ]);
-      Route::put('user/pw_save/{user}',[
-        'uses'  =>'Admin\UserController@pw_save',
-        'as'    =>'admin.user.pw_save'
-      ]);
-
-   
-     
-
-
-});
-
 
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -58,7 +23,11 @@ Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin'], function () {
+      
+      //Panel principal Administrador.
+	        Route::get('/','Admin\AdminController@index');
+
       //Rutas de los Usuarios
           Route::resource('user', 'Admin\UserController', ['names' => [
             'index' => 'admin.user.index',
@@ -96,5 +65,20 @@ Route::group(['middleware' => 'auth'], function () {
               'uses'  =>'Admin\CarreraController@activar',
               'as'    =>'admin.carrera.activar'
             ]);
-    
+       //Rutas de los Equipos
+            Route::resource('equipo', 'Admin\EquipoController', ['names' => [
+              'index' => 'admin.equipo.index',
+              'create' => 'admin.equipo.create',
+              'store' => 'admin.equipo.store',
+              'destroy' => 'admin.equipo.destroy',
+              'show' => 'admin.equipo.show',
+              'edit' => 'admin.equipo.edit',
+              'update' => 'admin.equipo.update',
+              ]]);
+
+              Route::post('equipo/activar/{equipo}',[
+                'uses'  =>'Admin\EquipoController@activar',
+                'as'    =>'admin.equipo.activar'
+              ]);
+   
 });

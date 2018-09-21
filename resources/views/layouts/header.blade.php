@@ -36,7 +36,7 @@
                       <div class="pull-left">
                         <!-- User Image -->
                         @if (Auth::user()->avatar == null)  
-                          <img src="dist/img/user.jpg" class="img-circle" alt="User Image">
+                          <img src="/dist/img/user.jpg" class="img-circle" alt="User Image">
                         @else
                           <img src="{{Auth::user()->avatar}}" class="img-circle" alt="User Image">
                         @endif
@@ -125,14 +125,14 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
               @if (Auth::user()->avatar == null)
-                <img src="dist/img/user.jpg" class="user-image" alt="User Image">
+                <img src="/dist/img/user.jpg" class="user-image" alt="User Image">
               @else
                 <img src="{{Auth::user()->avatar}}" class="user-image" alt="User Image">
               @endif
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">
               @if (Auth::user()->social_name == null)
-                  {{ Auth::user()->name}}
+                  {{ Auth::user()->nombres}}
                 @else
                   {{ Auth::user()->social_name}}
                 @endif
@@ -142,14 +142,14 @@
               <!-- The user image in the menu -->
               <li class="user-header">
               @if (Auth::user()->avatar == null)
-                <img src="dist/img/user.jpg" class="img-circle" alt="User Image">
+                <img src="/dist/img/user.jpg" class="img-circle" alt="User Image">
                 @else
                 <img src="{{Auth::user()->avatar}}" class="img-circle" alt="User Image">
               @endif  
 
                 <p>
                 @if (Auth::user()->social_name == null)
-                  {{ Auth::user()->name}}
+                  {{ Auth::user()->nombres}}
                 @else
                   {{ Auth::user()->social_name}}
                 @endif
@@ -191,9 +191,7 @@
           {{ csrf_field() }}
           </form>
 
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+  
         </ul>
       </div>
     </nav>
