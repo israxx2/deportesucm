@@ -1,5 +1,4 @@
-@extends('admin.template.main')
-
+@extends('layouts.app')
 @section('title', 'Usuarios')
 
 
@@ -17,7 +16,7 @@
 					<th>#</th>
 					<th>Nombres</th>
 					<th>Apellidos</th>
-					<th>Carrera</th>
+					
 					<th>Estado</th>
 			<th>Detalles</th>
 			<th>Eliminar</th>
@@ -44,17 +43,17 @@
 						</td>
 				<td>
 					<a href="{{ '/admin/user/'.$user->id  }}" class="btn btn-info">
-						<i class="fas fa-book"></i>
+						<i class="fa fa-info"></i>
 					</a>
 				</td>
 				<td>
 				@if($user->deleted_at == null)
 					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $user->id }}">
-								<i class="fas fa-trash-alt"></i>
+								<i class="fa fa-trash"></i>
 					</button>
 						@else
 							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $user->id }}" disabled>
-								<i class="fas fa-trash-alt"></i>
+								<i class="fa fa-trash"></i>
 					</button>
 						@endif
 
@@ -77,11 +76,11 @@
 								<div class="modal-footer">
 									{!! Form::open(['route' => ['admin.user.destroy', $user->id] , 'method' => 'DELETE']) !!}
 										<button type="submit" class="btn btn-danger">
-															<i class="fas fa-check" aria-hidden="true"></i>
+															<i class="fa fa-check" aria-hidden="true"></i>
 														</button>
 									{!! Form::close() !!}
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">
-										<i class="fas fa-times" aria-hidden="true"></i>
+										<i class="fa fa-times" aria-hidden="true"></i>
 									</button>
 								</div>
 							</div>
@@ -104,11 +103,11 @@
 								<div class="modal-footer">
 									{!! Form::open(['route' => ['admin.user.activar', $user->id] , 'method' => 'POST']) !!}
 										<button type="submit" class="btn btn-success">
-															<i class="fas fa-check" aria-hidden="true"></i>
+															<i class="fa fa-check" aria-hidden="true"></i>
 														</button>
 									{!! Form::close() !!}
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">
-										<i class="fas fa-times" aria-hidden="true"></i>
+										<i class="fa fa-times" aria-hidden="true"></i>
 									</button>
 								</div>
 							</div>

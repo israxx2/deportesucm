@@ -62,7 +62,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
-        return Redirect('/admin/user/create');
+        return Redirect('/user/');
 
     }
 
@@ -150,7 +150,7 @@ class UserController extends Controller
         $user->delete();
         $user->save();
 
-        return Redirect('/admin/user');
+        return Redirect('/user');
     }
 
     public function activar($id)
@@ -159,6 +159,6 @@ class UserController extends Controller
         ->where('id', '=', $id)
         ->restore();
 
-        return Redirect('/admin/user');
+        return Redirect('/user');
     }
 }

@@ -1,8 +1,7 @@
-@extends('admin.template.main')
+@extends('layouts.app')
+
 
 @section('title', 'Carreras')
-
-
 
 @section('content')
 
@@ -39,18 +38,18 @@
 							@endif
 						</td>
 				<td>
-					<a href="{{ '/admin/carrera/edit/'.$carrera->id  }}" class="btn btn-info">
-						<i class="fas fa-book"></i>
+					<a href="{{ '/carrera/edit/'.$carrera->id  }}" class="btn btn-info">
+						<i class="fa fa-edit"></i>
 					</a>
 				</td>
 				<td>
 				@if($carrera->deleted_at == null)
 					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $carrera->id }}">
-								<i class="fas fa-trash-alt"></i>
+								<i class="fa fa-trash"></i>
 					</button>
 						@else
 							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $carrera->id }}" disabled>
-								<i class="fas fa-trash-alt"></i>
+								<i class="fa fa-trash"></i>
 					</button>
 						@endif
 
@@ -73,11 +72,11 @@
 								<div class="modal-footer">
 									{!! Form::open(['route' => ['admin.carrera.destroy', $carrera->id] , 'method' => 'DELETE']) !!}
 										<button type="submit" class="btn btn-danger">
-															<i class="fas fa-check" aria-hidden="true"></i>
+															<i class="fa fa-check" aria-hidden="true"></i>
 														</button>
 									{!! Form::close() !!}
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">
-										<i class="fas fa-times" aria-hidden="true"></i>
+										<i class="fa fa-times" aria-hidden="true"></i>
 									</button>
 								</div>
 							</div>
@@ -100,11 +99,11 @@
 								<div class="modal-footer">
 									{!! Form::open(['route' => ['admin.carrera.activar', $carrera->id] , 'method' => 'POST']) !!}
 										<button type="submit" class="btn btn-success">
-															<i class="fas fa-check" aria-hidden="true"></i>
+															<i class="fa fa-check" aria-hidden="true"></i>
 														</button>
 									{!! Form::close() !!}
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">
-										<i class="fas fa-times" aria-hidden="true"></i>
+										<i class="fa fa-times" aria-hidden="true"></i>
 									</button>
 								</div>
 							</div>

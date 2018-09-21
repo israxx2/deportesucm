@@ -20,7 +20,7 @@ class CarreraController extends Controller
     {
         //retorna todos los usuarios (hasta los borrados logicamente)
         //ordenados por id
-
+        
         $carreras = Carrera::withTrashed()->
         orderBy('id', 'ASC')->get();
         //Se pasa la variable users a la vista
@@ -52,7 +52,7 @@ class CarreraController extends Controller
         $carreras->nombre = $request->nombre;
         $carreras->save();
 
-        return Redirect('/admin/carrera/');
+        return Redirect('/carrera/');
 
     }
 
@@ -89,7 +89,7 @@ class CarreraController extends Controller
   
         $carrera->save();
 
-        return Redirect('/admin/carreras/'.$carrera->id);
+        return Redirect('/carrera/'.$carrera->id);
     }
 
     /**
@@ -104,7 +104,7 @@ class CarreraController extends Controller
         $carrera->delete();
         $carrera->save();
 
-        return Redirect('/admin/carrera');
+        return Redirect('carrera');
     }
 
     public function activar($id)
@@ -113,6 +113,6 @@ class CarreraController extends Controller
         ->where('id', '=', $id)
         ->restore();
 
-        return Redirect('/admin/carrera');
+        return Redirect('/carrera');
     }
 }
