@@ -95,5 +95,20 @@ Route::group(['prefix' => 'admin'], function () {
           'uses'  =>'Admin\ModalidadController@activar',
           'as'    =>'admin.modalidad.activar'
         ]);
+          // Rutas de los partidos
+        Route::resource('partido', 'Admin\PartidoController', ['names' => [
+          'index' => 'admin.partido.index',
+          'create' => 'admin.partido.create',
+          'store' => 'admin.partido.store',
+          'destroy' => 'admin.partido.destroy',
+          'show' => 'admin.partido.show',
+          'edit' => 'admin.partido.edit',
+          'update' => 'admin.partido.update',
+          ]]);
+  
+          Route::post('partido/activar/{partido}',[
+            'uses'  =>'Admin\PartidoController@activar',
+            'as'    =>'admin.partido.activar'
+          ]);        
    
 });
