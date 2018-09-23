@@ -20,6 +20,7 @@ class CreatePartidosTable extends Migration
             $table->integer('puntos_local');
             $table->integer('puntos_visita');
             $table->integer('ganador_id')->nullable()->unsigned();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('local_id')->references('id')->on('equipos')->onDelete('cascade');
