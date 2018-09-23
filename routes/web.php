@@ -110,5 +110,21 @@ Route::group(['prefix' => 'admin'], function () {
             'uses'  =>'Admin\PartidoController@activar',
             'as'    =>'admin.partido.activar'
           ]);        
+
+        // Rutas de los deportes
+        Route::resource('deporte', 'Admin\DeporteController', ['names' => [
+          'index' => 'admin.deporte.index',
+          'create' => 'admin.deporte.create',
+          'store' => 'admin.deporte.store',
+          'destroy' => 'admin.deporte.destroy',
+          'show' => 'admin.deporte.show',
+          'edit' => 'admin.deporte.edit',
+          'update' => 'admin.deporte.update',
+          ]]);
+  
+          Route::post('deporte/activar/{deporte}',[
+            'uses'  =>'Admin\DeporteController@activar',
+            'as'    =>'admin.deporte.activar'
+          ]);   
    
 });

@@ -94,6 +94,21 @@ function current_page($url = '/'){
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
+          <li class="treeview">
+          <a href="#"><i class="fa fa-support"></i> <span>Deportes</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/deporte">Ver Deportes</a></li>
+            <li><a href="/admin/deporte/create">Nuevo Deporte</a></li>
+          </ul>
+          <a href="#"><i class="fa fa-support"></i> <span>Partidos</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
           <ul class="treeview-menu">
             <li><a href="/admin/partido">Ver Partidos</a></li>
             <li><a href="/admin/partido/create">Nuevo Partido</a></li>
