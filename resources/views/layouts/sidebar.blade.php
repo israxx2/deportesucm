@@ -79,6 +79,16 @@ function current_page($url = '/'){
             <li><a href="/admin/equipo">Ver Equipos</a></li>
             <li><a href="/admin/equipo/create">Nuevo Equipos</a></li>
           </ul>
+          <li class="treeview">
+          <a href="#"><i class="fa fa-support"></i> <span>Modalidades</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/modalidad">Ver Modalidades</a></li>
+            <li><a href="/admin/modalidad/create">Nueva Modalidad</a></li>
+          </ul>
           
           <li class="treeview">
           <a href="#"><i class="fa fa-trash"></i> <span>Papelera</span>

@@ -9,7 +9,7 @@ class Modalidad extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'deportes';
+    protected $table = 'modalidades';
 
     protected $fillable = [
         'deporte_id', 'nombre', 'descripcion', 'min', 'max',

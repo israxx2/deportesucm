@@ -80,5 +80,20 @@ Route::group(['prefix' => 'admin'], function () {
                 'uses'  =>'Admin\EquipoController@activar',
                 'as'    =>'admin.equipo.activar'
               ]);
+       //Rutas de las modalidades
+       Route::resource('modalidad', 'Admin\ModalidadController', ['names' => [
+        'index' => 'admin.modalidad.index',
+        'create' => 'admin.modalidad.create',
+        'store' => 'admin.modalidad.store',
+        'destroy' => 'admin.modalidad.destroy',
+        'show' => 'admin.modalidad.show',
+        'edit' => 'admin.modalidad.edit',
+        'update' => 'admin.modalidad.update',
+        ]]);
+
+        Route::post('modalidad/activar/{modalidad}',[
+          'uses'  =>'Admin\ModalidadController@activar',
+          'as'    =>'admin.modalidad.activar'
+        ]);
    
 });
