@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use App\User;
 use App\Modalidad;
+use App\Deporte;
 
 class ModalidadController extends Controller
 {
@@ -35,8 +36,8 @@ class ModalidadController extends Controller
      */
     public function create()
     {
-       
-        return view('admin.modalidad.create');
+        $deportes = Deporte::all();
+        return view('admin.modalidad.create')->with(compact('modalidad','deportes'));
     }
 
     /**
@@ -47,6 +48,7 @@ class ModalidadController extends Controller
      */
     public function store(Request $request)
     {
+       
 
         $modalidad = new Modalidad();
         $modalidad->deporte_id = $request->deporte;
