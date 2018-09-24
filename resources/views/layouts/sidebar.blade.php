@@ -89,10 +89,7 @@ function current_page($url = '/'){
             <li><a href="/admin/modalidad">Ver Modalidades</a></li>
             <li><a href="/admin/modalidad/create">Nueva Modalidad</a></li>
           </ul>
-          <a href="#"><i class="fa fa-support"></i> <span>Partidos</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+  
           </a>
           <li class="treeview">
           <a href="#"><i class="fa fa-support"></i> <span>Deportes</span>
