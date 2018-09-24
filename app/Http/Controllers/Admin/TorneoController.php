@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
+use App\Torneo;
 class TorneoController extends Controller
 {
     /**
@@ -13,7 +14,10 @@ class TorneoController extends Controller
      */
     public function index()
     {
-        //
+        $torneo = Torneo::withTrashed()->
+        orderBy('id', 'ASC')->get();
+        return view('admin.torneo.index')
+        ->with('torneo', $torneo);
     }
 
     /**
@@ -23,7 +27,7 @@ class TorneoController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.torneo.create');
     }
 
     /**
@@ -34,7 +38,11 @@ class TorneoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $torneo = new Torneo();
+        $torneo->nombre = $request->nombre;
+        $torneo->fecha = $request->fecha;
+        $torneo->tipo = $request->tipo;
+        $torneo->save();
     }
 
     /**
@@ -45,7 +53,9 @@ class TorneoController extends Controller
      */
     public function show($id)
     {
-        //
+        $torneo = Torneo::find($id);
+        return view('admin.torneo.show')
+        ->with('torneo', $torneo);
     }
 
     /**
