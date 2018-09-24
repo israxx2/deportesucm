@@ -105,10 +105,19 @@ Route::group(['prefix' => 'admin'], function () {
           'edit' => 'admin.partido.edit',
           'update' => 'admin.partido.update',
           ]]);
-  
+          
           Route::post('partido/activar/{partido}',[
             'uses'  =>'Admin\PartidoController@activar',
             'as'    =>'admin.partido.activar'
           ]);        
    
+        Route::resource('torneo', 'Admin\TorneoController', ['names' => [
+            'index' => 'admin.torneo.index',
+            'create' => 'admin.torneo.create',
+            'store' => 'admin.torneo.store',
+            'destroy' => 'admin.torneo.destroy',
+            'show' => 'admin.torneo.show',
+            'edit' => 'admin.torneo.edit',
+            'update' => 'admin.torneo.update',
+            ]]);
 });
