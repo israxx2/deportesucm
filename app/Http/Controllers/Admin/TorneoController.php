@@ -54,8 +54,27 @@ class TorneoController extends Controller
     public function show($id)
     {
         $torneo = Torneo::find($id);
+
+        dd($torneo->equipos);
+        //retorna las los equipos inscritos en el torneo
+        foreach($torneo->equipos as $equipo){
+            $equipo->nombre;
+        }
+
+
+        //acceder a la tabla inscripciones (no se usará a menos que la tabla inscripcion tuviera atributos de interés)
+        foreach($torneo->equipos as $equipo){
+            $equipo->pivot->id; //id del registro de la inscricion
+        }
+
+        //crear una inscripción en el torneo correspondiente
+        $torneo->equipos()->attach($equipo_id);
+
+        dd($inscripciones);
+
         return view('admin.torneo.show')
-        ->with('torneo', $torneo);
+        ->with('torneo', $torneo)
+        ->with('inscripciones', $inscripciones);
     }
 
     /**
