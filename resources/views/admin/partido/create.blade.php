@@ -12,6 +12,7 @@
     
 
   <div class="form-group">
+  {!! Form::label('EQUIPO LOCAL', 'EQUIPO LOCAL') !!}
       <select name="local" class="form-control">
         <option value="">Seleccione equipo local</option>
         @foreach($equipos as $equipo)
@@ -22,6 +23,7 @@
  
 
     <div class="form-group">
+    {!! Form::label('EQUIPO VISITANTE', 'EQUIPO VISITANTE') !!}
       <select name="visita"  class="form-control">
         <option value="">Seleccione equipo visita</option>
         @foreach($equipos as $equipo)
@@ -40,6 +42,7 @@
   </div>
  
   <div class="form-group">
+  {!! Form::label('EQUIPO GANADOR', 'EQUIPO GANADOR') !!}
       <select name="ganador" class="form-control">
         <option value="">Seleccione equipo ganador</option>
         @foreach($equipos as $equipo)
