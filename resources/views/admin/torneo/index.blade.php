@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Usuarios')
 
 
+@section('title', 'Torneos')
 
 @section('content')
 
@@ -9,55 +9,46 @@
 <hr>
 <div class="container">
 
-    <ul class="nav nav-pills" role="tablist">
-        <li role="presentation" class="active"><a href="{{ route('admin.user.index') }}">Usuarios <span class="badge">{{ count($users) }}</span></a></li>
-        <li role="presentation"><a href="{{ route('admin.user.borrados') }}">Borrados <span class="badge">{{ count($usersOnlyTrashed) }}</span></a></li>
-      </ul>
-
 	<div class="table-responsive">
 		<table class="table table-striped display compact table-condensed" id="table_user">
 			<thead>
 				<tr>
 					<th>#</th>
-					<th>Nombres</th>
-					<th>Apellidos</th>
-
+					<th>Nombre</th>
+					<th>Fecha</th>
+                    <th>Tipo</th>
 					<th>Estado</th>
-			<th>Detalles</th>
-			<th>Eliminar</th>
+					<th>Ver mas</th>
+					<th>Borrar </th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($users as $user)
+				@foreach($torneo as $torneos)
 					<tr>
-						<td>{{ $user->id }}</td>
-						<td>{{ $user->nombres }}</td>
-						<td>{{ $user->apellidos }}</td>
-
-
+						<td>{{ $torneos->id }}</td>
+						<td>{{ $torneos->nombre }}</td>
+						<td>{{ $torneos->fecha }}</td>
+						<td>{{ $torneos->tipo }}</td>
 						<td>
-							@if($user->deleted_at == null)
+							@if($torneos->deleted_at == null)
 								<p href="#" class="btn btn-success">
 						Activo
 					</p>
 							@else
-					<p href="#" class="btn btn-danger" data-toggle="modal" data-target="#activar{{ $user->id }}">
+					<p href="#" class="btn btn-danger" data-toggle="modal" data-target="#activar{{ $torneos->id }}">
 						inactivo
 					</p>
 							@endif
-						</td>
-				<td>
-					<a href="{{ '/admin/user/'.$user->id  }}" class="btn btn-info">
-						<i class="fa fa-info"></i>
-					</a>
-				</td>
-				<td>
-				@if($user->deleted_at == null)
-					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $user->id }}">
+						<td><a href="{{ '/admin/torneo/'.$torneos->id }}" class="btn btn-info">
+						<i class="fa fa-book"></i>
+					</a></td>
+					<td>
+				@if($torneos->deleted_at == null)
+					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $torneos->id }}">
 								<i class="fa fa-trash"></i>
 					</button>
 						@else
-							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $user->id }}" disabled>
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $torneos->id }}" disabled>
 								<i class="fa fa-trash"></i>
 					</button>
 						@endif
@@ -66,20 +57,20 @@
 					</tr>
 
 					<!-- Modal Delete-->
-					<div class="modal" tabindex="-1" role="dialog" id = "destroy{{ $user->id }}" style="top:20%;">
+					<div class="modal" tabindex="-1" role="dialog" id = "destroy{{ $torneos->id }}" style="top:20%;">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title">Borrar Jugador {{ $user->id }}</h5>
+									<h5 class="modal-title">Borrar torneo {{ $torneos->id }}</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
 								<div class="modal-body">
-									<p>¿Estás seguro de borrar al jugador?</p>
+									<p>¿Estás seguro de borrar el torneo?</p>
 								</div>
 								<div class="modal-footer">
-									{!! Form::open(['route' => ['admin.user.destroy', $user->id] , 'method' => 'DELETE']) !!}
+									{!! Form::open(['route' => ['admin.torneo.destroy', $torneos->id] , 'method' => 'DELETE']) !!}
 										<button type="submit" class="btn btn-danger">
 															<i class="fa fa-check" aria-hidden="true"></i>
 														</button>
@@ -93,20 +84,20 @@
 					</div>
 
 					<!-- Modal Activar-->
-					<div class="modal" tabindex="-1" role="dialog" id = "activar{{ $user->id }}" style="top:20%;">
+					<div class="modal" tabindex="-1" role="dialog" id = "activar{{ $torneos->id }}" style="top:20%;">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title">Activar Jugador {{ $user->id }}</h5>
+									<h5 class="modal-title">Activar torneo {{ $torneos->id }}</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
 								<div class="modal-body">
-									<p>¿Estás seguro de volver a activar al jugador?</p>
+									<p>¿Estás seguro de volver el torneo?</p>
 								</div>
 								<div class="modal-footer">
-									{!! Form::open(['route' => ['admin.user.activar', $user->id] , 'method' => 'POST']) !!}
+									{!! Form::open(['route' => ['admin.torneo.activar', $torneos->id] , 'method' => 'POST']) !!}
 										<button type="submit" class="btn btn-success">
 															<i class="fa fa-check" aria-hidden="true"></i>
 														</button>
@@ -122,7 +113,6 @@
 			</tbody>
 		</table>
 	</div>
-
 
 </div>
 <script>

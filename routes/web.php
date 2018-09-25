@@ -24,7 +24,7 @@ Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallb
 
 
 Route::group(['prefix' => 'admin'], function () {
-      
+
       //Panel principal Administrador.
 	        Route::get('/','Admin\AdminController@index');
 
@@ -38,6 +38,10 @@ Route::group(['prefix' => 'admin'], function () {
             'edit' => 'admin.user.edit',
             'update' => 'admin.user.update',
             ]]);
+            Route::get('userTrashed',[
+                'uses'  =>'Admin\UserController@borrados',
+                'as'    =>'admin.user.borrados'
+              ]);
             Route::post('user/activar/{user}',[
                 'uses'  =>'Admin\UserController@activar',
                 'as'    =>'admin.user.activar'
@@ -50,7 +54,7 @@ Route::group(['prefix' => 'admin'], function () {
                 'uses'  =>'Admin\UserController@pw_save',
                 'as'    =>'admin.user.pw_save'
               ]);
-              
+
       //Rutas de las Carreras
           Route::resource('carrera', 'Admin\CarreraController', ['names' => [
             'index' => 'admin.carrera.index',
@@ -105,10 +109,11 @@ Route::group(['prefix' => 'admin'], function () {
           'edit' => 'admin.partido.edit',
           'update' => 'admin.partido.update',
           ]]);
-  
+
           Route::post('partido/activar/{partido}',[
             'uses'  =>'Admin\PartidoController@activar',
             'as'    =>'admin.partido.activar'
+<<<<<<< HEAD
           ]);        
 
         // Rutas de los deportes
@@ -127,4 +132,26 @@ Route::group(['prefix' => 'admin'], function () {
             'as'    =>'admin.deporte.activar'
           ]);   
    
+=======
+          ]);
+
+        Route::resource('torneo', 'Admin\TorneoController', ['names' => [
+            'index' => 'admin.torneo.index',
+            'create' => 'admin.torneo.create',
+            'store' => 'admin.torneo.store',
+            'destroy' => 'admin.torneo.destroy',
+            'show' => 'admin.torneo.show',
+            'edit' => 'admin.torneo.edit',
+            'update' => 'admin.torneo.update',
+            ]]);
+
+            Route::post('torneo/activar/{torneo}',[
+              'uses'  =>'Admin\TorneoController@activar',
+              'as'    =>'admin.torneo.activar'
+            ]);
+            Route::post('torneo/incribir/{torneo}',[
+              'uses'  =>'Admin\TorneoController@inscripcion',
+              'as'    =>'admin.torneo.inscripcion'
+            ]);
+>>>>>>> 7ce0d8c6cafd9b86c6a022c176d71ca6540a7f15
 });
