@@ -1,12 +1,11 @@
-@extends('admin.template.main')
-
+@extends('layouts.app')
 @section('title', 'Nuevo Jugador') 
 
 
 
 @section('content')
-
-
+<hr>
+<div class="container ">
 {!! Form::open(['route' => 'admin.user.store' , 'method' => 'POST']) !!}
     
     <div class="form-group">
@@ -55,7 +54,7 @@
     <br>
 
     
-
+</div>
 
 {!! Form::close() !!}
 <script>

@@ -16,17 +16,36 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function borrados()
+    {
+        //retorna todos los usuarios (hasta los borrados logicamente)
+        //ordenados por id
+        $users = User::withTrashed()->
+        orderBy('id', 'ASC')->get();
+
+        $usersOnlyTrashed = User::onlyTrashed()
+        ->get();
+
+        //Se pasa la variable users a la vista
+        return view('admin.users.borrados')
+        ->with('users', $users)
+        ->with('usersOnlyTrashed', $usersOnlyTrashed);
+    }
+
     public function index()
     {
         //retorna todos los usuarios (hasta los borrados logicamente)
         //ordenados por id
 
-        $users = User::withTrashed()->
-        orderBy('id', 'ASC')->get();
+        $users = User::orderBy('id', 'ASC')->get();
+
+        $usersOnlyTrashed = User::onlyTrashed()
+        ->get();
 
         //Se pasa la variable users a la vista
         return view('admin.users.index')
-        ->with('users', $users);
+        ->with('users', $users)
+        ->with('usersOnlyTrashed', $usersOnlyTrashed);
     }
 
     /**
@@ -62,7 +81,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
-        return Redirect('/admin/user/create');
+        return Redirect('/user/');
 
     }
 
@@ -150,7 +169,7 @@ class UserController extends Controller
         $user->delete();
         $user->save();
 
-        return Redirect('/admin/user');
+        return Redirect(route('admin.user.index'));
     }
 
     public function activar($id)
@@ -159,6 +178,7 @@ class UserController extends Controller
         ->where('id', '=', $id)
         ->restore();
 
-        return Redirect('/admin/user');
+        return Redirect(route('admin.user.index'));
+
     }
 }

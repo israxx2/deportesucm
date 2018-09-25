@@ -15,41 +15,122 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-//RUTAS DEL ADMINISTRADOR
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+
+
 Route::group(['prefix' => 'admin'], function () {
 
-	//Panel principal Administrador.
-	Route::get('/','Admin\AdminController@index');
+      //Panel principal Administrador.
+	        Route::get('/','Admin\AdminController@index');
 
-	//Rutas de los Usuarios
-	Route::resource('user', 'Admin\UserController', ['names' => [
-		'index' => 'admin.user.index',
-		'create' => 'admin.user.create',
-		'store' => 'admin.user.store',
-		'destroy' => 'admin.user.destroy',
-		'show' => 'admin.user.show',
-		'edit' => 'admin.user.edit',
-		'update' => 'admin.user.update',
-    ]]);
-    Route::post('user/activar/{user}',[
-        'uses'  =>'Admin\UserController@activar',
-        'as'    =>'admin.user.activar'
-      ]);
-      Route::post('user/pw',[
-        'uses'  =>'Admin\UserController@pw',
-        'as'    =>'admin.user.pw'
-      ]);
-      Route::put('user/pw_save/{user}',[
-        'uses'  =>'Admin\UserController@pw_save',
-        'as'    =>'admin.user.pw_save'
-      ]);
+      //Rutas de los Usuarios
+          Route::resource('user', 'Admin\UserController', ['names' => [
+            'index' => 'admin.user.index',
+            'create' => 'admin.user.create',
+            'store' => 'admin.user.store',
+            'destroy' => 'admin.user.destroy',
+            'show' => 'admin.user.show',
+            'edit' => 'admin.user.edit',
+            'update' => 'admin.user.update',
+            ]]);
+            Route::get('userTrashed',[
+                'uses'  =>'Admin\UserController@borrados',
+                'as'    =>'admin.user.borrados'
+              ]);
+            Route::post('user/activar/{user}',[
+                'uses'  =>'Admin\UserController@activar',
+                'as'    =>'admin.user.activar'
+              ]);
+              Route::post('user/pw',[
+                'uses'  =>'Admin\UserController@pw',
+                'as'    =>'admin.user.pw'
+              ]);
+              Route::put('user/pw_save/{user}',[
+                'uses'  =>'Admin\UserController@pw_save',
+                'as'    =>'admin.user.pw_save'
+              ]);
 
+      //Rutas de las Carreras
+          Route::resource('carrera', 'Admin\CarreraController', ['names' => [
+            'index' => 'admin.carrera.index',
+            'create' => 'admin.carrera.create',
+            'store' => 'admin.carrera.store',
+            'destroy' => 'admin.carrera.destroy',
+            'show' => 'admin.carrera.show',
+            'edit' => 'admin.carrera.edit',
+            'update' => 'admin.carrera.update',
+            ]]);
+            Route::post('carrera/activar/{carrera}',[
+              'uses'  =>'Admin\CarreraController@activar',
+              'as'    =>'admin.carrera.activar'
+            ]);
+       //Rutas de los Equipos
+            Route::resource('equipo', 'Admin\EquipoController', ['names' => [
+              'index' => 'admin.equipo.index',
+              'create' => 'admin.equipo.create',
+              'store' => 'admin.equipo.store',
+              'destroy' => 'admin.equipo.destroy',
+              'show' => 'admin.equipo.show',
+              'edit' => 'admin.equipo.edit',
+              'update' => 'admin.equipo.update',
+              ]]);
+
+              Route::post('equipo/activar/{equipo}',[
+                'uses'  =>'Admin\EquipoController@activar',
+                'as'    =>'admin.equipo.activar'
+              ]);
+       //Rutas de las modalidades
+       Route::resource('modalidad', 'Admin\ModalidadController', ['names' => [
+        'index' => 'admin.modalidad.index',
+        'create' => 'admin.modalidad.create',
+        'store' => 'admin.modalidad.store',
+        'destroy' => 'admin.modalidad.destroy',
+        'show' => 'admin.modalidad.show',
+        'edit' => 'admin.modalidad.edit',
+        'update' => 'admin.modalidad.update',
+        ]]);
+
+        Route::post('modalidad/activar/{modalidad}',[
+          'uses'  =>'Admin\ModalidadController@activar',
+          'as'    =>'admin.modalidad.activar'
+        ]);
+          // Rutas de los partidos
+        Route::resource('partido', 'Admin\PartidoController', ['names' => [
+          'index' => 'admin.partido.index',
+          'create' => 'admin.partido.create',
+          'store' => 'admin.partido.store',
+          'destroy' => 'admin.partido.destroy',
+          'show' => 'admin.partido.show',
+          'edit' => 'admin.partido.edit',
+          'update' => 'admin.partido.update',
+          ]]);
+
+          Route::post('partido/activar/{partido}',[
+            'uses'  =>'Admin\PartidoController@activar',
+            'as'    =>'admin.partido.activar'
+          ]);
+
+        Route::resource('torneo', 'Admin\TorneoController', ['names' => [
+            'index' => 'admin.torneo.index',
+            'create' => 'admin.torneo.create',
+            'store' => 'admin.torneo.store',
+            'destroy' => 'admin.torneo.destroy',
+            'show' => 'admin.torneo.show',
+            'edit' => 'admin.torneo.edit',
+            'update' => 'admin.torneo.update',
+            ]]);
+
+            Route::post('torneo/activar/{torneo}',[
+              'uses'  =>'Admin\TorneoController@activar',
+              'as'    =>'admin.torneo.activar'
+            ]);
+            Route::post('torneo/incribir/{torneo}',[
+              'uses'  =>'Admin\TorneoController@inscripcion',
+              'as'    =>'admin.torneo.inscripcion'
+            ]);
 });
-
-Route::get('/carrera', 'Carrera_Controller@index');
-

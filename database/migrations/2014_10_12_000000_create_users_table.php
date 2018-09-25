@@ -22,6 +22,9 @@ class CreateUsersTable extends Migration
             $table->enum('tipo',['admin', 'coordinador','estudiante'])->default("estudiante");
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('social_name')->nullable();
+            $table->string('social_id')->nullable();
+            $table->string('avatar')->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

@@ -1,12 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/admin"><i class="far fa-futbol"></i> TACA-TACA UCM</a>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fff; ">
+  <a class="navbar-brand" href="/admin"> DEPORTES UCM</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent " >
     <ul class="navbar-nav mr-auto">
-	<!-- OPCIONES DE LOS PARTIDOS -->
+      <!-- OPCIONES DE LOS PARTIDOS -->
       <li class="nav-item">
         <a class="nav-link" href="{{ url('admin/partido') }}">Partidos</a>
       </li>
@@ -64,10 +65,8 @@
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="/admin/modalidad/create">Nueva modalidad</a>
         </div>
-      </li>
-
-      <!-- LOGOUT -->
-      <li class="nav-item">
+      </li>   
+      <li class="nav-item ">
           <a class="nav-link" href="{{ url('/logout') }}"
               onclick="event.preventDefault();
                        document.getElementById('logout-form').submit();">
@@ -77,7 +76,34 @@
           <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
               {{ csrf_field() }}
           </form>
-      </li>
+      </li>    
+
+    </ul>
+   
+
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+	    
+
+    
      </ul>
     </ul>
   </div>

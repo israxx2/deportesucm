@@ -5,12 +5,13 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
+<<<<<<< HEAD
         $this->call([
             CarrerasTableSeeder::class,
             UsersTableSeeder::class,
@@ -20,4 +21,8 @@ class DatabaseSeeder extends Seeder
             TorneosTableSeeder::class,
         ]);
     }
+=======
+        $this->call(UsersTableSeeder::class);
+           }
+>>>>>>> ADMIN_LTE
 }

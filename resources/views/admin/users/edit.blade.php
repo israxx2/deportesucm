@@ -1,5 +1,4 @@
-@extends('admin.template.main')
-
+@extends('layouts.app')
 @section('title', 'Nuevo Jugador')
 
 
