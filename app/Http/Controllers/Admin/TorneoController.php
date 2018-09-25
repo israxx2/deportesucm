@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Torneo;
+use App\Equipo;
 class TorneoController extends Controller
 {
     /**
@@ -55,26 +56,27 @@ class TorneoController extends Controller
     {
         $torneo = Torneo::find($id);
 
-        dd($torneo->equipos);
+        
         //retorna las los equipos inscritos en el torneo
-        foreach($torneo->equipos as $equipo){
-            $equipo->nombre;
-        }
+        //foreach($torneo->equipos as $equipo){
+        //    $equipo->nombre;
+        //}
 
 
         //acceder a la tabla inscripciones (no se usará a menos que la tabla inscripcion tuviera atributos de interés)
-        foreach($torneo->equipos as $equipo){
-            $equipo->pivot->id; //id del registro de la inscricion
-        }
+        //foreach($torneo->equipos as $equipo){
+        //    $equipo->pivot->id; //id del registro de la inscricion
+        //}
 
         //crear una inscripción en el torneo correspondiente
-        $torneo->equipos()->attach($equipo_id);
+        //$torneo->equipos()->attach($equipo_id);
 
-        dd($inscripciones);
+        
+        //dd($inscripciones);
 
         return view('admin.torneo.show')
-        ->with('torneo', $torneo)
-        ->with('inscripciones', $inscripciones);
+        ->with('torneo', $torneo);
+        //->with('inscripciones', $inscripciones);
     }
 
     /**
@@ -85,7 +87,9 @@ class TorneoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $torneo = Torneo::find($id);
+        
+        return view('admin.torneo.edit')->with('torneo', $torneo);
     }
 
     /**
@@ -97,7 +101,14 @@ class TorneoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $torneo = Torneo::find($id);
+        $torneo->nombre = strtoupper($request->nombre);
+        $torneo->fecha = strtoupper($request->fecha);
+        $torneo->tipo = strtoupper($request->tipo);
+        
+        $torneo->save();
+
+        return Redirect('/admin/torneo/');
     }
 
     /**
@@ -112,7 +123,7 @@ class TorneoController extends Controller
         $torneo->delete();
         $torneo->save();
 
-        return Redirect('admin/partido');
+        return Redirect('admin/torneo');
     }
     public function activar($id)
     {
@@ -121,5 +132,12 @@ class TorneoController extends Controller
         ->restore();
 
         return Redirect('admin/torneo');
+    }
+    public function inscripcion($id)
+    {
+        $equipo = Equipo::withTrashed()->
+        orderBy('id', 'ASC')->get();
+        return view('Admin/torneo/inscripcion')
+        ->with('equipo', $equipo);
     }
 }
