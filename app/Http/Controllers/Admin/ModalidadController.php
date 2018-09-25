@@ -11,7 +11,7 @@ use App\Deporte;
 
 class ModalidadController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +19,9 @@ class ModalidadController extends Controller
      */
     public function index()
     {
-        //retorna todos los modalidads (hasta los borrados logicamente)
+        //retorna todos los modalidades (hasta los borrados logicamente)
         //ordenados por id
-        
+
         $modalidad = Modalidad::withTrashed()->
         orderBy('id', 'ASC')->get();
         //Se pasa la variable users a la vista
@@ -37,7 +37,8 @@ class ModalidadController extends Controller
     public function create()
     {
         $deportes = Deporte::all();
-        return view('admin.modalidad.create')->with(compact('modalidad','deportes'));
+        return view('admin.modalidad.create')
+        ->with('deportes',$deportes);
     }
 
     /**
@@ -48,7 +49,7 @@ class ModalidadController extends Controller
      */
     public function store(Request $request)
     {
-       
+
 
         $modalidad = new Modalidad();
         $modalidad->deporte_id = $request->deporte;
@@ -79,9 +80,9 @@ class ModalidadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
+    {
         $modalidad = Modalidad::find($id);
-       
+
         return view('admin.modalidad.edit')
         ->with('modalidad', $modalidad);
     }
@@ -102,7 +103,7 @@ class ModalidadController extends Controller
         $modalidad->descripcion = strtoupper($request->descripcion);
         $modalidad->min = strtoupper($request->minimo);
         $modalidad->max = strtoupper($request->maximo);
-  
+
         $modalidad->save();
 
         return Redirect('/admin/modalidad/');
