@@ -24,7 +24,7 @@ class Torneo extends Model
 
     public function equipos()
     {
-        return $this->belongsToMany('App\Torneo', 'inscripcion')
+        return $this->belongsToMany('App\Equipo', 'inscripcion')
           //->withPivot('goles','resultado', 'elo', 'elo_anterior')
           ->withTimestamps();
     }

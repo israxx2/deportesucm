@@ -16,6 +16,23 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function borrados()
+    {
+        //retorna todos los usuarios (hasta los borrados logicamente)
+        //ordenados por id
+
+        $users = User::withTrashed()->
+        orderBy('id', 'ASC')->get();
+
+        $usersOnlyTrashed = User::onlyTrashed()
+        ->get();
+
+        //Se pasa la variable users a la vista
+        return view('admin.users.index')
+        ->with('users', $users)
+        ->with('usersOnlyTrashed', $usersOnlyTrashed);
+    }
+
     public function index()
     {
         //retorna todos los usuarios (hasta los borrados logicamente)
@@ -24,9 +41,13 @@ class UserController extends Controller
         $users = User::withTrashed()->
         orderBy('id', 'ASC')->get();
 
+        $usersOnlyTrashed = User::onlyTrashed()
+        ->get();
+
         //Se pasa la variable users a la vista
-        return view('admin.users.index')
-        ->with('users', $users);
+        return view('admin.users.borrados')
+        ->with('users', $users)
+        ->with('usersOnlyTrashed', $usersOnlyTrashed);
     }
 
     /**
