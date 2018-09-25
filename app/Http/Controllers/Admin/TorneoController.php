@@ -152,6 +152,6 @@ class TorneoController extends Controller
      */
     public function inscribir(Request $request)
     {
-        
+        dd("hola");
     }
 }
