@@ -10,8 +10,8 @@
 <div class="container">
 
     <ul class="nav nav-pills" role="tablist">
-        <li role="presentation" class="active"><a href="#">Usuarios <span class="badge">{{ count($users) }}</span></a></li>
-        <li role="presentation"><a href="#">Borrados <span class="badge">{{ count($usersOnlyTrashed) }}</span></a></li>
+    <li role="presentation"><a href="{{ route('admin.user.index') }}">Usuarios <span class="badge">{{ count($users) }}</span></a></li>
+        <li role="presentation" class="active"><a href="{{ route('admin.user.borrados') }}">Borrados <span class="badge">{{ count($usersOnlyTrashed) }}</span></a></li>
       </ul>
 
 	<div class="table-responsive">
@@ -28,7 +28,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($users as $user)
+				@foreach($usersOnlyTrashed as $user)
 					<tr>
 						<td>{{ $user->id }}</td>
 						<td>{{ $user->nombres }}</td>
