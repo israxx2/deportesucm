@@ -113,7 +113,7 @@ Route::group(['prefix' => 'admin'], function () {
           Route::post('partido/activar/{partido}',[
             'uses'  =>'Admin\PartidoController@activar',
             'as'    =>'admin.partido.activar'
-<<<<<<< HEAD
+
           ]);        
 
         // Rutas de los deportes
@@ -132,7 +132,6 @@ Route::group(['prefix' => 'admin'], function () {
             'as'    =>'admin.deporte.activar'
           ]);   
    
-=======
           ]);
 
         Route::resource('torneo', 'Admin\TorneoController', ['names' => [
@@ -152,6 +151,5 @@ Route::group(['prefix' => 'admin'], function () {
             Route::post('torneo/incribir/{torneo}',[
               'uses'  =>'Admin\TorneoController@inscripcion',
               'as'    =>'admin.torneo.inscripcion'
-            ]);
->>>>>>> 7ce0d8c6cafd9b86c6a022c176d71ca6540a7f15
+            // ]);
 });
