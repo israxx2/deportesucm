@@ -20,7 +20,6 @@ class UserController extends Controller
     {
         //retorna todos los usuarios (hasta los borrados logicamente)
         //ordenados por id
-
         $users = User::withTrashed()->
         orderBy('id', 'ASC')->get();
 
@@ -28,7 +27,7 @@ class UserController extends Controller
         ->get();
 
         //Se pasa la variable users a la vista
-        return view('admin.users.index')
+        return view('admin.users.borrados')
         ->with('users', $users)
         ->with('usersOnlyTrashed', $usersOnlyTrashed);
     }
@@ -38,14 +37,13 @@ class UserController extends Controller
         //retorna todos los usuarios (hasta los borrados logicamente)
         //ordenados por id
 
-        $users = User::withTrashed()->
-        orderBy('id', 'ASC')->get();
+        $users = User::orderBy('id', 'ASC')->get();
 
         $usersOnlyTrashed = User::onlyTrashed()
         ->get();
 
         //Se pasa la variable users a la vista
-        return view('admin.users.borrados')
+        return view('admin.users.index')
         ->with('users', $users)
         ->with('usersOnlyTrashed', $usersOnlyTrashed);
     }
@@ -171,7 +169,7 @@ class UserController extends Controller
         $user->delete();
         $user->save();
 
-        return Redirect('/user');
+        return Redirect(route('admin.user.index'));
     }
 
     public function activar($id)
@@ -180,6 +178,7 @@ class UserController extends Controller
         ->where('id', '=', $id)
         ->restore();
 
-        return Redirect('/user');
+        return Redirect(route('admin.user.index'));
+
     }
 }
