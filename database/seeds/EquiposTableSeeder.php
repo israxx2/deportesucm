@@ -11,6 +11,35 @@ class EquiposTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $i = 1;
+
+        for($modalidad=1 ; $modalidad<13 ; $modalidad++)
+        {
+
+            DB::table('equipos')->insert([
+                'modalidad_id' => $modalidad,
+                'conformado' => 1,
+                'nombre' => 'equipo '. $i,
+            ]);
+
+            $i++;
+
+            DB::table('equipos')->insert([
+                'modalidad_id' => $modalidad,
+                'conformado' => 1,
+                'nombre' => 'equipo '. $i,
+            ]);
+
+            $i++;
+
+            DB::table('equipos')->insert([
+                'modalidad_id' => $modalidad,
+                'conformado' => 1,
+                'nombre' => 'equipo '. $i,
+            ]);
+
+            $i++;
+
+        }
     }
 }

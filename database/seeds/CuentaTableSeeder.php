@@ -11,6 +11,19 @@ class CuentaTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $i = 0;
+
+        for($user=34 ; $user<189 ; $user++)
+        {
+            DB::table('cuenta')->insert([
+                'user_id' => $user,
+                'equipo_id' => $i,
+            ]);
+
+            $i++;
+        }
+
+
+
     }
 }
