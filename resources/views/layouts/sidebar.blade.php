@@ -57,6 +57,7 @@ function current_page($url = '/'){
             <li><a href="/admin/user/create">Nuevo Usuario</a></li>
           </ul>
         </li>
+        
         <li class="treeview">
           <a href="#"><i class="fa fa-university"></i> <span>Carreras</span>
             <span class="pull-right-container">
@@ -104,6 +105,18 @@ function current_page($url = '/'){
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
+
+          <li class="treeview">
+          <a href="#"><i class="fa fa-user"></i> <span>Torneos</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/admin/torneo">Ver Torneos</a></li>
+            <li><a href="/admin/torneo/create">Nuevo Torneo</a></li>
+          </ul>
+        </li>
           <ul class="treeview-menu">
             <li><a href="#">Equipos</a></li>
             <li><a href="#">Usuarios</a></li>

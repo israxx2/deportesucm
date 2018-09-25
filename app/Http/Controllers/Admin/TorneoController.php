@@ -89,6 +89,18 @@ class TorneoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $torneo = Torneo::find($id);
+        $torneo->delete();
+        $torneo->save();
+
+        return Redirect('admin/partido');
+    }
+    public function activar($id)
+    {
+        $torneo = Torneo::withTrashed()
+        ->where('id', '=', $id)
+        ->restore();
+
+        return Redirect('admin/torneo');
     }
 }

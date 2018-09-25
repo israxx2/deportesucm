@@ -120,4 +120,9 @@ Route::group(['prefix' => 'admin'], function () {
             'edit' => 'admin.torneo.edit',
             'update' => 'admin.torneo.update',
             ]]);
+
+            Route::post('torneo/activar/{torneo}',[
+              'uses'  =>'Admin\TorneoController@activar',
+              'as'    =>'admin.torneo.activar'
+            ]);
 });
