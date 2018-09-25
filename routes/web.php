@@ -129,4 +129,8 @@ Route::group(['prefix' => 'admin'], function () {
               'uses'  =>'Admin\TorneoController@activar',
               'as'    =>'admin.torneo.activar'
             ]);
+            Route::post('torneo/incribir/{torneo}',[
+              'uses'  =>'Admin\TorneoController@inscripcion',
+              'as'    =>'admin.torneo.inscripcion'
+            ]);
 });
