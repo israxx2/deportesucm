@@ -11,7 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-<<<<<<< HEAD
         $this->call([
             CarrerasTableSeeder::class,
             UsersTableSeeder::class,
@@ -21,8 +20,4 @@ class DatabaseSeeder extends Seeder
             TorneosTableSeeder::class,
         ]);
     }
-=======
-        $this->call(UsersTableSeeder::class);
-           }
->>>>>>> ADMIN_LTE
 }
