@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Response;
 use App\User;
 use App\Carrera;
 use App\Equipo;
+
 
 class UserController extends Controller
 {
@@ -38,16 +40,37 @@ class UserController extends Controller
         //ordenados por id
 
         $users = User::orderBy('id', 'ASC')->get();
-
+        $carreras = Carrera::orderBy('id', 'ASC')->get();
         $usersOnlyTrashed = User::onlyTrashed()
         ->get();
 
         //Se pasa la variable users a la vista
         return view('admin.users.index')
         ->with('users', $users)
+        ->with('carreras', $carreras)
         ->with('usersOnlyTrashed', $usersOnlyTrashed);
     }
 
+    public function filtro1(Request $request)
+    {
+        //retorna todos los usuarios (hasta los borrados logicamente)
+        //ordenados por id
+
+        if($request->id == 'null'){
+            $users = User::orderBy('id', 'ASC')
+            ->get();
+        } else {
+            $users = User::orderBy('id', 'ASC')
+            ->where('carrera_id', $request->id)
+            ->get();
+        }
+
+
+        //$a = response()->json(['success' => 'Pasó la prueba :3']);
+
+        return view('admin.users.filtro_carrera',['users'=>$users])->render();
+        //->with('users', $users);
+    }
     /**
      * Show the form for creating a new resource.
      *
