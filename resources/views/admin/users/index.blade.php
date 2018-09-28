@@ -19,7 +19,7 @@
 
             <div class="row">
                 {!! Form::open(['route' => 'admin.user.filtro1' , 'method' => 'POST']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                     <hr>
                         <label>Filtro </label>
                     <select class="form-control" id="carrera_id" name="carrera_id" required style="width: 100%">

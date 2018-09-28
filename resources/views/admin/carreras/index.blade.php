@@ -8,7 +8,9 @@
 <br>
 <hr>
 <div class="container">
-
+<div class="box">
+<h3 class="box-title">Carreras</h3>
+<div class="box-body">
 	<div class="table-responsive">
 		<table class="table table-striped display compact table-condensed" id="table_user">
 			<thead>
@@ -113,7 +115,7 @@
 			</tbody>
 		</table>
 	</div>
-
+	</div></div>
 
 </div>
 <script>

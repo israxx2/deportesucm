@@ -149,7 +149,7 @@ class UserController extends Controller
     public function show($id)
     {
         //controlador usado para ver los detalles de un usuario en especifico.
-        $user = User::find($id);
+        $user = User::withTrashed()->find($id);
         $equipo = Equipo::find(5);
         $partido = Partido::all();
         $equipos = Equipo::all(); 

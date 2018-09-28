@@ -19,6 +19,8 @@
           <p> <b>CARRERA: </b>{{ $user->carrera->nombre }}</p>
           <p><b>NICK: @ </b>{{ $user->nick }}</p>
           <p><b>Correo: </b>{{ $user->email }}</p>
+          <p><b>Carrera: </b>{{ $user->carrera_id }}</p>
+          <p><b>Tipo: </b>{{ $user->tipo }}</p>
           <a href="{{ '/admin/user/'.$user->id.'/edit' }}" class="btn btn-warning btn-xs">
                 <i class="fa fa-edit"> Editar</i>
            </a> 

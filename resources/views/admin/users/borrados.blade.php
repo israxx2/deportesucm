@@ -6,34 +6,38 @@
 
 <br>
 <hr>
-<div class="container">
-<h3 class="box-title">Usuarios</h3>
-    <ul class="nav nav-pills" role="tablist">
-    <li role="presentation"><a href="{{ route('admin.user.index') }}">Usuarios <span class="badge">{{ count($users) - count($usersOnlyTrashed) }}</span></a></li>
-    <li role="presentation" class="active"><a href="{{ route('admin.user.borrados') }}">Borrados <span class="badge">{{ count($usersOnlyTrashed) }}</span></a></li>
-    </ul>
+<div class="container-fluid">
+	<div class="box">
+		<h3 class="box-title">Usuarios</h3>
+		<div class="box-body">
+		<ul class="nav nav-pills" role="tablist">
+		<li role="presentation"><a href="{{ route('admin.user.index') }}">Usuarios <span class="badge">{{ count($users) - count($usersOnlyTrashed) }}</span></a></li>
+		<li role="presentation" class="active"><a href="{{ route('admin.user.borrados') }}">Borrados <span class="badge">{{ count($usersOnlyTrashed) }}</span></a></li>
+		</ul>
 	
-	<div class="row">
-		{!! Form::open(['route' => 'admin.user.filtro1' , 'method' => 'POST']) !!}
-		<div class="col-sm-6">
-			<hr>
-				<label>Filtro </label>
-			<select class="form-control" id="carrera_id" name="carrera_id" required style="width: 100%">
-			<option value="null">Seleccione una carrera</option>
+		<div class="row">
+			{!! Form::open(['route' => 'admin.user.filtro1' , 'method' => 'POST']) !!}
+			<div class="col-sm-3">
+				<hr>
+					<label>Filtro </label>
+				<select class="form-control" id="carrera_id" name="carrera_id" required style="width: 100%">
+				<option value="null">Seleccione una carrera</option>
 
-			@foreach($carreras as $carrera)
-				<option value="{{ $carrera->id }}">{{ $carrera->id.'- '.$carrera->nombre }}</option>
-			@endforeach
-			</select>
-		</div>
-		{!! Form::close() !!}
-		<div class="col-sm-6">
+				@foreach($carreras as $carrera)
+					<option value="{{ $carrera->id }}">{{ $carrera->id.'- '.$carrera->nombre }}</option>
+				@endforeach
+				</select>
 			</div>
-	</div>
-
-	 <button style="margin: 5px;" class="btn btn-danger btn-xs delete-all" data-url=""><i class="fa fa-times" aria-hidden="true"></i>  Borrar Seleccionados </button>
-
-
+			{!! Form::close() !!}
+			<div class="col-sm-6">
+			
+			</div>
+		</div>
+		</div>
+	 
+	 
+		
+		
 	<div class="table-responsive" id="div_user">
 		<table class="table table-striped display compact table-condensed" id="table_user">
 			<thead>
@@ -150,7 +154,9 @@
 		</table>
 	</div>
 
+<button style="margin: 5px;" class="btn btn-danger btn-xs delete-all" data-url="">Borrar seleccionados   <i class="fa fa-times" aria-hidden="true"></i> </button>
 
+</div>
 </div>
 
 <script>
