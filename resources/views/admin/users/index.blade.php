@@ -24,7 +24,8 @@
                     <hr>
                         <label>Filtro </label>
                     <select class="form-control" id="carrera_id" name="carrera_id" required style="width: 100%">
-                    <option>Seleccione una carrera</option>
+                    <option value="null">Seleccione una carrera</option>
+
                     @foreach($carreras as $carrera)
                         <option value="{{ $carrera->id }}">{{ $carrera->id.'- '.$carrera->nombre }}</option>
                     @endforeach
@@ -122,7 +123,7 @@
         </div>
 
     </div>
-
+    <!-- MODAL DE BORRAR CREADO X EL MASTER CHAVEZ -->
     <div class="modal" tabindex="-1" role="dialog" id ="modal_delete" style="top:20%;">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -171,13 +172,12 @@
         };
 
         $('#form_delete').on('submit', function(e){
-
             axios.delete('/admin/user/'+$('#id_del').val()).then(response => {
+                console.log(response);
                 location.reload();
             }).catch(error => {
                 console.log(error);
             });
-            e.preventDefault();
         });
 
 

@@ -55,9 +55,16 @@ class UserController extends Controller
     {
         //retorna todos los usuarios (hasta los borrados logicamente)
         //ordenados por id
-        $users = User::orderBy('id', 'ASC')
-        ->where('carrera_id', $request->id)
-        ->get();
+
+        if($request->id == 'null'){
+            $users = User::orderBy('id', 'ASC')
+            ->get();
+        } else {
+            $users = User::orderBy('id', 'ASC')
+            ->where('carrera_id', $request->id)
+            ->get();
+        }
+
 
         //$a = response()->json(['success' => 'Pasó la prueba :3']);
 
