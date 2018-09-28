@@ -55,6 +55,11 @@ Route::group(['prefix' => 'admin'], function () {
                 'as'    =>'admin.user.pw_save'
               ]);
 
+            Route::post('user/aa/filtro1',[
+            'uses'  =>'Admin\UserController@filtro1',
+            'as'    =>'admin.user.filtro1'
+            ]);
+
       //Rutas de las Carreras
           Route::resource('carrera', 'Admin\CarreraController', ['names' => [
             'index' => 'admin.carrera.index',
