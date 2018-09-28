@@ -140,7 +140,7 @@ class TorneoController extends Controller
         orderBy('id', 'ASC')->get();
         return view('Admin/torneo/inscripcion')
         ->with('equipo', $equipo)
-        ->with('equipo', $equipo);
+        ->with('torneo', $torneo);
     }
 
 
@@ -150,8 +150,10 @@ class TorneoController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    public function inscribir(Request $request)
-    {
-        dd("hola prueba ");
+    public function inscribir(Request $request, $id)
+    {   
+        $torneo = Torneo::find($id);
+        $torneo->equipos()->attach($request->id);
+        return Redirect('admin/torneo');
     }
 }
