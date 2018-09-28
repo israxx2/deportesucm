@@ -1,39 +1,43 @@
 @extends('layouts.app')
 @section('title', 'Usuarios')
 
-
-
 @section('content')
+
 
 <br>
 <hr>
 <div class="container">
 
     <ul class="nav nav-pills" role="tablist">
-    <li role="presentation"><a href="{{ route('admin.user.index') }}">Usuarios <span class="badge">{{ count($users) }}</span></a></li>
-        <li role="presentation" class="active"><a href="{{ route('admin.user.borrados') }}">Borrados <span class="badge">{{ count($usersOnlyTrashed) }}</span></a></li>
-      </ul>
+    <li role="presentation"><a href="{{ route('admin.user.index') }}">Usuarios <span class="badge">{{ count($users) - count($usersOnlyTrashed) }}</span></a></li>
+    <li role="presentation" class="active"><a href="{{ route('admin.user.borrados') }}">Borrados <span class="badge">{{ count($usersOnlyTrashed) }}</span></a></li>
+    </ul>
+	 <button style="margin: 5px;" class="btn btn-danger btn-xs delete-all" data-url="">Borrar Seleccionados</button>
+
 
 	<div class="table-responsive">
 		<table class="table table-striped display compact table-condensed" id="table_user">
 			<thead>
 				<tr>
+					<th><input type="checkbox" id="check_all"></th>
 					<th>#</th>
 					<th>Nombres</th>
 					<th>Apellidos</th>
-
-					<th>Estado</th>
-			<th>Detalles</th>
-			<th>Eliminar</th>
+					<th>Reactivar</th>
+					<th>Detalles</th>
+					<th>Eliminar</th>
+			
 				</tr>
 			</thead>
 			<tbody>
 				@foreach($usersOnlyTrashed as $user)
+				
 					<tr>
+						<td><input type="checkbox" class="checkbox" data-id="{{$user->id}}"></td>	
 						<td>{{ $user->id }}</td>
 						<td>{{ $user->nombres }}</td>
 						<td>{{ $user->apellidos }}</td>
-
+						
 
 						<td>
 							@if($user->deleted_at == null)
@@ -41,8 +45,8 @@
 						Activo
 					</p>
 							@else
-					<p href="#" class="btn btn-danger" data-toggle="modal" data-target="#activar{{ $user->id }}">
-						inactivo
+					<p href="#" class="btn btn-success" data-toggle="modal" data-target="#activar{{ $user->id }}">
+					<i class="fa fa-check"></i>
 					</p>
 							@endif
 						</td>
@@ -57,14 +61,15 @@
 								<i class="fa fa-trash"></i>
 					</button>
 						@else
-							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $user->id }}" disabled>
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $user->id }}" >
 								<i class="fa fa-trash"></i>
 					</button>
 						@endif
 
 				</td>
+				
 					</tr>
-
+	
 					<!-- Modal Delete-->
 					<div class="modal" tabindex="-1" role="dialog" id = "destroy{{ $user->id }}" style="top:20%;">
 						<div class="modal-dialog" role="document">
@@ -79,7 +84,7 @@
 									<p>¿Estás seguro de borrar al jugador?</p>
 								</div>
 								<div class="modal-footer">
-									{!! Form::open(['route' => ['admin.user.destroy', $user->id] , 'method' => 'DELETE']) !!}
+									{!! Form::open(['route' => ['admin.user.destroy_force', $user->id] , 'method' => 'post']) !!}
 										<button type="submit" class="btn btn-danger">
 															<i class="fa fa-check" aria-hidden="true"></i>
 														</button>
@@ -119,20 +124,74 @@
 						</div>
 					</div>
 				@endforeach
+			
+			
+
 			</tbody>
 		</table>
 	</div>
 
 
 </div>
-<script>
-	$(document).ready( function () {
-    	$('#table_user').DataTable({
-    		"language":{
-    			"url":"{{ asset('Spanish.json') }}"
-    		}
-    	});
-	} );
-</script>
 
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		$('#check_all').on('click', function(e) {
+		if($(this).is(':checked',true))  
+		{
+			$(".checkbox").prop('checked', true);  
+		} else {  
+			$(".checkbox").prop('checked',false);  
+		}  
+		});
+
+		$('.checkbox').on('click',function(){
+			if($('.checkbox:checked').length == $('.checkbox').length){
+				$('#check_all').prop('checked',true);
+			}else{
+				$('#check_all').prop('checked',false);
+			}
+		});
+
+		$('.delete-all').on('click', function(e) {
+			var idsArr = [];  
+			$(".checkbox:checked").each(function() {  
+				idsArr.push($(this).attr('data-id'));
+			});  
+			if(idsArr.length <=0)  
+			{  
+				alert("Favor seleccionar al menos un item.");  
+			}  else {  
+
+				if(confirm("¿Estas seguro?, se borraran de forma permanente")){  
+					var strIds = idsArr.join(","); 
+					$.ajax({
+						url: "{{ route('admin.user.deleteall') }}",
+						type: 'GET',
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						data: 'ids='+strIds,
+						success: function (data) {
+							if (data['status']==true) {
+								$(".checkbox:checked").each(function() {  
+									$(this).parents("tr").remove();
+								});
+								alert(data['message']);
+							} else {
+								alert('A ocurrido un error');
+							}
+						},
+						error: function (data) {
+							alert(data.responseText);
+						}
+					});
+				}  
+			}  
+		});
+
+
+
+	});
+
+</script>
 @endsection

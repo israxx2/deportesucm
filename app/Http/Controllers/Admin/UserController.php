@@ -149,11 +149,8 @@ class UserController extends Controller
         $user->apellidos = strtoupper($request->apellidos);
         $user->email = $request->email;
         $user->carrera_id = $request->carrera_id;
-
         $user->tipo = $request->tipo;
-
         $user->save();
-
         return Redirect('/admin/user/'.$user->id);
     }
 
@@ -168,7 +165,6 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
         $user->save();
-
         return Redirect(route('admin.user.index'));
     }
 
@@ -180,5 +176,22 @@ class UserController extends Controller
 
         return Redirect(route('admin.user.index'));
 
+    }
+
+    //Eliminar usuario de la base de datos
+    public function destroy_force($id)
+    {
+        User::where('id',$id)->forceDelete();
+        return Redirect(route('admin.user.borrados'));
+    }
+
+    //Borrar Varios usuarios de la base de datos.
+    public function deleteall(Request $request)
+    {
+        $ids = $request->ids;
+        User::whereIn('id',explode(",",$ids))->forceDelete();
+        return response()->json(['status'=>true,'message'=>"Usuarios Borrados Correctamente."]);   
+
+   
     }
 }

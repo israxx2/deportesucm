@@ -37,7 +37,16 @@ Route::group(['prefix' => 'admin'], function () {
             'show' => 'admin.user.show',
             'edit' => 'admin.user.edit',
             'update' => 'admin.user.update',
+          
             ]]);
+            Route::post('user/destroy_force/{user}', [
+              'as'=>'admin.user.destroy_force',
+              'uses'=>'Admin\UserController@destroy_force']);
+
+            Route::get('deleteall', [
+              'as'=>'admin.user.deleteall',
+              'uses'=>'Admin\UserController@deleteall']);
+
             Route::get('userTrashed',[
                 'uses'  =>'Admin\UserController@borrados',
                 'as'    =>'admin.user.borrados'
