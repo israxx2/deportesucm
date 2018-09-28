@@ -39,6 +39,10 @@ Route::group(['prefix' => 'admin'], function () {
             'update' => 'admin.user.update',
           
             ]]);
+            Route::post('user/lineatiempo/{user}', [
+              'as'=>'admin.user.lineatiempo',
+              'uses'=>'Admin\UserController@lineatiempo']);
+
             Route::post('user/destroy_force/{user}', [
               'as'=>'admin.user.destroy_force',
               'uses'=>'Admin\UserController@destroy_force']);
@@ -51,22 +55,27 @@ Route::group(['prefix' => 'admin'], function () {
                 'uses'  =>'Admin\UserController@borrados',
                 'as'    =>'admin.user.borrados'
               ]);
-            Route::post('user/activar/{user}',[
+            Route::get('user/activar/{user}',[
                 'uses'  =>'Admin\UserController@activar',
                 'as'    =>'admin.user.activar'
               ]);
-              Route::post('user/pw',[
+            Route::post('user/pw',[
                 'uses'  =>'Admin\UserController@pw',
                 'as'    =>'admin.user.pw'
               ]);
-              Route::put('user/pw_save/{user}',[
+            Route::put('user/pw_save/{user}',[
                 'uses'  =>'Admin\UserController@pw_save',
                 'as'    =>'admin.user.pw_save'
               ]);
-
+            
             Route::post('user/aa/filtro1',[
-            'uses'  =>'Admin\UserController@filtro1',
-            'as'    =>'admin.user.filtro1'
+                'uses'  =>'Admin\UserController@filtro1',
+                'as'    =>'admin.user.filtro1'
+              ]);
+
+            Route::post('user/aa/filtro2',[
+            'uses'  =>'Admin\UserController@filtro2',
+            'as'    =>'admin.user.filtro2'
             ]);
 
       //Rutas de las Carreras

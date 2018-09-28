@@ -11,7 +11,6 @@
     <div class="box">
         <h3 class="box-title">Usuarios</h3>
 
-
         <div class="box-body">
                 <ul class="nav nav-pills" role="tablist">
                     <li role="presentation" class="active"><a href="{{ route('admin.user.index') }}">Usuarios <span class="badge">{{ count($users) }}</span></a></li>
