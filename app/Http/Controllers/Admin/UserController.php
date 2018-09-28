@@ -163,7 +163,7 @@ class UserController extends Controller
                     'titulo' =>'Nuevo Equipo!',
                     'titulo2' =>'',
                     'descrip' =>'Creo el equipo '.$e->nombre. ' correctamente',
-                    'icon' => 'fa fa-soccer-ball-o bg-green',
+                    'icon' => 'fa fa-group bg-green',
                     'ver_mas' => '/admin/equipo/'.$e->id
                 ]]);
          }
@@ -178,7 +178,7 @@ class UserController extends Controller
                      'titulo2' =>$p->puntos_local.' : '.$p->puntos_visita,
                      'descrip' =>'Se jugo un partido amistoso entre el equipo '.
                         $p->local_id.' vs '.$p->visita_id,
-                     'icon' => 'fa fa-soccer-ball-o bg-green',
+                     'icon' => 'fa fa-soccer-ball-o bg-purple',
                      'ver_mas' => '/admin/partido/'.$p->id
                  ]]);
           }
@@ -197,25 +197,12 @@ class UserController extends Controller
         ];	
         $data_user = Collection::make($data_user); //transformar a coleccion
 
-
-
-
         $collection=$data_user->concat($data_equipo)->concat($data_partido);
         $collection = $collection->sortByDesc('created_at');//ordenar coleccion
         return view('admin.users.show', compact('user','collection'));
-  
 
         
     }
-
-
-
-
-
-
-
-
-
 
 
 
