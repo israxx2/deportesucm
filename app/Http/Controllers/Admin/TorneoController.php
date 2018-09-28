@@ -135,9 +135,23 @@ class TorneoController extends Controller
     }
     public function inscripcion($id)
     {
+        $torneo = Torneo::find($id);
         $equipo = Equipo::withTrashed()->
         orderBy('id', 'ASC')->get();
         return view('Admin/torneo/inscripcion')
+        ->with('equipo', $equipo)
         ->with('equipo', $equipo);
+    }
+
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function inscribir(Request $request)
+    {
+        dd("hola prueba ");
     }
 }

@@ -44,7 +44,7 @@
 					</table>
 				</div>
 			</div>
-			<a href="#" class="btn btn-success">
+			<a href="{{ route('admin.torneo.inscripcion', ['torneo' => $torneo->id]) }}" class="btn btn-success">
 						añadir participante
 					</a></li> 	
 		</li>

@@ -55,6 +55,11 @@ Route::group(['prefix' => 'admin'], function () {
                 'as'    =>'admin.user.pw_save'
               ]);
 
+            Route::post('user/aa/filtro1',[
+            'uses'  =>'Admin\UserController@filtro1',
+            'as'    =>'admin.user.filtro1'
+            ]);
+
       //Rutas de las Carreras
           Route::resource('carrera', 'Admin\CarreraController', ['names' => [
             'index' => 'admin.carrera.index',
@@ -146,8 +151,12 @@ Route::group(['prefix' => 'admin'], function () {
               'uses'  =>'Admin\TorneoController@activar',
               'as'    =>'admin.torneo.activar'
             ]);
-            Route::post('torneo/incribir/{torneo}',[
+            Route::get('torneo/incribir/{torneo}',[
               'uses'  =>'Admin\TorneoController@inscripcion',
               'as'    =>'admin.torneo.inscripcion'
+            ]);
+            Route::post('torneo/incrito',[
+              'uses'  =>'Admin\TorneoController@inscribir',
+              'as'    =>'admin.torneo.inscribir'
             ]);
 });

@@ -17,5 +17,7 @@
   <link rel="stylesheet" href="{{ asset('dist/css/skins/skin-blue.min.css')}}">
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  <script src="{{ asset('bower_components/jquery/dist/jquery.min.js')}}"></script>     
+  <script src="{{ asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
+  <!-- select2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 </head>
