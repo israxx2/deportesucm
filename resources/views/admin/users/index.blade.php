@@ -11,7 +11,6 @@
     <div class="box">
         <h3 class="box-title">Usuarios</h3>
 
-
         <div class="box-body">
                 <ul class="nav nav-pills" role="tablist">
                     <li role="presentation" class="active"><a href="{{ route('admin.user.index') }}">Usuarios <span class="badge">{{ count($users) }}</span></a></li>
@@ -20,7 +19,7 @@
 
             <div class="row">
                 {!! Form::open(['route' => 'admin.user.filtro1' , 'method' => 'POST']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                     <hr>
                         <label>Filtro </label>
                     <select class="form-control" id="carrera_id" name="carrera_id" required style="width: 100%">
