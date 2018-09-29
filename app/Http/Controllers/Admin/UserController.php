@@ -117,7 +117,8 @@ class UserController extends Controller
     public function show($id)
     {
         //controlador usado para ver los detalles de un usuario en especifico.
-        $user = User::find($id);
+        $user = User::withTrashed()
+        ->find($id);
         return view('admin.users.show')
         ->with('user', $user);
     }

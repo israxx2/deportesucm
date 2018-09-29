@@ -4,6 +4,7 @@
             <th>#</th>
             <th>Nombres</th>
             <th>Apellidos</th>
+            <th>Tipo</th>
             <th>Detalles</th>
             <th>Eliminar</th>
         </tr>
@@ -14,6 +15,15 @@
                 <td>{{ $user->id }}</td>
                 <td>{{ $user->nombres }}</td>
                 <td>{{ $user->apellidos }}</td>
+                <td>
+                    @if($user->tipo == 'admin')
+                        <p class="label label-info">ADMIN</p>
+                    @elseif($user->tipo == 'coordinador')
+                        <p class="label label-danger">COORDINADOR</p>
+                    @else
+                        <p class="label label-success">ESTUDIANTE</p>
+                    @endif
+                </td>
                 <td>
                     <a href="{{ '/admin/user/'.$user->id  }}" class="btn btn-info">
                         <i class="fa fa-info"></i>
