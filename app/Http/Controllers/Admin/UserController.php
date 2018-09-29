@@ -150,9 +150,13 @@ class UserController extends Controller
     {
         //controlador usado para ver los detalles de un usuario en especifico.
         $user = User::withTrashed()->find($id);
-        $equipo = Equipo::find(5);
         $partido = Partido::all();
         $equipos = Equipo::all(); 
+
+        //datos para grafico, deportes mas jugados
+        $deportes=Deporte::all();
+        
+
         
         $data_equipo = Collection::make(); //crear una coleccion
         foreach ($equipos as $e){  //concatenar todos los equipos en solo 1 coleccion
@@ -203,8 +207,6 @@ class UserController extends Controller
 
         
     }
-
-
 
 
 
