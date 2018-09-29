@@ -134,13 +134,28 @@ class TorneoController extends Controller
         return Redirect('admin/torneo');
     }
     public function inscripcion($id)
-    {
+    {   
+        
+        //se mostraran todos los equipos que no esten inscritos en un torneo
+        $coleccion = collect([]);
         $torneo = Torneo::find($id);
         $equipo = Equipo::withTrashed()->
         orderBy('id', 'ASC')->get();
+        foreach($equipo as $equip){
+           $bool = $torneo->equipos->contains($equip->id);
+            if($bool<>true){
+                $data= new Equipo;
+                $data->id = $equip->id;
+                $data->nombre = $equip->nombre;
+                $data->descripcion = $equip->descripcion;
+                $data->modalidad_id = $equip->modalidad;
+                $data->conformado = 2;
+                $collection->push($data);
+            }
+        }
         return view('Admin/torneo/inscripcion')
-        ->with('equipo', $equipo)
-        ->with('equipo', $equipo);
+        ->with('equipo', $collection)
+        ->with('torneo', $torneo);
     }
 
 
@@ -150,8 +165,10 @@ class TorneoController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      */
-    public function inscribir(Request $request)
-    {
-        dd("hola prueba ");
+    public function inscribir(Request $request, $id)
+    {   
+        $torneo = Torneo::find($id);
+        $torneo->equipos()->attach($request->id);
+        return Redirect('admin/torneo');
     }
 }

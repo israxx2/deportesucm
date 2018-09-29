@@ -8,7 +8,7 @@
 <hr>
 <div class="container">
 
-{!! Form::open(['route' => 'admin.torneo.inscribir' , 'method' => 'POST']) !!}
+{!! Form::open(['route' => ['admin.torneo.inscribir', $torneo->id] , 'method' => 'POST']) !!}
     
 
 
