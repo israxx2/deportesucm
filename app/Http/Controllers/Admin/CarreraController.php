@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Redirect;
 use App\User;
 use App\Carrera;
 use App\Equipo;
+use App\Deporte;
+use App\Cuenta;
+use App\Modalidad;
+use Illuminate\Support\Collection as Collection;
+
 
 class CarreraController extends Controller
 {
@@ -55,6 +60,60 @@ class CarreraController extends Controller
         return Redirect('admin/carrera/');
 
     }
+
+    public function show($id)
+    {
+
+        //deportes mas jugados en la carrera.
+
+        $users= User::all()->where('carrera_id', '=', $id);
+     
+        $equipos = Collection::make(); //crear una coleccion
+
+        foreach ($users as $user) {
+            if ($user->equipos()->get()->toArray()!=null) {
+                $equipos = $equipos->concat([$user->equipos()->get()]);
+            }    
+        }  
+
+
+        $equipos=array_collapse($equipos->toArray()); 
+    
+        $M = Collection::make(); //crear una coleccion
+        foreach ($equipos as $equipo => $e) {
+           $M= $M->concat([
+            Modalidad::find($e['modalidad_id'])
+           ->deporte()
+           ->select('nombre')
+           ->get() 
+           ]);    
+        }
+        
+       $M=$M->collapse()->groupBy('nombre');
+       
+       $datos = Collection::make(); //crear una coleccion
+        foreach ($M as $m => $key) {
+            $datos=$datos->concat([
+                'Datos' => ['DEPORTE'=> $m,
+                'CANTIDAD'=>$key->count()]
+            ]);
+        }
+       $deporte= $datos->pluck('DEPORTE');
+       $Cantidad= $datos->pluck('CANTIDAD');
+
+    
+     
+
+        //controlador usado para ver los detalles de un partido en especifico.
+        $carrera = Carrera::find($id);
+        return view('admin.carreras.show')
+        ->with('carrera', $carrera)
+        ->with('deporte', $deporte)
+        ->with('Cantidad', $Cantidad);
+
+    }
+
+
 
 
 

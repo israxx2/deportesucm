@@ -18,8 +18,8 @@
 					<th>#</th>
 					<th>Nombre</th>
 					<th>Estado</th>
+					<th>Estadisticas</th>
 					<th>Editar</th>
-					
 					<th>Eliminar</th>
 				</tr>
 			</thead>
@@ -39,6 +39,11 @@
 					</p>
 							@endif
 						</td>
+						<td>
+					<a href="{{ '/admin/carrera/'.$carrera->id }}" class="btn btn-info">
+						<i class="fa fa-book"></i>
+					</a>
+				</td>
 				<td>
 					<a href="{{ '/admin/carrera/'.$carrera->id.'/edit' }}" class="btn btn-info">
 						<i class="fa fa-edit"></i>

@@ -10,6 +10,7 @@ use App\User;
 use App\Carrera;
 use App\Equipo;
 use App\Partido;
+use App\Deporte;
 use Illuminate\Support\Collection as Collection;
 
 
@@ -155,7 +156,6 @@ class UserController extends Controller
 
         //datos para grafico, deportes mas jugados
         $deportes=Deporte::all();
-        
 
         
         $data_equipo = Collection::make(); //crear una coleccion

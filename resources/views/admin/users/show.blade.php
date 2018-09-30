@@ -44,6 +44,7 @@
               <div class="box-header with-border">
                 <h3 class="box-title">Deportes Mas Jugados </h3>
                 <div class="box-tools pull-right">
+                
                   <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                 </div>
               </div>
@@ -71,7 +72,7 @@
               <ul class="timeline">
                   <!-- timeline time label -->
                   <li class="time-label">
-                      <span class="bg-red"> {{ $data['created_at']->format('d-m-Y')}} </span>
+                      <span class="bg-red"> @if($data['created_at'] !=null ){{ $data['created_at']->format('d-m-Y')}}@endif </span>
                   </li>
                   <!-- /.timeline-label -->
 
@@ -79,7 +80,7 @@
                 <li>
                   <i class="{{ $data['icon']}}"></i>
                   <div class="timeline-item">
-                    <span class="time"> {{ $data['created_at']->format('H:i:s')}}     
+                    <span class="time"> @if($data['created_at'] !=null ){{ $data['created_at']->format('H:i:s')}}    @endif 
                        <i class="fa fa-clock-o"></i> </span>
                     <h3 class="timeline-header"><a href="#">{{ $data['titulo']}}</a>
                       @if($data['titulo2'] !=null )
