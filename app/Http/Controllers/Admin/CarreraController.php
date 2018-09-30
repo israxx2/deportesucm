@@ -67,19 +67,16 @@ class CarreraController extends Controller
         //deportes mas jugados en la carrera.
 
         $users= User::all()->where('carrera_id', '=', $id);
-     
         $equipos = Collection::make(); //crear una coleccion
-
         foreach ($users as $user) {
             if ($user->equipos()->get()->toArray()!=null) {
                 $equipos = $equipos->concat([$user->equipos()->get()]);
             }    
         }  
 
-
-        $equipos=array_collapse($equipos->toArray()); 
-    
+        $equipos=array_collapse($equipos->toArray());   
         $M = Collection::make(); //crear una coleccion
+
         foreach ($equipos as $equipo => $e) {
            $M= $M->concat([
             Modalidad::find($e['modalidad_id'])
@@ -87,10 +84,9 @@ class CarreraController extends Controller
            ->select('nombre')
            ->get() 
            ]);    
-        }
-        
+        }   
        $M=$M->collapse()->groupBy('nombre');
-       
+
        $datos = Collection::make(); //crear una coleccion
         foreach ($M as $m => $key) {
             $datos=$datos->concat([
@@ -102,8 +98,7 @@ class CarreraController extends Controller
        $Cantidad= $datos->pluck('CANTIDAD');
 
     
-     
-
+   
         //controlador usado para ver los detalles de un partido en especifico.
         $carrera = Carrera::find($id);
         return view('admin.carreras.show')

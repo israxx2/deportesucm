@@ -39,14 +39,16 @@
                 <div class="box-body">
                     <div class="row">
                     <div class="col-md-12">
-                    @if(!empty($deporte))
-                        <canvas id="myChart" width="400" height="400"></canvas>
+                    @if(!$deporte->isEmpty())
+                    <canvas id="myChart" width="400" height="400"></canvas>
                     @else
                     <center>
                     <b><p>no existen registros de deportes jugados por usuarios de la carrera</p>
                    </b>
                    </center>
                     @endif
+
+                    
                     </div>
                     </div>
                 
