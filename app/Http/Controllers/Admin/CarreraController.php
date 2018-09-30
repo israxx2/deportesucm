@@ -65,7 +65,6 @@ class CarreraController extends Controller
     {
 
         //deportes mas jugados en la carrera.
-
         $users= User::all()->where('carrera_id', '=', $id);
         $equipos = Collection::make(); //crear una coleccion
         foreach ($users as $user) {

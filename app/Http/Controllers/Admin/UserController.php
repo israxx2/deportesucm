@@ -11,6 +11,8 @@ use App\Carrera;
 use App\Equipo;
 use App\Partido;
 use App\Deporte;
+use App\Modalidad;
+
 use Illuminate\Support\Collection as Collection;
 
 
@@ -153,9 +155,32 @@ class UserController extends Controller
         $user = User::withTrashed()->find($id);
         $partido = Partido::all();
         $equipos = Equipo::all(); 
+        $deportes=Deporte::all();
 
         //datos para grafico, deportes mas jugados
-        $deportes=Deporte::all();
+        $id_equipos=($user->equipos()->select('equipo_id','modalidad_id')->get()->toArray());
+       
+        $res = Collection::make();
+
+        foreach ($id_equipos as $equipo) {
+            $res= $res->concat([
+            'data' => [
+                    'equipo_id' =>$equipo['equipo_id'],
+                    'cantidad' => Partido::all()                
+                    ->where('local_id','=', $equipo['equipo_id'], 'or' ,'visita_id','=', $equipo['equipo_id']   )
+                    ->count(),
+                   // 'modalidad' =>Modalidad::find($equipo['modalidad_id']->deporte()->get()),
+                    'deporte' =>''
+            ]
+
+            ]);
+            
+        } //tengo los partidos jugados por equipo
+        
+        dd($res);
+
+      
+       
 
         
         $data_equipo = Collection::make(); //crear una coleccion

@@ -120,7 +120,7 @@
 <script>
 var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx, {
-    type: 'doughnut',
+    type: 'bar',
     data: {
         labels: ["Futbol", "Tenis", "Yellow", "Green", "Purple", "Orange"],
         datasets: [{
