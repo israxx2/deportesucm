@@ -149,20 +149,14 @@ class UserController extends Controller
     public function show($id)
     {
         //controlador usado para ver los detalles de un usuario en especifico.
-<<<<<<< HEAD
-        $user = User::withTrashed()
-        ->find($id);
-        return view('admin.users.show')
-        ->with('user', $user);
-=======
         $user = User::withTrashed()->find($id);
         $equipo = Equipo::find(5);
         $partido = Partido::all();
-        $equipos = Equipo::all(); 
-        
+        $equipos = Equipo::all();
+
         $data_equipo = Collection::make(); //crear una coleccion
         foreach ($equipos as $e){  //concatenar todos los equipos en solo 1 coleccion
-            $data_equipo = $data_equipo->concat([               
+            $data_equipo = $data_equipo->concat([
                 'Equipo' => [
                     'id' =>$e->id,
                     'created_at' =>$e->created_at,
@@ -176,7 +170,7 @@ class UserController extends Controller
 
          $data_partido = Collection::make(); //crear una coleccion
          foreach ($partido as $p){  //concatenar todos los partido en solo 1 coleccion
-             $data_partido = $data_partido->concat([               
+             $data_partido = $data_partido->concat([
                  'Partido' => [
                      'id' =>$p->id,
                      'created_at' =>$e->created_at,
@@ -189,7 +183,7 @@ class UserController extends Controller
                  ]]);
           }
 
-        
+
         $data_user= [//crear coleccion de registro user
             'Registro' => [
                 'id' =>1,
@@ -200,18 +194,14 @@ class UserController extends Controller
                 'icon' => 'fa fa-user bg-blue',
                 'ver_mas'=> ''
             ]
-        ];	
+        ];
         $data_user = Collection::make($data_user); //transformar a coleccion
 
         $collection=$data_user->concat($data_equipo)->concat($data_partido);
         $collection = $collection->sortByDesc('created_at');//ordenar coleccion
         return view('admin.users.show', compact('user','collection'));
 
-        
->>>>>>> 6070947dcba1e2c9f3e83e6c89e600a9a853901c
     }
-
-
 
 
 
@@ -306,8 +296,8 @@ class UserController extends Controller
     {
         $ids = $request->ids;
         User::whereIn('id',explode(",",$ids))->forceDelete();
-        return response()->json(['status'=>true,'message'=>"Usuarios Borrados Correctamente."]);   
+        return response()->json(['status'=>true,'message'=>"Usuarios Borrados Correctamente."]);
 
-   
+
     }
 }
