@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -25,7 +26,7 @@ class CarreraController extends Controller
     {
         //retorna todos los carrera (hasta los borrados logicamente)
         //ordenados por id
-        
+
         $carreras = Carrera::withTrashed()->
         orderBy('id', 'ASC')->get();
         //Se pasa la variable users a la vista
@@ -40,7 +41,7 @@ class CarreraController extends Controller
      */
     public function create()
     {
-       
+
         return view('admin.carreras.create');
     }
 
@@ -65,15 +66,21 @@ class CarreraController extends Controller
     {
 
         //deportes mas jugados en la carrera.
+        $users = DB::table('users')->where('carrera_id', '=', $id)
+            ->join('cuenta', 'users.id', '=', 'cuenta.user_id')
+            ->select('users.nombres', 'users.apellidos' ,'cuenta.*')
+            ->get();
+
+            dd($users);
         $users= User::all()->where('carrera_id', '=', $id);
         $equipos = Collection::make(); //crear una coleccion
         foreach ($users as $user) {
             if ($user->equipos()->get()->toArray()!=null) {
                 $equipos = $equipos->concat([$user->equipos()->get()]);
-            }    
-        }  
+            }
+        }
 
-        $equipos=array_collapse($equipos->toArray());   
+        $equipos=array_collapse($equipos->toArray());
         $M = Collection::make(); //crear una coleccion
 
         foreach ($equipos as $equipo => $e) {
@@ -81,9 +88,9 @@ class CarreraController extends Controller
             Modalidad::find($e['modalidad_id'])
            ->deporte()
            ->select('nombre')
-           ->get() 
-           ]);    
-        }   
+           ->get()
+           ]);
+        }
        $M=$M->collapse()->groupBy('nombre');
 
        $datos = Collection::make(); //crear una coleccion
@@ -96,8 +103,8 @@ class CarreraController extends Controller
        $deporte= $datos->pluck('DEPORTE');
        $Cantidad= $datos->pluck('CANTIDAD');
 
-    
-   
+
+
         //controlador usado para ver los detalles de un partido en especifico.
         $carrera = Carrera::find($id);
         return view('admin.carreras.show')
@@ -118,9 +125,9 @@ class CarreraController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
+    {
         $carrera = Carrera::find($id);
-       
+
         return view('admin.carreras.edit')
         ->with('carrera', $carrera);
     }
@@ -138,7 +145,7 @@ class CarreraController extends Controller
     {
         $carrera = Carrera::find($id);
         $carrera->nombre = strtoupper($request->nombre);
-  
+
         $carrera->save();
 
         return Redirect('/admin/carrera/');
