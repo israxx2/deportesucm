@@ -137,7 +137,7 @@ class TorneoController extends Controller
     {   
         
         //se mostraran todos los equipos que no esten inscritos en un torneo
-        $coleccion = collect([]);
+        $collection = collect([]);
         $torneo = Torneo::find($id);
         $equipo = Equipo::withTrashed()->
         orderBy('id', 'ASC')->get();
