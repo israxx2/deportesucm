@@ -65,13 +65,13 @@ class CarreraController extends Controller
     public function show($id)
     {
 
-        //deportes mas jugados en la carrera.
+        //deportes favoritos en la carrera.
         $users = DB::table('users')->where('carrera_id', '=', $id)
             ->join('cuenta', 'users.id', '=', 'cuenta.user_id')
             ->select('users.nombres', 'users.apellidos' ,'cuenta.*')
             ->get();
 
-            dd($users);
+            //dd($users);
         $users= User::all()->where('carrera_id', '=', $id);
         $equipos = Collection::make(); //crear una coleccion
         foreach ($users as $user) {

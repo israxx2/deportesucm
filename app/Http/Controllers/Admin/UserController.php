@@ -154,19 +154,19 @@ class UserController extends Controller
         //controlador usado para ver los detalles de un usuario en especifico.
         $user = User::withTrashed()->find($id);
         $partido = Partido::all();
-        $equipos = Equipo::all(); 
+        $equipos = Equipo::all();
         $deportes=Deporte::all();
 
         //datos para grafico, deportes mas jugados
         $id_equipos=($user->equipos()->select('equipo_id','modalidad_id')->get()->toArray());
-       
+
         $res = Collection::make();
 
         foreach ($id_equipos as $equipo) {
             $res= $res->concat([
             'data' => [
                     'equipo_id' =>$equipo['equipo_id'],
-                    'cantidad' => Partido::all()                
+                    'cantidad' => Partido::all()
                     ->where('local_id','=', $equipo['equipo_id'], 'or' ,'visita_id','=', $equipo['equipo_id']   )
                     ->count(),
                    // 'modalidad' =>Modalidad::find($equipo['modalidad_id']->deporte()->get()),
@@ -174,18 +174,12 @@ class UserController extends Controller
             ]
 
             ]);
-            
+
         } //tengo los partidos jugados por equipo
-        
-        dd($res);
 
-      
-       
-
-        
         $data_equipo = Collection::make(); //crear una coleccion
         foreach ($equipos as $e){  //concatenar todos los equipos en solo 1 coleccion
-            $data_equipo = $data_equipo->concat([               
+            $data_equipo = $data_equipo->concat([
                 'Equipo' => [
                     'id' =>$e->id,
                     'created_at' =>$e->created_at,
@@ -199,7 +193,7 @@ class UserController extends Controller
 
          $data_partido = Collection::make(); //crear una coleccion
          foreach ($partido as $p){  //concatenar todos los partido en solo 1 coleccion
-             $data_partido = $data_partido->concat([               
+             $data_partido = $data_partido->concat([
                  'Partido' => [
                      'id' =>$p->id,
                      'created_at' =>$e->created_at,
@@ -212,7 +206,7 @@ class UserController extends Controller
                  ]]);
           }
 
-        
+
         $data_user= [//crear coleccion de registro user
             'Registro' => [
                 'id' =>1,
@@ -223,14 +217,14 @@ class UserController extends Controller
                 'icon' => 'fa fa-user bg-blue',
                 'ver_mas'=> ''
             ]
-        ];	
+        ];
         $data_user = Collection::make($data_user); //transformar a coleccion
 
         $collection=$data_user->concat($data_equipo)->concat($data_partido);
         $collection = $collection->sortByDesc('created_at');//ordenar coleccion
         return view('admin.users.show', compact('user','collection'));
 
-        
+
     }
 
 
@@ -326,8 +320,8 @@ class UserController extends Controller
     {
         $ids = $request->ids;
         User::whereIn('id',explode(",",$ids))->forceDelete();
-        return response()->json(['status'=>true,'message'=>"Usuarios Borrados Correctamente."]);   
+        return response()->json(['status'=>true,'message'=>"Usuarios Borrados Correctamente."]);
 
-   
+
     }
 }

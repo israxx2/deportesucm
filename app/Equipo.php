@@ -58,4 +58,9 @@ class Equipo extends Model
         //->withPivot('goles', 'resultado', 'elo', 'elo_anterior') atributos de la tabla intermedia
         ->withTimestamps();
     }
+
+    public function esConformado()
+    {
+        return $this->conformado;
+    }
 }
