@@ -18,6 +18,7 @@
     </div>
 
     <div class="form-group">
+    {!! Form::label('Deporte', 'Deporte') !!}
       <select name="deporte"  class="form-control">
         <option value="">Seleccione Deporte</option>
         @foreach($deportes as $deporte)

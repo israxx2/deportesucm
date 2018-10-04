@@ -16,9 +16,15 @@
     {!! Form::label('Nombre', 'Nombre') !!}
     {!! Form::input('text', 'nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre del equipo', 'required']) !!}
     </div>
+  
     <div class="form-group">
-    {!! Form::label('Modalidad', 'Modalidad') !!}
-    {!! Form::input('text', 'modalidad', null, ['class' => 'form-control', 'placeholder' => 'Modalidad del equipo', 'required']) !!}
+    {!! Form::label('MODALIDAD', 'MODALIDAD') !!}
+      <select name="modalidad"  class="form-control">
+        <option value="">Seleccione Modalidad</option>
+        @foreach($modalidades as $modalidad)
+            <option value="{{$modalidad->id}}">{{$modalidad->nombre}}</option>
+        @endforeach
+      </select>
     </div>
 
   <div class="form-group">

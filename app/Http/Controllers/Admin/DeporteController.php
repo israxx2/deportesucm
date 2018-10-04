@@ -7,10 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use App\User;
 use App\Carrera;
-use App\Equipo;
-use App\Modalidad;
+use App\Deporte;
 
-class EquipoController extends Controller
+class DeporteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,14 +18,14 @@ class EquipoController extends Controller
      */
     public function index()
     {
-        //retorna todos los equipos (hasta los borrados logicamente)
+        //retorna todos los deportes (hasta los borrados logicamente)
         //ordenados por id
         
-        $equipo = Equipo::withTrashed()->
+        $deporte = Deporte::withTrashed()->
         orderBy('id', 'ASC')->get();
         //Se pasa la variable users a la vista
-        return view('admin.equipo.index')
-        ->with('equipo', $equipo);
+        return view('admin.deporte.index')
+        ->with('deporte', $deporte);
     }
 
     /**
@@ -36,8 +35,8 @@ class EquipoController extends Controller
      */
     public function create()
     {
-        $modalidades = Modalidad::all();
-        return view('admin.equipo.create')->with(compact('equipo','modalidades'));
+        
+        return view('admin.deporte.create');
     }
     /**
      * Store a newly created resource in storage.
@@ -48,24 +47,22 @@ class EquipoController extends Controller
     public function store(Request $request)
     {
 
-        $equipo = new Equipo();
-        $equipo->nombre = $request->nombre;
-        $equipo->descripcion = $request->descripcion;
-        $equipo->modalidad_id = $request->modalidad;
-        $equipo->conformado = 2; #nose aun que añadir aqui
+        $deporte = new Deporte();
+        $deporte->nombre = $request->nombre;
+        $deporte->descripcion = $request->descripcion;
 
-        $equipo->save();
+        $deporte->save();
 
-        return Redirect('admin/equipo/');
+        return Redirect('admin/deporte/');
 
     }
 
     public function show($id)
     {
-        //controlador usado para ver los detalles de un equipo en especifico.
-        $equipo = Equipo::find($id);
-        return view('admin.equipo.show')
-        ->with('equipo', $equipo);
+        //controlador usado para ver los detalles de un deporte en especifico.
+        $deporte = Deporte::find($id);
+        return view('admin.deporte.show')
+        ->with('deporte', $deporte);
     }
 
 
@@ -77,10 +74,10 @@ class EquipoController extends Controller
      */
     public function edit($id)
     {   
-        $equipo = Equipo::find($id);
+        $deporte = Deporte::find($id);
        
-        return view('admin.equipo.edit')
-        ->with('equipo', $equipo);
+        return view('admin.deporte.edit')
+        ->with('deporte', $deporte);
     }
 
 
@@ -94,13 +91,13 @@ class EquipoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $equipo = Equipo::find($id);
-        $equipo->nombre = strtoupper($request->nombre);
-        $equipo->descripcion = strtoupper($request->descripcion);
+        $deporte = Deporte::find($id);
+        $deporte->nombre = strtoupper($request->nombre);
+        $deporte->descripcion = strtoupper($request->descripcion);
   
-        $equipo->save();
+        $deporte->save();
 
-        return Redirect('/admin/equipo/');
+        return Redirect('/admin/deporte/');
     }
 
     /**
@@ -111,20 +108,20 @@ class EquipoController extends Controller
      */
     public function destroy($id)
     {
-        $equipo = Equipo::find($id);
-        $equipo->delete();
-        $equipo->save();
+        $deporte = Deporte::find($id);
+        $deporte->delete();
+        $deporte->save();
 
-        return Redirect('admin/equipo');
+        return Redirect('admin/deporte');
     }
 
     public function activar($id)
     {
-        $equipo = Equipo::withTrashed()
+        $deporte = Deporte::withTrashed()
         ->where('id', '=', $id)
         ->restore();
 
-        return Redirect('admin/equipo');
+        return Redirect('admin/deporte');
     }
 
 

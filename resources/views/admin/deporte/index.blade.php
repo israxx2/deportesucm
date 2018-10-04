@@ -1,56 +1,55 @@
 @extends('layouts.app')
 
 
-@section('title', 'Carreras')
+@section('title', 'Equipos')
 
 @section('content')
 
 <br>
 <hr>
 <div class="container">
-<div class="box">
-<h3 class="box-title">Carreras</h3>
-<div class="box-body">
+
 	<div class="table-responsive">
 		<table class="table table-striped display compact table-condensed" id="table_user">
 			<thead>
 				<tr>
 					<th>#</th>
 					<th>Nombre</th>
+					<th>Descripcion</th>
 					<th>Estado</th>
-					<th>Editar</th>
-					
-					<th>Eliminar</th>
+					<th>Ver mas</th>
+					<th>Borrar </th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($carreras as $carrera)
+				@foreach($deporte as $deporte)
 					<tr>
-						<td>{{ $carrera->id }}</td>
-						<td>{{ $carrera->nombre }}</td>
+						<td>{{ $deporte->id }}</td>
+						<td>{{ $deporte->nombre }}</td>
+						<td>{{ $deporte->descripcion }}</td>
 						<td>
-							@if($carrera->deleted_at == null)
+							@if($deporte->deleted_at == null)
 								<p href="#" class="btn btn-success">
 						Activo
 					</p>
 							@else
-					<p href="#" class="btn btn-danger" data-toggle="modal" data-target="#activar{{ $carrera->id }}">
+					<p href="#" class="btn btn-danger" data-toggle="modal" data-target="#activar{{ $deporte->id }}">
 						inactivo
 					</p>
 							@endif
 						</td>
 				<td>
-					<a href="{{ '/admin/carrera/'.$carrera->id.'/edit' }}" class="btn btn-info">
-						<i class="fa fa-edit"></i>
+					<a href="{{ '/admin/deporte/'.$deporte->id }}" class="btn btn-info">
+						<i class="fa fa-book"></i>
 					</a>
 				</td>
 				<td>
-				@if($carrera->deleted_at == null)
-					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $carrera->id }}">
+				@if($deporte->deleted_at == null)
+					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $deporte->id }}">
 								<i class="fa fa-trash"></i>
 					</button>
 						@else
-							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $carrera->id }}" disabled>
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $deporte->id }}" disabled>
 								<i class="fa fa-trash"></i>
 					</button>
 						@endif
@@ -59,20 +58,20 @@
 					</tr>
 
 					<!-- Modal Delete-->
-					<div class="modal" tabindex="-1" role="dialog" id = "destroy{{ $carrera->id }}" style="top:20%;">
+					<div class="modal" tabindex="-1" role="dialog" id = "destroy{{ $deporte->id }}" style="top:20%;">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title">Borrar Jugador {{ $carrera->id }}</h5>
+									<h5 class="modal-title">Borrar Equipo {{ $deporte->id }}</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
 								<div class="modal-body">
-									<p>¿Estás seguro de borrar al jugador?</p>
+									<p>¿Estás seguro de borrar al Equipo?</p>
 								</div>
 								<div class="modal-footer">
-									{!! Form::open(['route' => ['admin.carrera.destroy', $carrera->id] , 'method' => 'DELETE']) !!}
+									{!! Form::open(['route' => ['admin.deporte.destroy', $deporte->id] , 'method' => 'DELETE']) !!}
 										<button type="submit" class="btn btn-danger">
 															<i class="fa fa-check" aria-hidden="true"></i>
 														</button>
@@ -86,20 +85,20 @@
 					</div>
 
 					<!-- Modal Activar-->
-					<div class="modal" tabindex="-1" role="dialog" id = "activar{{ $carrera->id }}" style="top:20%;">
+					<div class="modal" tabindex="-1" role="dialog" id = "activar{{ $deporte->id }}" style="top:20%;">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title">Activar Carrera {{ $carrera->id }}</h5>
+									<h5 class="modal-title">Activar deporte {{ $deporte->id }}</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
 								<div class="modal-body">
-									<p>¿Estás seguro de volver a activar la carrera?</p>
+									<p>¿Estás seguro de volver  el deporte?</p>
 								</div>
 								<div class="modal-footer">
-									{!! Form::open(['route' => ['admin.carrera.activar', $carrera->id] , 'method' => 'POST']) !!}
+									{!! Form::open(['route' => ['admin.deporte.activar', $deporte->id] , 'method' => 'POST']) !!}
 										<button type="submit" class="btn btn-success">
 															<i class="fa fa-check" aria-hidden="true"></i>
 														</button>
@@ -115,7 +114,7 @@
 			</tbody>
 		</table>
 	</div>
-	</div></div>
+
 
 </div>
 <script>

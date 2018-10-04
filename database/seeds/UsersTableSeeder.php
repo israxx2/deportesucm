@@ -30,6 +30,6 @@ class UsersTableSeeder extends Seeder
         'password' => bcrypt('1234'),
         ]);
 
- 
+
     }
 }

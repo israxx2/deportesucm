@@ -8,7 +8,7 @@
 <hr>
 <div class="container">
 
-{!! Form::open(['route' => 'admin.torneo.inscripcion' , 'method' => 'POST']) !!}
+{!! Form::open(['route' => ['admin.torneo.inscribir', $torneo->id] , 'method' => 'POST']) !!}
     
 
 
@@ -16,7 +16,7 @@
     
 
     <div class="form-group">
-      <select name="equipo" class="form-control">
+      <select name="id" class="form-control">
         <option value="">Seleccione un equipo</option>
         @foreach($equipo as $equipos)
             <option value="{{$equipos->id}}">{{$equipos->nombre}}</option>
