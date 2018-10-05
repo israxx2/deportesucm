@@ -37,7 +37,7 @@ Route::group(['prefix' => 'admin'], function () {
             'show' => 'admin.user.show',
             'edit' => 'admin.user.edit',
             'update' => 'admin.user.update',
-          
+
             ]]);
             Route::post('user/lineatiempo/{user}', [
               'as'=>'admin.user.lineatiempo',
@@ -67,7 +67,7 @@ Route::group(['prefix' => 'admin'], function () {
                 'uses'  =>'Admin\UserController@pw_save',
                 'as'    =>'admin.user.pw_save'
               ]);
-            
+
             Route::post('user/aa/filtro1',[
                 'uses'  =>'Admin\UserController@filtro1',
                 'as'    =>'admin.user.filtro1'
@@ -137,7 +137,7 @@ Route::group(['prefix' => 'admin'], function () {
             'uses'  =>'Admin\PartidoController@activar',
             'as'    =>'admin.partido.activar'
 
-          ]);        
+          ]);
 
         // Rutas de los deportes
         Route::resource('deporte', 'Admin\DeporteController', ['names' => [
@@ -149,11 +149,11 @@ Route::group(['prefix' => 'admin'], function () {
           'edit' => 'admin.deporte.edit',
           'update' => 'admin.deporte.update',
           ]]);
-  
+
           Route::post('deporte/activar/{deporte}',[
             'uses'  =>'Admin\DeporteController@activar',
             'as'    =>'admin.deporte.activar'
-          ]);   
+          ]);
 
         Route::resource('torneo', 'Admin\TorneoController', ['names' => [
             'index' => 'admin.torneo.index',
@@ -177,4 +177,15 @@ Route::group(['prefix' => 'admin'], function () {
               'uses'  =>'Admin\TorneoController@inscribir',
               'as'    =>'admin.torneo.inscribir'
             ]);
+});
+
+Route::group(['prefix' => 'e'], function () {
+    Route::get('inicio', [
+        'uses' => 'Estudiante\EstudianteController@inicio',
+        'as' => 'estudiante.inicio'
+    ]);
+    Route::get('perfil', [
+        'uses' => 'Estudiante\EstudianteController@perfil',
+        'as' => 'estudiante.perfil'
+    ]);
 });
