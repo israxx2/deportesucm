@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-ml-9 col-sm-6">
         <div class="card card-chart">
             <div class="card-header">
               <h5 class="card-category"></h5>
@@ -55,7 +55,7 @@
           </div>
     </div>
 
-    <div class="col-sm-3">
+    <div class="col-lg-3">
         <div class="card card-chart">
             <div class="card-header">
                 <h5 class="card-category"></h5>
