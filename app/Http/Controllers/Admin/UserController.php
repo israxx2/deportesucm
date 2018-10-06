@@ -300,4 +300,15 @@ class UserController extends Controller
 
 
     }
+
+    //Borrar Varios usuarios logicamente.
+    public function softdeleteAll(Request $request)
+    {
+        dd("llegó");
+        $ids = $request->ids;
+        User::whereIn('id',explode(",",$ids))->forceDelete();
+        return response()->json(['status'=>true,'message'=>"Usuarios Borrados Correctamente."]);
+
+
+    }
 }

@@ -51,4 +51,9 @@ class User extends Authenticatable
         //->withPivot('goles', 'resultado', 'elo', 'elo_anterior') atributos de la tabla intermedia
         ->withTimestamps();
     }
+
+    public function equiposLiderados()
+    {
+        return $this->hasMany('App\Equipo', 'user_id');
+    }
 }

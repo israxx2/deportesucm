@@ -20,6 +20,7 @@ class EquiposTableSeeder extends Seeder
                 'modalidad_id' => $modalidad,
                 'conformado' => 1,
                 'nombre' => 'equipo '. $i,
+                'user_id' => 10
             ]);
 
             $i++;
@@ -28,6 +29,7 @@ class EquiposTableSeeder extends Seeder
                 'modalidad_id' => $modalidad,
                 'conformado' => 1,
                 'nombre' => 'equipo '. $i,
+                'user_id' => 10
             ]);
 
             $i++;
@@ -36,6 +38,7 @@ class EquiposTableSeeder extends Seeder
                 'modalidad_id' => $modalidad,
                 'conformado' => 1,
                 'nombre' => 'equipo '. $i,
+                'user_id' => 10
             ]);
 
             $i++;

@@ -39,12 +39,6 @@ class Equipo extends Model
         return $partidosLocal->concat($partidosVisita)->all();
     }
 
-    //RELACION N:1 CON LA INSCRIPCIÓN
-    public function inscripcion()
-    {
-        return $this->belongsTo('App\Inscripcion', 'carrera_id');
-    }
-
     public function users()
     {
         return $this->belongsToMany('App\User', 'cuenta')
@@ -57,5 +51,10 @@ class Equipo extends Model
         return $this->belongsToMany('App\Equipo', 'inscripcion', 'equipo_id', 'torneo_id')
         //->withPivot('goles', 'resultado', 'elo', 'elo_anterior') atributos de la tabla intermedia
         ->withTimestamps();
+    }
+
+    public function lider()
+    {
+        return $this->belongsTo('App\User', 'user_id');
     }
 }

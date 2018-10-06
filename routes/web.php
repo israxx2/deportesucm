@@ -51,6 +51,11 @@ Route::group(['prefix' => 'admin'], function () {
               'as'=>'admin.user.deleteall',
               'uses'=>'Admin\UserController@deleteall']);
 
+            Route::post('softdeleteall', [
+            'as'=>'admin.user.softdeleteall',
+            'uses'=>'Admin\UserController@softdeleteAll']
+            );
+
             Route::get('userTrashed',[
                 'uses'  =>'Admin\UserController@borrados',
                 'as'    =>'admin.user.borrados'

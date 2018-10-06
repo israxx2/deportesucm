@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-sm-3">
+    <div class="col-ml-3 col-sm-4">
         <div class="card card-user">
             <div class="image">
                 <img src="{{ asset('estudiante/assets/img/fondo-de-pantalla-plano-de-color-arena.jpg') }}" alt="...">
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="col-ml-9 col-sm-6">
+    <div class="col-ml-9 col-sm-8">
         <div class="card card-chart">
             <div class="card-header">
               <h5 class="card-category"></h5>

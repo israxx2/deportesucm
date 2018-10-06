@@ -16,6 +16,7 @@ class CreateEquiposTable extends Migration
         Schema::create('equipos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('modalidad_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->string('nombre');
             $table->string('descripcion')->nullable();
             $table->integer('victorias_totales')->default(0);
@@ -27,6 +28,8 @@ class CreateEquiposTable extends Migration
             $table->timestamps();
 
             $table->foreign('modalidad_id')->references('id')->on('modalidades')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 

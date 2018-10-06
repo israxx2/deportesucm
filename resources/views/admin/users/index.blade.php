@@ -40,6 +40,7 @@
             <table class="table table-striped display compact table-condensed" id="table_user">
                 <thead>
                     <tr>
+                        <th><input type="checkbox" id="check_all"></th>
                         <th>#</th>
                         <th>Nombres</th>
                         <th>Apellidos</th>
@@ -51,6 +52,7 @@
                 <tbody>
                     @foreach($users as $user)
                         <tr>
+                            <td><input type="checkbox" class="checkbox" data-id="{{$user->id}}"></td>
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->nombres }}</td>
                             <td>{{ $user->apellidos }}</td>
@@ -85,6 +87,8 @@
                 </tbody>
             </table>
         </div>
+
+        <button style="margin: 5px;" class="btn btn-danger btn-xs delete-all" data-url="">Borrar seleccionados   <i class="fa fa-times" aria-hidden="true"></i> </button>
     </div>
 
     </div>
@@ -147,5 +151,65 @@
 
 
     </script>
+<script type="text/javascript">
 
+	$(document).ready(function () {
+		$('#check_all').on('click', function(e) {
+		if($(this).is(':checked',true))
+		{
+			$(".checkbox").prop('checked', true);
+		} else {
+			$(".checkbox").prop('checked',false);
+		}
+		});
+
+		$('.checkbox').on('click',function(){
+			if($('.checkbox:checked').length == $('.checkbox').length){
+				$('#check_all').prop('checked',true);
+			}else{
+				$('#check_all').prop('checked',false);
+			}
+		});
+
+		$('.delete-all').on('click', function(e) {
+			var idsArr = [];
+			$(".checkbox:checked").each(function() {
+				idsArr.push($(this).attr('data-id'));
+			});
+			if(idsArr.length <=0)
+			{
+				alert("Favor seleccionar al menos un item.");
+			}  else {
+
+				if(confirm("¿Estas seguro?, se borraran de forma permanente")){
+					var strIds = idsArr.join(",");
+
+					$.ajax({
+						url: "{{ route('admin.user.softdeleteall') }}",
+						type: 'POST',
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+						data: 'ids='+strIds,
+						success: function (data) {
+							if (data['status']==true) {
+								$(".checkbox:checked").each(function() {
+									$(this).parents("tr").remove();
+								});
+								alert(data['message']);
+							} else {
+								alert('A ocurrido un error');
+							}
+						},
+						error: function (data) {
+							alert(data.responseText);
+						}
+					});
+				}
+			}
+		});
+
+
+
+	});
+
+</script>
 @endsection

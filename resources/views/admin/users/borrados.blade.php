@@ -14,7 +14,7 @@
 		<li role="presentation"><a href="{{ route('admin.user.index') }}">Usuarios <span class="badge">{{ count($users) - count($usersOnlyTrashed) }}</span></a></li>
 		<li role="presentation" class="active"><a href="{{ route('admin.user.borrados') }}">Borrados <span class="badge">{{ count($usersOnlyTrashed) }}</span></a></li>
 		</ul>
-	
+
 		<div class="row">
 			{!! Form::open(['route' => 'admin.user.filtro1' , 'method' => 'POST']) !!}
 			<div class="col-sm-3">
@@ -30,14 +30,12 @@
 			</div>
 			{!! Form::close() !!}
 			<div class="col-sm-6">
-			
+
 			</div>
 		</div>
 		</div>
-	 
-	 
-		
-		
+
+
 	<div class="table-responsive" id="div_user">
 		<table class="table table-striped display compact table-condensed" id="table_user">
 			<thead>
@@ -49,106 +47,109 @@
 					<th>Reactivar</th>
 					<th>Detalles</th>
 					<th>Eliminar</th>
-			
+
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($usersOnlyTrashed as $user)
-				
-					<tr>
-						<td><input type="checkbox" class="checkbox" data-id="{{$user->id}}"></td>	
-						<td>{{ $user->id }}</td>
-						<td>{{ $user->nombres }}</td>
-						<td>{{ $user->apellidos }}</td>
-						
+                @if($usersOnlyTrashed->isEmpty())
 
-						<td>
-							@if($user->deleted_at == null)
-								<p href="#" class="btn btn-success">
-						Activo
-					</p>
-							@else
-					<p href="#" class="btn btn-success" data-toggle="modal" data-target="#activar{{ $user->id }}">
-					<i class="fa fa-check"></i>
-					</p>
-							@endif
-						</td>
-				<td>
-					<a href="{{ '/admin/user/'.$user->id  }}" class="btn btn-info">
-						<i class="fa fa-info"></i>
-					</a>
-				</td>
-				<td>
-				@if($user->deleted_at == null)
-					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $user->id }}">
-								<i class="fa fa-trash"></i>
-					</button>
-						@else
-							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $user->id }}" >
-								<i class="fa fa-trash"></i>
-					</button>
-						@endif
+                @else
+                    @foreach($usersOnlyTrashed as $user)
 
-				</td>
-				
-					</tr>
-	
-					<!-- Modal Delete-->
-					<div class="modal" tabindex="-1" role="dialog" id = "destroy{{ $user->id }}" style="top:20%;">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title">Borrar Jugador {{ $user->id }}</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-									<p>¿Estás seguro de borrar al jugador?</p>
-								</div>
-								<div class="modal-footer">
-									{!! Form::open(['route' => ['admin.user.destroy_force', $user->id] , 'method' => 'post']) !!}
-										<button type="submit" class="btn btn-danger">
-															<i class="fa fa-check" aria-hidden="true"></i>
-														</button>
-									{!! Form::close() !!}
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">
-										<i class="fa fa-times" aria-hidden="true"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
+                        <tr>
+                            <td><input type="checkbox" class="checkbox" data-id="{{$user->id}}"></td>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->nombres }}</td>
+                            <td>{{ $user->apellidos }}</td>
 
-					<!-- Modal Activar-->
-					<div class="modal" tabindex="-1" role="dialog" id = "activar{{ $user->id }}" style="top:20%;">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title">Activar Jugador {{ $user->id }}</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-									<p>¿Estás seguro de volver a activar al jugador?</p>
-								</div>
-								<div class="modal-footer">
-									{!! Form::open(['route' => ['admin.user.activar', $user->id] , 'method' => 'POST']) !!}
-										<button type="submit" class="btn btn-success">
-															<i class="fa fa-check" aria-hidden="true"></i>
-														</button>
-									{!! Form::close() !!}
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">
-										<i class="fa fa-times" aria-hidden="true"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				@endforeach
-			
-			
+
+                            <td>
+                                @if($user->deleted_at == null)
+                                    <p href="#" class="btn btn-success">
+                            Activo
+                        </p>
+                                @else
+                        <p href="#" class="btn btn-success" data-toggle="modal" data-target="#activar{{ $user->id }}">
+                        <i class="fa fa-check"></i>
+                        </p>
+                                @endif
+                            </td>
+                    <td>
+                        <a href="{{ '/admin/user/'.$user->id  }}" class="btn btn-info">
+                            <i class="fa fa-info"></i>
+                        </a>
+                    </td>
+                    <td>
+                    @if($user->deleted_at == null)
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $user->id }}">
+                                    <i class="fa fa-trash"></i>
+                        </button>
+                            @else
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $user->id }}" >
+                                    <i class="fa fa-trash"></i>
+                        </button>
+                            @endif
+
+                    </td>
+
+                        </tr>
+
+                        <!-- Modal Delete-->
+                        <div class="modal" tabindex="-1" role="dialog" id = "destroy{{ $user->id }}" style="top:20%;">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Borrar Jugador {{ $user->id }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>¿Estás seguro de borrar al jugador?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        {!! Form::open(['route' => ['admin.user.destroy_force', $user->id] , 'method' => 'post']) !!}
+                                            <button type="submit" class="btn btn-danger">
+                                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                            </button>
+                                        {!! Form::close() !!}
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Activar-->
+                        <div class="modal" tabindex="-1" role="dialog" id = "activar{{ $user->id }}" style="top:20%;">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Activar Jugador {{ $user->id }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>¿Estás seguro de volver a activar al jugador?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        {!! Form::open(['route' => ['admin.user.activar', $user->id] , 'method' => 'POST']) !!}
+                                            <button type="submit" class="btn btn-success">
+                                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                            </button>
+                                        {!! Form::close() !!}
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+
 
 			</tbody>
 		</table>
@@ -193,12 +194,12 @@
 
 	$(document).ready(function () {
 		$('#check_all').on('click', function(e) {
-		if($(this).is(':checked',true))  
+		if($(this).is(':checked',true))
 		{
-			$(".checkbox").prop('checked', true);  
-		} else {  
-			$(".checkbox").prop('checked',false);  
-		}  
+			$(".checkbox").prop('checked', true);
+		} else {
+			$(".checkbox").prop('checked',false);
+		}
 		});
 
 		$('.checkbox').on('click',function(){
@@ -210,17 +211,17 @@
 		});
 
 		$('.delete-all').on('click', function(e) {
-			var idsArr = [];  
-			$(".checkbox:checked").each(function() {  
+			var idsArr = [];
+			$(".checkbox:checked").each(function() {
 				idsArr.push($(this).attr('data-id'));
-			});  
-			if(idsArr.length <=0)  
-			{  
-				alert("Favor seleccionar al menos un item.");  
-			}  else {  
+			});
+			if(idsArr.length <=0)
+			{
+				alert("Favor seleccionar al menos un item.");
+			}  else {
 
-				if(confirm("¿Estas seguro?, se borraran de forma permanente")){  
-					var strIds = idsArr.join(","); 
+				if(confirm("¿Estas seguro?, se borraran de forma permanente")){
+					var strIds = idsArr.join(",");
 					$.ajax({
 						url: "{{ route('admin.user.deleteall') }}",
 						type: 'GET',
@@ -228,7 +229,7 @@
 						data: 'ids='+strIds,
 						success: function (data) {
 							if (data['status']==true) {
-								$(".checkbox:checked").each(function() {  
+								$(".checkbox:checked").each(function() {
 									$(this).parents("tr").remove();
 								});
 								alert(data['message']);
@@ -240,8 +241,8 @@
 							alert(data.responseText);
 						}
 					});
-				}  
-			}  
+				}
+			}
 		});
 
 
