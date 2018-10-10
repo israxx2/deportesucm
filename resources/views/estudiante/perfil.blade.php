@@ -39,7 +39,7 @@
     <div class="col-ml-9 col-sm-8">
         <div class="card card-chart">
             <div class="card-header">
-              <h5 class="card-category"></h5>
+              <h5 class="card-category">Invitaciones pendientes</h5>
               <h4 class="card-title"></h4>
             </div>
             <div class="card-body">

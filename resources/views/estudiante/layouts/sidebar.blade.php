@@ -25,6 +25,27 @@
                           <p>Equipo</p>
                       </a>
                   </li>
+                {{-- DEPORTES --}}
+                <li>
+                    <a data-toggle="collapse" href="#deportes">
+                        <i class="now-ui-icons design_image"></i>
+                        <p>DEPORTES
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                </li>
+                <div class="collapse" id="deportes">
+                    <ul class="nav">
+                        @foreach($deportes as $deporte)
+                        <li>
+                            <a href="../examples/pages/pricing.html">
+                                <span class="sidebar-mini-icon"><i class="{{ $deporte->icon }}"></i></span>
+                                <span class="sidebar-normal">{{ $deporte->nombre }}</span>
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
                 {{-- HISTORIAL--}}
                 <li class="@yield('historial', ' ')">
                   <a href="#">
@@ -68,33 +89,6 @@
                           <p>Información</p>
                       </a>
                   </li>
-                  <li>
-                        <a data-toggle="collapse" href="#pagesExamples">
-                            <i class="now-ui-icons design_image"></i>
-                            <p>Example 2
-                               <b class="caret"></b>
-                            </p>
-                        </a>
-
-                        <div class="collapse" id="pagesExamples">
-                            <ul class="nav">
-                                <li>
-                                    <a href="../examples/pages/pricing.html">
-                                        <span class="sidebar-mini-icon">C1</span>
-                                        <span class="sidebar-normal">Collapse 1</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="../examples/pages/timeline.html">
-                                        <span class="sidebar-mini-icon">C2</span>
-                                        <span class="sidebar-normal">Collapse 2</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
-
             </ul>
         </div>
       </div>
