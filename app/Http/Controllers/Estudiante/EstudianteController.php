@@ -11,13 +11,25 @@ use App\Deporte;
 class EstudianteController extends Controller
 {
     public function inicio(){
-        return view('estudiante.inicio');
+        $deportes = Deporte::all();
+
+        return view('estudiante.inicio')
+        ->with('deportes', $deportes);
     }
 
     public function perfil(){
 
         $deportes = Deporte::all();
+
         return view('estudiante.perfil')
+        ->with('deportes', $deportes);
+    }
+
+    public function deporte_show(){
+
+        $deportes = Deporte::all();
+
+        return view('estudiante.deportes.show')
         ->with('deportes', $deportes);
     }
 }

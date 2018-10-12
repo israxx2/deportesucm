@@ -193,4 +193,9 @@ Route::group(['prefix' => 'e'], function () {
         'uses' => 'Estudiante\EstudianteController@perfil',
         'as' => 'estudiante.perfil'
     ]);
+
+    Route::get('perfil/{id}', [
+        'uses' => 'Estudiante\EstudianteController@perfil',
+        'as' => 'estudiante.deportes.show'
+    ]);
 });

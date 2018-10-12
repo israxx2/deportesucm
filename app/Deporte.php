@@ -12,7 +12,7 @@ class Deporte extends Model
     protected $table = 'deportes';
 
     protected $fillable = [
-        'nombre', 'descripcion',
+        'nombre', 'descripcion', 'icon'
     ];
 
     /**
