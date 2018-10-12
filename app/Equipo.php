@@ -12,7 +12,7 @@ class Equipo extends Model
     protected $table = 'equipos';
 
     protected $fillable = [
-        'modalidad_id', 'nombre', 'descripcion', 'victorias_totales', 'derrotas_totales', 'puntos_favor_totales', 'puntos_contra_totales', 'conformado',
+        'modalidad_id', 'user_id', 'nombre', 'descripcion', 'victorias_totales', 'derrotas_totales', 'puntos_favor_totales', 'puntos_contra_totales', 'conformado',
     ];
 
     /**
@@ -56,5 +56,15 @@ class Equipo extends Model
     public function lider()
     {
         return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function invitacionesRealizadas()
+    {
+        return $this->hasMany('App\Invitacion', 'equipo_id');
+    }
+
+    public function invitacionesRecibidas()
+    {
+        return $this->hasMany('App\Invitacion', 'equipo_id');
     }
 }

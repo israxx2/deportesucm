@@ -19,14 +19,17 @@
                         <p>Perfil</p>
                     </a>
                 </li>
-                <li class="@yield('equipo', ' ')">
-                  <a href="#">
-                          <i class="now-ui-icons users_single-02"></i>
-                          <p>Equipo</p>
-                      </a>
-                  </li>
+
+                {{-- EQUIPOS DEL USUARIO --}}
+                <li class="@yield('equipos', ' ')">
+                    <a href="{{ route('estudiante.equipos') }}">
+                        <i class="now-ui-icons business_badge"></i>
+                        <p>Equipos</p>
+                    </a>
+                </li>
+
                 {{-- DEPORTES --}}
-                <li>
+                <li class="@yield('deporte', ' ')">
                     <a data-toggle="collapse" href="#deportes">
                         <i class="now-ui-icons design_image"></i>
                         <p>DEPORTES
@@ -36,37 +39,17 @@
                 </li>
                 <div class="collapse" id="deportes">
                     <ul class="nav">
-                        @foreach($deportes as $deporte)
-                        <li>
-                            <a href="../examples/pages/pricing.html">
-                                <span class="sidebar-mini-icon"><i class="{{ $deporte->icon }}"></i></span>
-                                <span class="sidebar-normal">{{ $deporte->nombre }}</span>
+                        @foreach($deportes_sidebar as $deporte_sidebar)
+                        <li class="@yield('deporte_'.$deporte_sidebar->id , ' ')">
+                        <a href="{{ route('estudiante.deportes.show', [ 'id' => $deporte_sidebar->id]) }}">
+                                <span class="sidebar-mini-icon"><i class="{{ $deporte_sidebar->icon }}"></i></span>
+                                <span class="sidebar-normal">{{ $deporte_sidebar->nombre }}</span>
                             </a>
                         </li>
                         @endforeach
                     </ul>
                 </div>
-                {{-- HISTORIAL--}}
-                <li class="@yield('historial', ' ')">
-                  <a href="#">
-                      <i class="now-ui-icons education_paper"></i>
-                      <p>Historial</p>
-                  </a>
-                </li>
-                {{-- OPCIONES DE LOS RANKING --}}
-                <li class="@yield('ranking', ' ')">
-                  <a href="#">
-                      <i class="now-ui-icons design_bullet-list-67"></i>
-                      <p>Ranking</p>
-                  </a>
-                </li>
-                {{-- OPCIONES DE LOS EVENTOS --}}
-                <li class="@yield('eventos', ' ')">
-                    <a href="#">
-                        <i class="now-ui-icons ui-1_calendar-60"></i>
-                        <p>Eventos</p>
-                    </a>
-                </li>
+
                 {{-- COMUNIDAD --}}
                   <li class="@yield('comunidad', ' ')">
                       <a href="#">

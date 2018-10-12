@@ -193,9 +193,32 @@ Route::group(['prefix' => 'e'], function () {
         'uses' => 'Estudiante\EstudianteController@perfil',
         'as' => 'estudiante.perfil'
     ]);
-
-    Route::get('perfil/{id}', [
-        'uses' => 'Estudiante\EstudianteController@perfil',
+    //VER DEPORTE
+    Route::get('deporte/{id}', [
+        'uses' => 'Estudiante\EstudianteController@deporte_show',
         'as' => 'estudiante.deportes.show'
+    ]);
+    //VER MODALIDAD DEL DEPORTE
+    Route::get('mod/{id}', [
+        'uses' => 'Estudiante\EstudianteController@modalidad_show',
+        'as' => 'estudiante.modalidades.show'
+    ]);
+
+    //CREAR UN EQUIPO
+    Route::post('equipo', [
+        'uses' => 'Estudiante\EstudianteController@equipo_store',
+        'as' => 'estudiante.equipo.store'
+    ]);
+
+    //VER EQUIPOS
+    Route::get('equipos/', [
+        'uses' => 'Estudiante\EstudianteController@equipos',
+        'as' => 'estudiante.equipos'
+    ]);
+
+    //VER UN EQUIPO
+    Route::get('equipos/{id}', [
+        'uses' => 'Estudiante\EstudianteController@equipo_show',
+        'as' => 'estudiante.equipos.show'
     ]);
 });

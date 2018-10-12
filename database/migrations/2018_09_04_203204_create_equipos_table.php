@@ -17,13 +17,13 @@ class CreateEquiposTable extends Migration
             $table->increments('id');
             $table->integer('modalidad_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->string('nombre');
+            $table->string('nombre')->unique();
             $table->string('descripcion')->nullable();
             $table->integer('victorias_totales')->default(0);
             $table->integer('derrotas_totales')->default(0);
             $table->integer('puntos_favor_totales')->default(0);
             $table->integer('puntos_contra_totales')->default(0);
-            $table->boolean('conformado');
+            $table->boolean('conformado')->default(0);
             $table->softDeletes();
             $table->timestamps();
 
