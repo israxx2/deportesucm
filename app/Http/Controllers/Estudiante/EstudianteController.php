@@ -63,10 +63,14 @@ class EstudianteController extends Controller
     }
 
     public function equipos(){
+
+        $user=Auth::user()->id;
+        $equipos=Equipo::where('user_id','=',$user)->get();
         $deportes_sidebar = Deporte::all();
 
         return view('estudiante.equipos')
-        ->with('deportes_sidebar', $deportes_sidebar);
+        ->with('deportes_sidebar', $deportes_sidebar)
+        ->with('equipos', $equipos);
     }
 
     public function equipo_show($id){
@@ -79,7 +83,7 @@ class EstudianteController extends Controller
     public function partidos(){
         $modalidad=Modalidad::all();
         $deportes_sidebar = Deporte::all();
-        $user=3;
+        $user=Auth::user()->id;
 
         $resultado = DB::select('SELECT
         partidos.id as id,
@@ -129,9 +133,10 @@ class EstudianteController extends Controller
 
     public function filtro_modalidad(Request $request)
     {   
-        
-       if($request->id == 'null'){
-            $user=3;
+        $user=Auth::user()->id;
+      
+        if($request->id == 'null'){
+             
 
             $resultado = DB::select('SELECT
             partidos.id as id,
@@ -153,7 +158,7 @@ class EstudianteController extends Controller
 
         } else {
             
-            $user=3;
+            
             $resultado = DB::select('SELECT
             partidos.id as id,
             modalidades.id as id_modalidad,
@@ -180,5 +185,31 @@ class EstudianteController extends Controller
 
  
     }
+
+    public function registrar_resultado(){
+        $deportes_sidebar = Deporte::all();
+        $equipos = Equipo::all();
+        return view('estudiante.registrar_resultado')
+        ->with(compact('partido','equipos'))
+        ->with('deportes_sidebar', $deportes_sidebar);
+    
+    }
+
+    public function registrar_resultado_store(Request $request){
+
+        $partido = new Partido();
+        $partido->local_id = $request->local; //este dato debe venir de la invitacion
+        $partido->visita_id = $request->visita;//este dato debe venir de la invitacion
+        $partido->puntos_local = $request->puntos_local;
+        $partido->puntos_visita = $request->puntos_visita;
+        $partido->ganador_id = $request->ganador;
+
+        $partido->save();
+
+        return Redirect('e/partidos/');
+
+
+    }
+
 
 }

@@ -227,10 +227,22 @@ Route::group(['prefix' => 'e'], function () {
         'uses' => 'Estudiante\EstudianteController@equipo_show',
         'as' => 'estudiante.equipos.show'
     ]);
+    //FILTRO DE PARTIDOS POR MODALIDAD
     Route::post('partidos/filtro_modalidad',[
       'uses'  =>'Estudiante\EstudianteController@filtro_modalidad',
       'as'    =>'estudiante.filtro_modalidad'
     ]);
+
+    //Registrar nuevo resultado (vista)
+    Route::get('registrar_resultado/',[
+      'uses'  =>'Estudiante\EstudianteController@registrar_resultado',
+      'as'    =>'estudiante.registrar_resultado'
+    ]);
+     //Registrar nuevo resultado (store)
+    Route::post('registrar_resultado_store/',[
+          'uses'  =>'Estudiante\EstudianteController@registrar_resultado_store',
+          'as'    =>'estudiante.registrar_resultado_store'
+        ]);
 
 });
 

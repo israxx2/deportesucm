@@ -7,7 +7,7 @@
                 UCM
             </a>
             <a href="{{ route('estudiante.inicio') }}" class="simple-text logo-normal">
-                Taca-taca
+            DEPORTES
             </a>
         </div>
         <div class="sidebar-wrapper">
@@ -27,7 +27,14 @@
                         <p>Equipos</p>
                     </a>
                 </li>
-
+                {{-- Partidos DEL USUARIO --}}
+                <li class="@yield('partidos', ' ')">
+                    <a href="{{ route('estudiante.partidos') }}">
+                        <i class="now-ui-icons business_badge"></i>
+                        <p>Mis Partidos</p>
+                    </a>
+                </li>
+                
                 {{-- DEPORTES --}}
                 <li class="@yield('deporte', ' ')">
                     <a data-toggle="collapse" href="#deportes">
@@ -37,13 +44,7 @@
                         </p>
                     </a>
                 </li>
-                {{-- Partidos DEL USUARIO --}}
-                <li class="@yield('partidos', ' ')">
-                    <a href="{{ route('estudiante.partidos') }}">
-                        <i class="now-ui-icons business_badge"></i>
-                        <p>Mis Partidos</p>
-                    </a>
-                </li>
+             
 
                 <div class="collapse" id="deportes">
                     <ul class="nav">

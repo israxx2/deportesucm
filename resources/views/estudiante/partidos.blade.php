@@ -5,6 +5,7 @@
 <br>
 <hr>
 <div class="container">
+<a href="/e/registrar_resultado"> Registrar Resultados</a>
 
 {!! Form::open(['route' => 'estudiante.filtro_modalidad' , 'method' => 'POST']) !!}
     <div class="col-sm-3">
