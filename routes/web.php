@@ -210,6 +210,12 @@ Route::group(['prefix' => 'e'], function () {
         'as' => 'estudiante.equipo.store'
     ]);
 
+    //VER MIS PARTIDOS 
+    Route::get('partidos/', [
+      'uses' => 'Estudiante\EstudianteController@partidos',
+      'as' => 'estudiante.partidos'
+    ]);
+
     //VER EQUIPOS
     Route::get('equipos/', [
         'uses' => 'Estudiante\EstudianteController@equipos',
@@ -221,4 +227,10 @@ Route::group(['prefix' => 'e'], function () {
         'uses' => 'Estudiante\EstudianteController@equipo_show',
         'as' => 'estudiante.equipos.show'
     ]);
+    Route::post('partidos/filtro_modalidad',[
+      'uses'  =>'Estudiante\EstudianteController@filtro_modalidad',
+      'as'    =>'estudiante.filtro_modalidad'
+    ]);
+
 });
+

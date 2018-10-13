@@ -37,6 +37,14 @@
                         </p>
                     </a>
                 </li>
+                {{-- Partidos DEL USUARIO --}}
+                <li class="@yield('partidos', ' ')">
+                    <a href="{{ route('estudiante.partidos') }}">
+                        <i class="now-ui-icons business_badge"></i>
+                        <p>Mis Partidos</p>
+                    </a>
+                </li>
+
                 <div class="collapse" id="deportes">
                     <ul class="nav">
                         @foreach($deportes_sidebar as $deporte_sidebar)
