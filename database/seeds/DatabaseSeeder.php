@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             ModalidadesTableSeeder::class,
             EquiposTableSeeder::class,
             TorneosTableSeeder::class,
+            CuentaTableSeeder::class,
+            InvitacionesTableSeeder::class,
         ]);
     }
 }

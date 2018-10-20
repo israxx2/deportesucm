@@ -228,9 +228,15 @@ Route::group(['prefix' => 'e'], function () {
         'as' => 'estudiante.equipos.show'
     ]);
     //FILTRO DE PARTIDOS POR MODALIDAD
-    Route::post('partidos/filtro_modalidad',[
-      'uses'  =>'Estudiante\EstudianteController@filtro_modalidad',
-      'as'    =>'estudiante.filtro_modalidad'
+    Route::post('partidos/filtro_deporte',[
+      'uses'  =>'Estudiante\EstudianteController@filtro_deporte',
+      'as'    =>'estudiante.filtro_deporte'
+    ]);
+
+    //Registrar  resultado (index)
+    Route::get('registrar_resultado_index/',[
+      'uses'  =>'Estudiante\EstudianteController@registrar_resultado_index',
+      'as'    =>'estudiante.registrar_resultado_index'
     ]);
 
     //Registrar nuevo resultado (vista)
@@ -243,6 +249,16 @@ Route::group(['prefix' => 'e'], function () {
           'uses'  =>'Estudiante\EstudianteController@registrar_resultado_store',
           'as'    =>'estudiante.registrar_resultado_store'
         ]);
+      //RECLAMAR 
+    Route::post('reclamo/',[
+      'uses'  =>'Estudiante\EstudianteController@reclamo',
+      'as'    =>'estudiante.reclamo'
+    ]);
+    //show_partido
+    Route::get('partido_show/{id}',[
+      'uses'  =>'Estudiante\EstudianteController@partido_show',
+      'as'    =>'estudiante.partido_show'
+    ]);
 
 });
 

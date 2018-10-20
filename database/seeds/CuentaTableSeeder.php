@@ -11,17 +11,30 @@ class CuentaTableSeeder extends Seeder
      */
     public function run()
     {
-        $i = 0;
+        
 
-        for($user=34 ; $user<189 ; $user++)
-        {
-            DB::table('cuenta')->insert([
-                'user_id' => $user,
-                'equipo_id' => $i,
-            ]);
+       
+        DB::table('cuenta')->insert([
+            'user_id' => 2,
+            'equipo_id' => 2,
+        ]);
 
-            $i++;
-        }
+        DB::table('cuenta')->insert([
+            'user_id' => 2,
+            'equipo_id' => 3,
+        ]);
+        
+        DB::table('cuenta')->insert([
+            'user_id' => 3,
+            'equipo_id' => 4,
+        ]);
+
+        DB::table('cuenta')->insert([
+            'user_id' => 3,
+            'equipo_id' => 5,
+        ]);
+            
+        
 
 
 
