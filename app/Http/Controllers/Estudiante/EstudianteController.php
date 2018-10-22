@@ -59,17 +59,21 @@ class EstudianteController extends Controller
         $equipo->conformado = 0;
         $equipo->save();
 
+        $equipo->users()->attach(Auth::User()->id);
+
         return Redirect(route('estudiante.equipos.show', ['id' => $equipo->id]));
     }
 
     public function equipos(){
 
-        $user=Auth::user()->id;
-        $equipos=Equipo::where('user_id','=',$user)->get();
+        $user= User::find(Auth::user()->id);
+        $equipos = $user->equipos;
         $deportes_sidebar = Deporte::all();
 
+        $deportes = $deportes_sidebar;
         return view('estudiante.equipos')
         ->with('deportes_sidebar', $deportes_sidebar)
+        ->with('deportes', $deportes)
         ->with('equipos', $equipos);
     }
 
@@ -98,8 +102,8 @@ class EstudianteController extends Controller
         partidos.puntos_visita
 
         from users join cuenta ON users.id = cuenta.user_id
-        join equipos ON cuenta.equipo_id = equipos.id 
-        join modalidades ON equipos.modalidad_id = modalidades.id          
+        join equipos ON cuenta.equipo_id = equipos.id
+        join modalidades ON equipos.modalidad_id = modalidades.id
         join partidos ON partidos.local_id =equipos.id or partidos.visita_id = equipos.id
         where users.id='. $user);
 
@@ -109,7 +113,7 @@ class EstudianteController extends Controller
            $local_id=$value->local_id;
            $visita_id=$value->visita_id;
            $local=Equipo::select('nombre')->where('id',$local_id)->get()->toarray();
-           $visita=Equipo::select('nombre')->where('id',$visita_id)->get()->toarray(); 
+           $visita=Equipo::select('nombre')->where('id',$visita_id)->get()->toarray();
            $local=$local[0]['nombre'];
            $visita=$visita[0]['nombre'];
 
@@ -119,10 +123,10 @@ class EstudianteController extends Controller
                 'visita' =>$visita
             ]]);
         }
- 
 
-        
-       
+
+
+
 
 
         return view('estudiante.partidos')
@@ -132,11 +136,11 @@ class EstudianteController extends Controller
     }
 
     public function filtro_modalidad(Request $request)
-    {   
+    {
         $user=Auth::user()->id;
-      
+
         if($request->id == 'null'){
-             
+
 
             $resultado = DB::select('SELECT
             partidos.id as id,
@@ -149,16 +153,16 @@ class EstudianteController extends Controller
             partidos.ganador_id,
             partidos.puntos_local,
             partidos.puntos_visita
-    
+
             from users join cuenta ON users.id = cuenta.user_id
-            join equipos ON cuenta.equipo_id = equipos.id 
-            join modalidades ON equipos.modalidad_id = modalidades.id          
+            join equipos ON cuenta.equipo_id = equipos.id
+            join modalidades ON equipos.modalidad_id = modalidades.id
             join partidos ON partidos.local_id =equipos.id or partidos.visita_id = equipos.id
             where users.id='. $user);
 
         } else {
-            
-            
+
+
             $resultado = DB::select('SELECT
             partidos.id as id,
             modalidades.id as id_modalidad,
@@ -172,18 +176,18 @@ class EstudianteController extends Controller
             partidos.puntos_visita
 
             from users join cuenta ON users.id = cuenta.user_id
-            join equipos ON cuenta.equipo_id = equipos.id 
-            join modalidades ON equipos.modalidad_id = modalidades.id          
+            join equipos ON cuenta.equipo_id = equipos.id
+            join modalidades ON equipos.modalidad_id = modalidades.id
             join partidos ON partidos.local_id =equipos.id or partidos.visita_id = equipos.id
             where users.id='. $user.'
             AND modalidades.id ='.$request->id );
-            
-           
+
+
         }
 
         return view('estudiante.filtro_mis_partidos',['resultado'=>$resultado])->render();
 
- 
+
     }
 
     public function registrar_resultado(){
@@ -192,7 +196,7 @@ class EstudianteController extends Controller
         return view('estudiante.registrar_resultado')
         ->with(compact('partido','equipos'))
         ->with('deportes_sidebar', $deportes_sidebar);
-    
+
     }
 
     public function registrar_resultado_store(Request $request){

@@ -3,7 +3,8 @@
 <title>Deportes-UCM</title>
 
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
+<!-- RECURSOS flash msj-->
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <!-- RECURSOS PARA TEMPLATE: now-ui-dashboard-html-v1.0.1-->
 
 <!--     Fonts and icons     -->
@@ -12,3 +13,4 @@
 <!-- Material Kit CSS -->
 <link href="{{ asset('estudiante/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
 <link href="{{ asset('estudiante/assets/css/now-ui-dashboard.css?v=1.1.0') }}" rel="stylesheet" />
+
