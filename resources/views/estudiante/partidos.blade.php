@@ -1,83 +1,155 @@
+
 @extends('estudiante.layouts.app')
 
 @section('content')
 
 <br>
 <hr>
+
 <div class="container">
-<a href="/e/registrar_resultado"> Registrar Resultados</a>
 
-{!! Form::open(['route' => 'estudiante.filtro_modalidad' , 'method' => 'POST']) !!}
-    <div class="col-sm-3">
-                    <hr>
-                        <label>Filtro </label>
-                    <select class="form-control" id="id_modalidad" name="id_modalidad" required style="width: 100%">
-                    <option value="null">Seleccione una modalidad</option>
+    <div class="row">
+        <div class= "col-md-3">
+            <br>
+            {!! Form::open(['route' => 'estudiante.filtro_deporte' , 'method' => 'POST']) !!}
+              
+                            <select class="form-control" id="id_deporte" name="id_deporte" required style="width: 100%">
+                            <option value="null">Seleccione un Deporte</option>
 
-                    @foreach($modalidad as $modalidad)
-                        <option value="{{ $modalidad->id }}">{{ $modalidad->id.'- '.$modalidad->nombre }}</option>
-                    @endforeach
-                    </select>
-                </div>
-{!! Form::close() !!}
-                <div class="col-sm-6">
-                    </div>
+                            @foreach($deporte as $deporte)
+                                <option value="{{ $deporte->id }}">{{ $deporte->id.'- '.$deporte->nombre }}</option>
+                            @endforeach
+                            </select>
+                       
+               
+            {!! Form::close() !!}
+        </div>
+
+        <div class= "col-md-9 " align="right">
+            <a href="/e/registrar_resultado_index" class="btn btn-warning navbar-btn"> 
+            <i class="fa fa-lightbulb"></i>
+            <span > Registrar Partidos ({{ count($contador) }}) </span>
+            </a>
+        </div>
+
     </div>
-
-<div class="row">
-      
-
-
-	<div class="table-responsive " id="div_user">
     
-		<table class="table table-striped display compact table-condensed" id="table_user">
-			<thead>
-				<tr>
+
+
+<br><br>
+<div id="div_user">
+@foreach($resultado as $resultado)
+    <div  class="card" style="width: 20rem;">
+        <img class="card-img-top" width="320" height="180"  
+            src="{{ $resultado->imagen }}"        
+            alt="Card image cap">
+
+        <div class="card-body" >
+            <h4 class="card-title">
+                Partido #{{ $resultado->id }}
+                &nbsp;&nbsp;&nbsp;
+            
                 
-					<th>#</th>
-                    <th>MODALIDAD</th>
-                    <th>EQUIPO</th>
-					<th>LOCAL</th>
-					<th>VISITA</th>
-					<th>PUNTOS LOCAL</th>
-					<th>PUNTOS VISITA</th>
-					<th>GANADOR</th>
-					
-				</tr>
-			</thead>
-			<tbody>
-				@foreach($resultado as $resultado)
-					<tr>
-						<td>{{ $resultado->id }}</td>
-                        <td>{{ $resultado->nombre }}</td>
-                        <td>{{ $resultado->equipo_nombre }}</td>
-						<td>{{ $resultado->local_id }}</td>
-						<td>{{ $resultado->visita_id }}</td>
-						<td>{{ $resultado->puntos_local }}</td>
-						<td>{{ $resultado->puntos_visita }}</td>
-						<td>{{ $resultado->ganador_id }}</td>
-						
-					</tr>
-                @endforeach
-            </tbody>
-        </table>
-	</div>		
+                <b>{{ $resultado->puntos_local }} : {{ $resultado->puntos_visita }}</b>
+                
+               
+            
+        
+            </h4> 
+            
+            <p class="card-text">
+                <p> <b>Equipo Rival: {{ $resultado->visita_id }}</b ></p>
+                
+                <p> </p>
+                
+            </p>
+            <button style="float: right;" type="button" 
+                class="btn btn-danger btn-xs" 
+                data-toggle="modal" 
+                data-id="{{$resultado->id_user }}"
+                data-target="#favoritesModal">Reclamar
+		</button>
+            </div>
+    </div>
+   
+
+@endforeach
+
 </div>
+
+
+
+<div class="modal fade" id="favoritesModal" 
+     tabindex="-1" role="dialog" 
+     aria-labelledby="favoritesModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+            <h4 class="modal-title" 
+        id="favoritesModalLabel">Reclamar Partido</h4>
+      </div>
+      <div class="modal-body">
+	  {!! Form::open(['route' => 'estudiante.reclamo', 'class' => 'form'	]) !!}
+		
+			
+	    {!! Form::hidden('user_id', '', ['id' => 'id1']) !!}
+
+
+			<div class="row">
+			<div class="col md12">
+			{!! Form::label('Descripcion', 'Reclamo'); !!}
+			{!! Form::text('Descripcion'); !!}
+			</div>
+
+			</div>
+
+      </div>
+       <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        <span class="pull-right">
+          <button type="submit"class="btn btn-success">
+            Aceptar
+          </button>
+		  {!! Form::close() !!}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
 <script>
       $(document).ready(function(){
-            $('#id_modalidad').on('change',function(){
+            $('#id_deporte').on('change',function(){
                 console.log("asdasd");
-                $.post("{{ route('estudiante.filtro_modalidad') }}",{
-                    id:$('#id_modalidad').val(),
+                $.post("{{ route('estudiante.filtro_deporte') }}",{
+                    id:$('#id_deporte').val(),
                     _token:'{{ csrf_token() }}'
                 }).done(function(data){
                    $('#div_user').html(data);
+                  
                 });
             });
         });
 </script>
+
+<script>
+$(function() {
+	$(function() {
+    $('#favoritesModal').on("show.bs.modal", function (e) {
+         $("#favoritesModalLabel").html($(e.relatedTarget).data('title'));
+		 console.log($(e.relatedTarget).data('id'));
+         $("#id1").val($(e.relatedTarget).data('id'));
+    });
+});
+});
+
+
+</script>
+
+
+
 
 
 @endsection

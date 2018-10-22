@@ -18,6 +18,7 @@ class CreateDeportesTable extends Migration
             $table->string('nombre');
             $table->string('descripcion');
             $table->string('icon')->nullable();
+            $table->string('imagen')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
