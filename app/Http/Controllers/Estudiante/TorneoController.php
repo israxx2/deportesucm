@@ -60,8 +60,9 @@ class TorneoController extends Controller
         $torneo = Torneo::find($id);
         $deportes_sidebar = Deporte::all();
         $i = 0;
+        $equipos = $torneo->equipos;
 
-        dd($torneo->equipos);
+
         return view('estudiante.torneos_show')
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('torneo', $torneo)
