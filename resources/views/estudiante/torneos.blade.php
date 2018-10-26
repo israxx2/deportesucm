@@ -26,8 +26,8 @@
                                 <th>Nombre</th>
                                 <th>Deporte</th>
                                 <th>Modalidad</th>
-                                <th>Fecha</th>
                                 <th>Capacidad</th>
+                                <th>Fecha</th>
                                 <th>Ver+</th>
                             </tr>
                         </thead>
