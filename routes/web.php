@@ -210,7 +210,7 @@ Route::group(['prefix' => 'e'], function () {
         'as' => 'estudiante.equipo.store'
     ]);
 
-    //VER MIS PARTIDOS 
+    //VER MIS PARTIDOS
     Route::get('partidos/', [
       'uses' => 'Estudiante\EstudianteController@partidos',
       'as' => 'estudiante.partidos'
@@ -249,15 +249,26 @@ Route::group(['prefix' => 'e'], function () {
           'uses'  =>'Estudiante\EstudianteController@registrar_resultado_store',
           'as'    =>'estudiante.registrar_resultado_store'
         ]);
-      //RECLAMAR 
+      //RECLAMAR
     Route::post('reclamo/',[
       'uses'  =>'Estudiante\EstudianteController@reclamo',
       'as'    =>'estudiante.reclamo'
     ]);
     //show_partido
     Route::get('partido_show/{id}',[
-      'uses'  =>'Estudiante\EstudianteController@partido_show',
-      'as'    =>'estudiante.partido_show'
+        'uses'  =>'Estudiante\EstudianteController@partido_show',
+        'as'    =>'estudiante.partido_show'
+      ]);
+
+    //index torneos
+    Route::get('torneos',[
+        'uses'  =>'Estudiante\TorneoController@index',
+        'as'    =>'estudiante.torneos.index'
+    ]);
+    //show torneo
+    Route::get('torneos/{id}',[
+        'uses'  =>'Estudiante\TorneoController@show',
+        'as'    =>'estudiante.torneos.show'
     ]);
 
 });

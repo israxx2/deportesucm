@@ -34,7 +34,7 @@
                         <p>Mis Partidos</p>
                     </a>
                 </li>
-                
+
                 {{-- DEPORTES --}}
                 <li class="@yield('deporte', ' ')">
                     <a data-toggle="collapse" href="#deportes">
@@ -44,7 +44,7 @@
                         </p>
                     </a>
                 </li>
-             
+
 
                 <div class="collapse" id="deportes">
                     <ul class="nav">
@@ -67,11 +67,11 @@
                       </a>
                   </li>
 
-                {{-- OPCIONES DE LAS INVITACIONES --}}
-                <li class="@yield('duelos', ' ')">
-                  <a href="#">
-                      <i class="now-ui-icons ui-1_email-85"></i>
-                      <p>Duelos</p>
+                {{-- TORNEOS --}}
+                <li class="@yield('torneos', ' ')">
+                  <a href="{{ route('estudiante.torneos.index') }}">
+                      <i class="now-ui-icons sport_trophy"></i>
+                      <p>Torneos</p>
                   </a>
                 </li>
                 {{-- INFORMACION --}}

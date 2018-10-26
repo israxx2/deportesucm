@@ -12,7 +12,7 @@ class Torneo extends Model
     protected $table = 'torneos';
 
     protected $fillable = [
-        'nombre', 'fecha', 'tipo',
+        'nombre', 'modalidad_id', 'descripcion', 'fecha', 'tipo',
     ];
 
     /**
@@ -27,5 +27,10 @@ class Torneo extends Model
         return $this->belongsToMany('App\Equipo', 'inscripcion')
           //->withPivot('goles','resultado', 'elo', 'elo_anterior')
           ->withTimestamps();
+    }
+
+    public function modalidad()
+    {
+        return $this->belongsTo('App\Modalidad', 'modalidad_id');
     }
 }
