@@ -76,6 +76,8 @@ class EstudianteController extends Controller
 
     public function equipoMod_show($id){
 
+      
+
         $equipo = Equipo::find($id);
         $modalidades = Modalidad::find($equipo->modalidades->id);
         return view('estudiante.equipo_show')

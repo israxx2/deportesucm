@@ -1,8 +1,7 @@
 @extends('estudiante.layouts.app')
 
-@section('title', 'equipo')
-@section('modalidad', 'active')
-@section('modalidad_'.$modalidad->id , 'active')
+@section('title', 'Equipos')
+@section('equipos', 'active')
 @section('content')
 
 @endsection
