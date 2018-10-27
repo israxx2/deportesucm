@@ -37,6 +37,7 @@ class EstudianteController extends Controller
         ->with('deporte', $deporte);
     }
 
+
     public function modalidad_show($id){
 
         $modalidad = Modalidad::find($id);
