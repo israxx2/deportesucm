@@ -221,4 +221,11 @@ Route::group(['prefix' => 'e'], function () {
         'uses' => 'Estudiante\EstudianteController@equipo_show',
         'as' => 'estudiante.equipos.show'
     ]);
+
+    //Ver equipo por modalidad
+    Route::get('equipomod/{id}', [
+      'uses' => 'Estudiante\EstudianteController@equipoMod_show',
+      'as' => 'estudiante.equipoMod.show'
+    ]);
+
 });

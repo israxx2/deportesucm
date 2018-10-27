@@ -6,30 +6,17 @@
 @section('content')
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-8">
         <div class="card card-chart">
             <div class="card-header">
             <li class="list-group-item"><b>NOMBRE: </b>{{ $deporte->nombre }}</li>
 	        <li class="list-group-item"><b>DESCRIPCION: </b>{{ $deporte->descripcion }}</li>
-            <li class="list-group-item"><b></b>{{ $deporte->imagen }}</li>
-      
+            <img class="card-img-top" width="100" height="250" src="{{ $deporte->imagen }}" alt="Card image cap">
+   
 
-        <div class="card card-chart">
- 
-            </div>
-
-            <div class="card card-chart">
-                <div class="card-header">
-  
-                </div>
-                <div class="card-body">
-                </div>
-                <div class="card-footer">
-
-                </div>
-            </div>
-
-         <div class="form-group">
+         <div class="card card-chart">
+            <div class="card-header">
+        
             {!! Form::label('modalidad', 'Modalidad') !!}
                 <select name="modalidad" class="form-control">
                  <option value="">Seleccione modalidad de equipos a ver</option>
@@ -37,10 +24,24 @@
                             <a href="{{ route('estudiante.modalidades.show', ['id' => $modalidad->id]) }}">
                             <option value>{{ '- '.$modalidad->nombre }}</span>
                             </a>
-                    </li>
+                          
+         
                 @endforeach
              </select>
          </div>
+         </div>
+
+    <div class="container">
+
+
+     </li>
+     
+
+         </a>
+      
+    
+        </ul>
+        </div>
 
     </div>
 

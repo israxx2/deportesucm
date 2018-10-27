@@ -73,4 +73,12 @@ class EstudianteController extends Controller
         return view('estudiante.equipo_show')
         ->with('deportes_sidebar', $deportes_sidebar);
     }
+
+    public function equipoMod_show($id){
+
+        $equipo = Equipo::find($id);
+        $modalidades = Modalidad::find($equipo->modalidades->id);
+        return view('estudiante.equipo_show')
+        ->with('modalidades', $modalidades);
+    }
 }
