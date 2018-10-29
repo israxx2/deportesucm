@@ -19,45 +19,26 @@
 
             </div>
         </div>
-        <div class="card card-chart">
-                <div class="card-header">
-                    <h5 class="card-category">Invitacion: Singles</h5>
-                    <h6 class="card-title">Equipo 1 </button></h6>
-                </div>
-                <div class="card-body">
-                    <p class="text-muted">Estamos buscando un equipo que quiera jugar una pichanga un ratito</p>
-                    <hr>
-                    <p>Horario: 28/10/2018, 16:30 hrs.</p>
-                    <hr>
-                    <p>Lugar: Multicanchas</p>
-                    <hr>
-                    <p>Número contacto: +56912345678</p>
-                    <button type="button" class="btn btn-success btn-lg btn-block">ACEPTAR</button>
-                </div>
-                <div class="card-footer">
-
-                </div>
-            </div>
-
+        @foreach( $invitaciones as $invitacion)
             <div class="card card-chart">
                 <div class="card-header">
-                    <h5 class="card-category">Invitacion: Dobles</h5>
-                    <h6 class="card-title">Equipo 2 </button></h6>
+                    <h6 class="card-title">{{$invitacion->emisor_id}}</button></h6>
                 </div>
                 <div class="card-body">
-                    <p class="text-muted">Estamos buscando un equipo que quiera jugar una pichanga un ratito</p>
+                    <p class="text-muted">{{$invitacion->descripcion}}</p>
                     <hr>
-                    <p>Horario: 28/10/2018, 16:30 hrs.</p>
+                    <p>Horario:{{$invitacion->horario}}, 16:30 hrs.</p>
                     <hr>
-                    <p>Lugar: Multicanchas</p>
+                    <p>Lugar: {{$invitacion->lugar}}</p>
                     <hr>
-                    <p>Número contacto: +56912345678</p>
+                    <p>Número contacto: {{$invitacion->lugar}}</p>
                     <button type="button" class="btn btn-success btn-lg btn-block">ACEPTAR</button>
                 </div>
                 <div class="card-footer">
 
                 </div>
             </div>
+            @endforeach
     </div>
     <div class="col-sm-4">
         <div class="card card-chart">

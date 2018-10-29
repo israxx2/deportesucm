@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Equipo;
+use App\Invitacion;
 use App\Deporte;
 use App\Modalidad;
 use App\Partido;
@@ -34,8 +35,11 @@ class EstudianteController extends Controller
 
         $deportes_sidebar = Deporte::all();
         $deporte = Deporte::find($id);
-
+        $invitaciones = Invitacion::withTrashed()->orderBy('id', 'ASC')
+        ->where('tipo','PUBLICA')
+        ->get();
         return view('estudiante.deporte_show')
+        ->with('invitaciones',$invitaciones)
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('deporte', $deporte);
     }

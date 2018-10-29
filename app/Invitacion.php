@@ -12,7 +12,7 @@ class Invitacion extends Model
     protected $table = 'invitaciones';
 
     protected $fillable = [
-        'emisor_id', 'receptor_id', 'horario', 'lugar', 'descripcion', 'numero', 'tipo',
+        'emisor_id', 'receptor_id', 'horario', 'lugar', 'descripcion', 'numero', 'tipo','aceptado'
     ];
 
     /**
