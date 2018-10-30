@@ -14,32 +14,51 @@
             <img class="card-img-top" width="100" height="250" src="{{ $deporte->imagen }}" alt="Card image cap">
    
 
-         <div class="card card-chart">
-            <div class="card-header">
+
+         </div>
+         <div class="container">
+            <div class="card card-chart">
+                <div class="card-header">
         
-            {!! Form::label('modalidad', 'Modalidad') !!}
-                <select name="modalidad" class="form-control">
-                 <option value="">Seleccione modalidad de equipos a ver</option>
-                @foreach($deporte->modalidades as $modalidad)
+                {!! Form::label('modalidad', 'Modalidad') !!}
+                  <select name="modalidad" class="form-control">
+                  <option value="">Seleccione modalidad de equipos a ver</option>
+                 @foreach($deporte->modalidades as $modalidad)
                             <a href="{{ route('estudiante.modalidades.show', ['id' => $modalidad->id]) }}">
                             <option value>{{ '- '.$modalidad->nombre }}</span>
                             </a>
                           
          
-                @endforeach
-             </select>
+                 @endforeach
+
+                 </select>
          </div>
-         </div>
+                @foreach($deporte->modalidades as $modalidad)
+                    <a href="{{ route('estudiante.modalidades.show', ['id' => $modalidad->id]) }}">
+                 
+                    <div class="card-header">
+                        <li class="list-group-item"><b>NOMBRE: </b>{{ $modalidad->nombre }}</li>
+	                    <li class="list-group-item"><b>DESCRIPCION: </b>{{ $modalidad->descripcion }}</li>
+                   </div>
+            
 
-    <div class="container">
+                     </a>
+                @endforeach     
 
+                          
+         
+     
 
-    </div>
-
-            </div>
-        </div>
-    </div>
+    
 </div>
+
+ <div class="col-sm-8">
+
+
+    </div>
+
+ </div>
+
 
 <!-- CREAR EQUIPO -->
 <div class="modal fade" id="crearEquipo" tabindex="-1" role="dialog" aria-labelledby="crearEquipoTitulo" aria-hidden="true">
