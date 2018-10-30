@@ -74,11 +74,28 @@ class EstudianteController extends Controller
         ->with('deportes_sidebar', $deportes_sidebar);
     }
 
-    public function equipoMod_show($id){
+    public function filtro_equipo(Request $modalidad)
+    {
 
-        $equipo = Equipo::find($id);
-        $modalidades = Modalidad::find($equipo->modalidades->id);
-        return view('estudiante.equipo_show')
-        ->with('modalidades', $modalidades);
+        if($modalidad->id == 'null'){
+
+
+            $equipo = DB::select('SELECT nombre, descripcion FROM equipos where modalidad_id = '.$modalidad); 
+
+        }
+
+        else{
+
+            $equipo='null';
+    
+
+
+        }
+        return view('estudiante.filtro_equipo',['resultado'=>$equipo])->render();
+
+
+
     }
+
+
 }

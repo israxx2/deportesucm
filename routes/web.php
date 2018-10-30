@@ -228,4 +228,6 @@ Route::group(['prefix' => 'e'], function () {
       'as' => 'estudiante.equipoMod.show'
     ]);
 
+    
+
 });
