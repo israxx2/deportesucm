@@ -46,6 +46,18 @@
 
 </div>
 
+<div class="col-ml-9 col-sm-8">
+    @foreach($equiposOrdenado as $equipos)
+        <div class="list-group-item">
+            <li class="list-group-item"><b>PUESTO: </b>{{ $equipos->puesto }}</li>
+            <li class="list-group-item"><b>NOMBRE: </b>{{ $equipos->nombre }}</li>
+            <li class="list-group-item"><b>VICTORIAS: </b>{{ $equipos->victorias_totales }}</li>
+        </div>    
+    @endforeach
+
+
+</div>
+
 <!-- CREAR EQUIPO -->
 <div class="modal fade" id="crearEquipo" tabindex="-1" role="dialog" aria-labelledby="crearEquipoTitulo" aria-hidden="true">
     <div class="modal-dialog" role="document">

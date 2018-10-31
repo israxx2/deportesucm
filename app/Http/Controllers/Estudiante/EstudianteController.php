@@ -46,16 +46,15 @@ class EstudianteController extends Controller
         $modalidad = Modalidad::find($id);
         $deportes_sidebar = Deporte::all();
         $deporte = Deporte::find($modalidad->deporte->id);
-        $equipo = DB::select('SELECT id,nombre, descripcion, victorias_totales, derrotas_totales, puntos_favor_totales,
-        puntos_contra_totales
-        FROM equipos where modalidad_id = '.$modalidad->id); 
+        $equipo = $modalidad->equipos;
 
-        $equiposOrdenados = $equipo->orderBy('victorias_totales');
+        $equiposOrdenados = $equipo->sortBy('victorias_totales');
         $i=1;
 
-        foreach($equiposOrdenados as $equiposOrdenados){
-            $equiposOrdenados['puesto']=$i;
+        foreach($equiposOrdenados as $equiposOrdenado){
+            $equiposOrdenado['puesto']=$i;
             $i=$i+1;
+
         }
 
 
@@ -64,7 +63,8 @@ class EstudianteController extends Controller
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('deporte', $deporte)
         ->with('modalidad',$modalidad)
-        ->with('equipo',$equipo);
+        ->with('equipo',$equipo)
+        ->with('equiposOrdenado',$equiposOrdenado);
     }
 
 
