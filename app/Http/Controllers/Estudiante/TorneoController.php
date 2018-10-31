@@ -61,20 +61,42 @@ class TorneoController extends Controller
         $deportes_sidebar = Deporte::all();
         $i = 0;
         $equipos = $torneo->equipos;
+        $participantes = count($torneo->equipos);
+        $res = 0;
 
-        if(time($reserva->fecha_reserva) > time())
+        //SI ES DE TIPO LLAVE RETORNA ADEMÁS LAS FASES.
+        if($torneo->tipo == 'llave')
         {
-            // hacer reserva
+            $fases = 0;
+            while($res <= $participantes)
+            {
+                $fases++;
+                $res = pow(2,$fases);
         }
-        return view('reserva.index');
 
+            return('estudiante.torneos_show')
+            ->with('deportes_sidebar', $deportes_sidebar)
+            ->with('torneo', $torneo)
+            ->with('i',$i)
+            ->with('fases', $fases);
 
-        // 1540577180
-        // 1540577190
+        } else
+        {
         return view('estudiante.torneos_show')
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('torneo', $torneo)
         ->with('i',$i);
+    }
+
+
+
+
+        // if(time($reserva->fecha_reserva) > time())
+        // {
+        //     // hacer reserva
+        // }
+
+
     }
 
     /**
