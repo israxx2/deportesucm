@@ -100,6 +100,7 @@
   </div>
 </div>
 
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
 <script>
@@ -107,7 +108,7 @@ $(function() {
 	$(function() {
     $('#favoritesModal').on("show.bs.modal", function (e) {
          $("#favoritesModalLabel").html($(e.relatedTarget).data('title'));
-		 console.log($(e.relatedTarget).data('id'));
+		
          $("#id1").val($(e.relatedTarget).data('id'));
 		 $("#id2").val($(e.relatedTarget).data('id2'));
 		 $("#id3").val($(e.relatedTarget).data('id3'));

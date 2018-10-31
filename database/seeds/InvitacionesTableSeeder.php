@@ -16,7 +16,7 @@ class InvitacionesTableSeeder extends Seeder
             'receptor_id' => 4,
             'tipo' => 'privada',
             'descripcion' => 'descripcion del partido',
-            'horario' => 'nose',
+            'horario' => '2011-01-01',
             'lugar' => 'nose',
             'numero' => 'nose',
         ]);
@@ -26,8 +26,8 @@ class InvitacionesTableSeeder extends Seeder
             'receptor_id' => 5,
             'tipo' => 'privada',
             'descripcion' => 'descripcion del partido',
-            'horario' => 'nose',
-            'lugar' => 'nose',
+            'horario' => '2011-01-01',
+            'lugar' => '123123',
             'numero' => 'nose',
         ]);
         DB::table('invitaciones')->insert([
@@ -35,7 +35,7 @@ class InvitacionesTableSeeder extends Seeder
             'receptor_id' => 2,
             'tipo' => 'privada',
             'descripcion' => 'descripcion del partido',
-            'horario' => 'nose',
+            'horario' => '2011-01-01',
             'lugar' => 'nose',
             'numero' => 'nose',
         ]);

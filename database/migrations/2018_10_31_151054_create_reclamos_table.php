@@ -15,12 +15,12 @@ class CreateReclamosTable extends Migration
     {
         Schema::create('reclamos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('partido_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->string('descripcion');
             $table->enum('estado',['pendiente', 'atendida']);
             $table->timestamps();
 
-            $table->foreign('equipo_id')->references('id')->on('equipos')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -260,33 +260,14 @@ class EstudianteController extends Controller
 
     public function reclamo(Request $request){
 
-
-        dd("falta la tabla y hacer el store :) #palo pal edu a.a ");
-
-        #$request->user_id  #ide del usuario q reclama
-        #$request->Descripcion  #reclamooooooooo
-
-
-        return Redirect('e/partidos/');
-
-
+        $reclamo = new Reclamo();
+        $reclamo->descripcion = $request->Descripcion ;
+        $reclamo->user_id = $request->user_id ;
+        $reclamo->save();
+        return Redirect('e/partidos/')->with('message', 'Reclamo Enviado con exito!');;
     }
 
-        #METODO Q NO SE OCUPARA-
-    public function partido_show($id){
-        $deporte=Deporte::all();
-        $deportes_sidebar = Deporte::all();
 
-        $resultado = Partido::find($id);
-
-        return view('estudiante.partidos_show')
-        ->with('deportes_sidebar', $deportes_sidebar)
-        ->with('resultado', $resultado)
-        ->with('deporte', $deporte);
-        return Redirect('e/partidos/');
-
-
-    }
 
 
 }

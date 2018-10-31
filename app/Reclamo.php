@@ -9,11 +9,11 @@ class Reclamo extends Model
     protected $table = 'reclamos';
 
     protected $fillable = [
-        'partido_id', 'descripcion', 'estado',
+        'user_id', 'descripcion', 'estado',
     ];
 
     public function partido()
     {
-        return $this->belongsTo('App\Partido', 'partido_id');
+        return $this->belongsTo('App\User', 'user_id');
     }
 }
