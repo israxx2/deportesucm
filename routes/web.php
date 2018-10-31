@@ -222,6 +222,12 @@ Route::group(['prefix' => 'e'], function () {
         'as' => 'estudiante.equipos.show'
     ]);
 
+    //FILTRO DE equipos por modalidad
+    Route::get('deporte/{id}/filtro_equipo' , [
+        'uses'  =>'Estudiante\EstudianteController@filtro_equipo',
+        'as'    =>'estudiante.filtro_equipo'
+     ]);
+
     //Ver equipo por modalidad
     Route::get('equipomod/{id}', [
       'uses' => 'Estudiante\EstudianteController@equipoMod_show',
