@@ -204,6 +204,8 @@ Route::group(['prefix' => 'e'], function () {
         'as' => 'estudiante.modalidades.show'
     ]);
 
+ 
+
     //CREAR UN EQUIPO
     Route::post('equipo', [
         'uses' => 'Estudiante\EstudianteController@equipo_store',

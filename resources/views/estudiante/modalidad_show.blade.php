@@ -25,10 +25,14 @@
                 <h5 class="card-category">Equipos</h5>
             </div>
             <div class="list-group-item">
-                    @foreach($deporte->modalidades as $modalidad)
+                    @foreach($equipo as $equipo)
                     <div class="list-group-item">
-                        <a href="{{ route('estudiante.modalidades.show', ['id' => $modalidad->id]) }}"><h5>{{ ''.$modalidad->nombre }}</h5></a>
-                        <h5>{{ ''.$modalidad->descripcion }}</h5>
+                         <li class="list-group-item"><b>NOMBRE: </b>{{ $equipo->nombre }}</li>
+                         <li class="list-group-item"><b>DESCRIPCION: </b>{{ $equipo->descripcion }}</li>
+                         <li class="list-group-item"><b>VICTORIAS: </b>{{ $equipo->victorias_totales }}</li>
+                         <li class="list-group-item"><b>DERROTAS: </b>{{ $equipo->derrotas_totales }}</li>
+                         <li class="list-group-item"><b>PUNTOS A FAVOR: </b>{{ $equipo->puntos_favor_totales }}</li>
+                         <li class="list-group-item"><b>PUNTOS EN CONTRA: </b>{{ $equipo->puntos_contra_totales }}</li>
                     </div>    
                     @endforeach
             </div>
