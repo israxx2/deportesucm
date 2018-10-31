@@ -35,22 +35,9 @@ class EstudianteController extends Controller
 
         $deportes_sidebar = Deporte::all();
         $deporte = Deporte::find($id);
-        $modalidad = Modalidad::find(10);
-        $ranking = Collection::make();
-        $i = 1;
 
-        foreach($modalidad->equipos as $equipo){
-            $ranking->push(['id' => $equipo->id, 'partidos_win' => count($equipo->partidosGanados)]);
-        }
 
-        $ranking = $ranking->sortBy('partidos_win');
-        foreach($ranking as $key => $array){
 
-            $array['lugar'] = $i;
-            $ranking[$key] = $array;
-            $i = $i + 1;
-        }
-        dd($ranking);
         return view('estudiante.deporte_show')
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('deporte', $deporte);
