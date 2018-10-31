@@ -49,7 +49,8 @@ class EstudianteController extends Controller
 
         return view('estudiante.modalidad_show')
         ->with('deportes_sidebar', $deportes_sidebar)
-        ->with('deporte', $deporte);
+        ->with('deporte', $deporte)
+        ->with('modalidad',$modalidad);
     }
 
     public function equipo_store(Request $request){
