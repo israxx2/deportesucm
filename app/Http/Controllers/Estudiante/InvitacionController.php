@@ -74,6 +74,20 @@ class InvitacionController extends Controller
         $invitacion->save();
         return Redirect('e/invitacion/');
     }
+    public function store_pu(Request $request)
+    {
+        $invitacion = new Invitacion;
+        $invitacion->emisor_id =Auth::user()->id;
+        $invitacion->receptor_id = null;
+        $invitacion->horario = $request->horario;
+        $invitacion->lugar = $request->lugar;
+        $invitacion->descripcion = $request->descripcion;
+        $invitacion->numero = $request->numero;
+        $invitacion->tipo = 'PUBLICA';
+        $invitacion->aceptado = 'false';
+        $invitacion->save();
+        return redirect('e/publico');
+    }
 
     /**
      * Display the specified resource.
@@ -126,11 +140,11 @@ class InvitacionController extends Controller
      */
     public function publico()
     {
-        dd('hola');
         $user=Auth::user()->id;
         $equipos = DB::select('SELECT equipos.id,
         equipos.nombre from equipos where equipos.user_id <> '.$user);
         $invitaciones = DB::select('SELECT 
+        deportes.nombre as deporte_nombre,
         invitaciones.id as id,
         invitaciones.emisor_id as emisor,
         invitaciones.receptor_id as receptor, 
@@ -140,12 +154,15 @@ class InvitacionController extends Controller
         invitaciones.lugar as lugar_invi,
         invitaciones.numero as numero_invi
         FROM invitaciones join equipos on invitaciones.emisor_id = equipos.id
-        where invitaciones.tipo = "PRIVADA"
+        join modalidades on equipos.modalidad_id = modalidades.id
+        join deportes on modalidades.deporte_id = deportes.id
+        where invitaciones.tipo = "PUBLICA"
         and invitaciones.aceptado = "false"
-        and invitaciones.receptor_id in (SELECT equipos.id from equipos where 
+        and invitaciones.emisor_id NOT IN  (SELECT equipos.id from equipos where 
         equipos.user_id = '. $user.')');
+
         $deportes_sidebar = Deporte::all();
-        return view('estudiante.invitaciones.publico')
+        return view('Estudiante.invitaciones.publico')
         ->with('equipos', $equipos)
         ->with('invitaciones', $invitaciones)
         ->with('deportes_sidebar', $deportes_sidebar);
