@@ -32,7 +32,6 @@ class EstudianteController extends Controller
     }
 
     public function deporte_show($id){
-
         $deportes_sidebar = Deporte::all();
         $deporte = Deporte::find($id);
 
@@ -45,26 +44,19 @@ class EstudianteController extends Controller
 
         $modalidad = Modalidad::find($id);
         $deportes_sidebar = Deporte::all();
-        $deporte = Deporte::find($modalidad->deporte->id);
-        $equipo = $modalidad->equipos;
-
-        $equiposOrdenados = $equipo->sortBy('victorias_totales');
+        $ranking = $modalidad->equipos->sortBy('victorias_totales');
         $i=1;
 
-        foreach($equiposOrdenados as $equiposOrdenado){
-            $equiposOrdenado['puesto']=$i;
+        foreach($ranking as $equipo){
+            $equipo['puesto']=$i;
             $i=$i+1;
 
         }
 
-
-
         return view('estudiante.modalidad_show')
         ->with('deportes_sidebar', $deportes_sidebar)
-        ->with('deporte', $deporte)
-        ->with('modalidad',$modalidad)
-        ->with('equipo',$equipo)
-        ->with('equiposOrdenado',$equiposOrdenado);
+        ->with('ranking',$ranking)
+        ->with('modalidad', $modalidad);
     }
 
 

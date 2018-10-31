@@ -30,7 +30,7 @@
             </div>
         </div>
         @else
-            @foreach($equipos as $equipo)
+            @foreach($modalidad->equipos as $equipo)
             <div class="card card-nav-tabs">
                 <div class="card-header card-header-warning">
                 {{ $equipo->modalidad->nombre }}

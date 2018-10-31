@@ -16,7 +16,7 @@
             <div class="card-header">
             <li class="list-group-item"><b>NOMBRE: </b>{{ $modalidad->nombre }}</li>
             <li class="list-group-item"><b>DESCRIPCION: </b>{{ $modalidad->descripcion }}</li>
-   
+
 </div>
     <div class="row">
     <div class="col-sm-8">
@@ -25,7 +25,7 @@
                 <h5 class="card-category">Equipos</h5>
             </div>
             <div class="list-group-item">
-                    @foreach($equipo as $equipo)
+                    @foreach($modalidad->equipos as $equipo)
                     <div class="list-group-item">
                          <li class="list-group-item"><b>NOMBRE: </b>{{ $equipo->nombre }}</li>
                          <li class="list-group-item"><b>DESCRIPCION: </b>{{ $equipo->descripcion }}</li>
@@ -33,7 +33,7 @@
                          <li class="list-group-item"><b>DERROTAS: </b>{{ $equipo->derrotas_totales }}</li>
                          <li class="list-group-item"><b>PUNTOS A FAVOR: </b>{{ $equipo->puntos_favor_totales }}</li>
                          <li class="list-group-item"><b>PUNTOS EN CONTRA: </b>{{ $equipo->puntos_contra_totales }}</li>
-                    </div>    
+                    </div>
                     @endforeach
             </div>
             <div class="card-footer">
@@ -47,12 +47,12 @@
 </div>
 
 <div class="col-ml-9 col-sm-8">
-    @foreach($equiposOrdenado as $equipos)
+    @foreach($ranking as $equipo)
         <div class="list-group-item">
-            <li class="list-group-item"><b>PUESTO: </b>{{ $equipos->puesto }}</li>
-            <li class="list-group-item"><b>NOMBRE: </b>{{ $equipos->nombre }}</li>
-            <li class="list-group-item"><b>VICTORIAS: </b>{{ $equipos->victorias_totales }}</li>
-        </div>    
+            <li class="list-group-item"><b>PUESTO: </b>{{ $equipo->puesto }}</li>
+            <li class="list-group-item"><b>NOMBRE: </b>{{ $equipo->nombre }}</li>
+            <li class="list-group-item"><b>VICTORIAS: </b>{{ $equipo->victorias_totales }}</li>
+        </div>
     @endforeach
 
 
@@ -79,7 +79,7 @@
                 <label>Modalidad</label>
                 <select name="modalidad"  class="form-control" required>
                     <option value="">Seleccione Modalidad</option>
-                    @foreach($deporte->modalidades as $modalidad)
+                    @foreach($modalidad->deporte->modalidades as $modalidad)
                         <option value="{{$modalidad->id}}">{{$modalidad->nombre}}</option>
                     @endforeach
                 </select>
