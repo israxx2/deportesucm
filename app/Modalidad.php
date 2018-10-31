@@ -31,4 +31,9 @@ class Modalidad extends Model
     {
         return $this->hasMany('App\Torneo', 'modalidad_id');
     }
+
+    public function equipos()
+    {
+        return $this->hasMany('App\Equipo', 'modalidad_id');
+    }
 }

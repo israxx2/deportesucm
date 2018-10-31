@@ -62,7 +62,15 @@ class TorneoController extends Controller
         $i = 0;
         $equipos = $torneo->equipos;
 
+        if(time($reserva->fecha_reserva) > time())
+        {
+            // hacer reserva
+        }
+        return view('reserva.index');
 
+
+        // 1540577180
+        // 1540577190
         return view('estudiante.torneos_show')
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('torneo', $torneo)

@@ -19,7 +19,7 @@ class CreateInvitacionesTable extends Migration
             $table->integer('receptor_id')->unsigned()->nullable();
             $table->enum('tipo',['PUBLICA','PRIVADA']);
             $table->string('descripcion');
-            $table->string('horario');
+            $table->dateTime('horario');
             $table->string('lugar');
             $table->string('numero');
             $table->timestamps();
