@@ -203,10 +203,19 @@ class EstudianteController extends Controller
             AND deportes.id ='.$request->id.'
             ORDER BY partidos.created_at DESC');
 
-
+      
 
         }
 
+        for($i = 0; $i < sizeof($resultado); $i++)
+        {
+            
+         $n_local= Equipo::find($resultado[$i]->local_id);
+         $n_visita= Equipo::find($resultado[$i]->visita_id);
+ 
+          $resultado[$i]->local_id = strtoupper($n_local->nombre);
+          $resultado[$i]->visita_id = strtoupper($n_visita->nombre);
+        }
         return view('estudiante.filtro_mis_partidos',['resultado'=>$resultado])->render();
 
 
