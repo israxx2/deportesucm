@@ -33,4 +33,9 @@ class Torneo extends Model
     {
         return $this->belongsTo('App\Modalidad', 'modalidad_id');
     }
+
+    public function enfrentamientos()
+    {
+
+    }
 }

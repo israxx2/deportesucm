@@ -22,6 +22,7 @@ class CreateTorneosTable extends Migration
             $table->integer('min');
             $table->integer('max');
             $table->enum('tipo', ['llave', 'grupo']);
+            $table->boolean('cerrado')->default(0);
             $table->softDeletes();
             $table->timestamps();
 
