@@ -18,8 +18,8 @@ class CreateEnfrentamientosTable extends Migration
             $table->integer('fase');
             $table->integer('torneo_id')->unsigned();
             $table->integer('local_id')->unsigned();
-            $table->integer('visita_id')->unsigned();
-            $table->integer('ganador_id')->unsigned();
+            $table->integer('visita_id')->unsigned()->nullable();
+            $table->integer('ganador_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('torneo_id')->references('id')->on('torneos')->onDelete('cascade');

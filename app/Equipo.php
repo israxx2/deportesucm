@@ -37,10 +37,21 @@ class Equipo extends Model
         return $this->hasMany('App\Partido', 'ganador_id');
     }
 
-    public function partidosPerdidos()
+    public function enfrentamientosLocal()
     {
-        return $this::where('ganador_id','!=', $this->id);
+        return $this->hasMany('App\Enfrentamiento', 'local_id');
     }
+
+    public function enfrentamientosVisita()
+    {
+        return $this->hasMany('App\Enfrentamiento', 'visita_id');
+    }
+
+    public function enfrentamientosGanados()
+    {
+        return $this->hasMany('App\Enfrentamiento', 'ganador_id');
+    }
+
     public function users()
     {
         return $this->belongsToMany('App\User', 'cuenta')

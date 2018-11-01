@@ -21,10 +21,7 @@
                             <i class="fa fa-plus"></i>
                         </button>
                     </div>
-
                 </div>
-
-
             </div>
             <div class="card-body">
                 <div class="container">
@@ -53,43 +50,89 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body ">
-                                <div class="tab-content text-center">
+                        <div class="card-body ">
+                        <div class="tab-content text-center">
 
-                                    {{-- PARTICIPANTES --}}
-                                    <div class="tab-pane active" id="participantes">
+                            {{-- PARTICIPANTES --}}
+                            <div class="tab-pane active" id="participantes">
+                                <h3>Inscritos</h3>
+                                @for($i=0;$i<$torneo->max;$i++)
 
-
-                                        <h3>Inscritos</h3>
-
-
-                                        @for($i=0;$i<$torneo->max;$i++)
-
-                                            @if(isset($torneo->equipos[$i]))
-                                                <div class="card" style="width: 50rem;">
-                                                    <div class="card-body">
-                                                    <h5 class="card-title">{{ $torneo->equipos[$i]->nombre }}</h5>
-                                                    </div>
-                                                </div>
-                                            @else
-                                                <div class="card" style="width: 50rem;">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Espacio Disponible</h5>
-                                                    </div>
-                                                </div>
-                                            @endif
-                                        @endfor
-                                    </div>
-                                    {{-- HISTORIAL --}}
-                                    <div class="tab-pane active" id="historial">
-                                        <div class="container">
-                                            @for($i=1; $i<=$fases; $i++)
-
-                                            @endfor
+                                    @if(isset($torneo->equipos[$i]))
+                                        <div class="card" style="width: 50rem;">
+                                            <div class="card-body">
+                                            <h5 class="card-title">{{ $torneo->equipos[$i]->nombre }}</h5>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    @else
+                                        <div class="card" style="width: 50rem;">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Espacio Disponible</h5>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endfor
                             </div>
+                            {{-- HISTORIAL --}}
+                            <div class="tab-pane active" id="historial">
+                                <div class="container">
+                                    @if($torneo->tipo == 'llave')
+                                        @for($i=1; $i<=$fases; $i++)
+                                        <div class="table-responsive">
+                                            <h2>{{ 'FASE '.+$i }}</h2>
+                                            <table class="table table-striped display compact table-condensed" id="{{ 'table_fases_'.$i }}">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Equipo</th>
+                                                        <th>vs</th>
+                                                        <th>Equipo</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($torneo->enfrentamientos->where('fase', $i) as $enfrentamiento)
+                                                        <tr>
+                                                            @if($enfrentamiento->ganador_id == $enfrentamiento->equipoLocal->id)
+                                                                <td>
+                                                                    <span class="badge badge-pill badge-success">{{ $enfrentamiento->equipoLocal->nombre }}</span>
+                                                                </td>
+                                                                <td>vs</td>
+                                                                <td>
+                                                                    @if($enfrentamiento->visita_id != null)
+                                                                        <div class="alert alert-danger">{{ $enfrentamiento->equipoVisita->nombre }}</div>
+                                                                    @else
+                                                                        <div class="alert alert-danger" role="alert">SIN RIVAL</div>
+                                                                    @endif
+                                                                </td>
+                                                            @elseif($enfrentamiento->ganador_id == $enfrentamiento->equipoVisita->id)
+                                                                <td>
+                                                                    <div class="alert alert-danger" role="alert">
+                                                                        {{ $enfrentamiento->equipoLocal->nombre }}
+                                                                    </div>
+                                                                </td>
+                                                                <td>vs</td>
+                                                                <td>
+                                                                    <div class="alert alert-success" role="alert">
+                                                                        {{ $enfrentamiento->equipoVisita->nombre }}
+                                                                    </div>
+                                                                </td>
+                                                            @else
+                                                                <td>{{ $enfrentamiento->equipoLocal->nombre }}</td>
+                                                                <td>vs</td>
+                                                                <td>{{ $enfrentamiento->equipoVisita->nombre }}</td>
+                                                            @endif
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                    @endif
+                                </div>
+                                            <br><br>
+                                        @endfor
+
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                         </div>
                 </div>
 

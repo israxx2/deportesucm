@@ -19,8 +19,10 @@ class DatabaseSeeder extends Seeder
             EquiposTableSeeder::class,
             TorneosTableSeeder::class,
             InscripcionTableSeeder::class,
+            EnfrentamientosTableSeeder::class,
             CuentaTableSeeder::class,
             InvitacionesTableSeeder::class,
+
         ]);
     }
 }
