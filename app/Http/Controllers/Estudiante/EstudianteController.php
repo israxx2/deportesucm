@@ -222,7 +222,6 @@ class EstudianteController extends Controller
 
     }
 
-
     public function registrar_resultado_index(){
         $user=Auth::user()->id;
 
@@ -284,6 +283,13 @@ class EstudianteController extends Controller
         return Redirect('e/partidos/')->with('message', 'Reclamo Enviado con exito!');;
     }
 
+    public function solicitud_equipo(Request $request){
+        $request->equipo_id;
+        $request->user_id;
+        
+        
+        return Redirect('e/partidos/');
+    }
 
 
 
