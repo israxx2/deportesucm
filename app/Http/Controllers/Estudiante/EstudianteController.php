@@ -8,10 +8,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Equipo;
+use App\Invitacion;
 use App\Deporte;
 use App\Modalidad;
 use App\Partido;
-use App\Invitacion;
 use App\Reclamo;
 use Illuminate\Support\Collection as Collection;
 
@@ -40,6 +40,7 @@ class EstudianteController extends Controller
 
 
         return view('estudiante.deporte_show')
+        ->with('invitaciones',$invitaciones)
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('deporte', $deporte);
     }

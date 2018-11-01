@@ -22,9 +22,9 @@ class CreateInvitacionesTable extends Migration
             $table->dateTime('horario');
             $table->string('lugar');
             $table->string('numero');
+            $table->string('aceptado');
             $table->timestamps();
             $table->softDeletes();
-
             $table->foreign('emisor_id')->references('id')->on('equipos')->onDelete('cascade');
             $table->foreign('receptor_id')->references('id')->on('equipos')->onDelete('cascade');
         });
