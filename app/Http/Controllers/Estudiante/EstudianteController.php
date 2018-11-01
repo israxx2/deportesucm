@@ -48,7 +48,14 @@ class EstudianteController extends Controller
 
         $modalidad = Modalidad::find($id);
         $deportes_sidebar = Deporte::all();
-        $deporte = Deporte::find($modalidad->deporte->id);
+        $ranking = $modalidad->equipos->sortBy('victorias_totales');
+        $i=1;
+
+        foreach($ranking as $equipo){
+            $equipo['puesto']=$i;
+            $i=$i+1;
+
+        }
 
         return view('estudiante.modalidad_show')
         ->with('deportes_sidebar', $deportes_sidebar)
