@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public function equipos()
     {
-        return $this->belongsToMany('App\Equipo', 'cuenta', 'user_id', 'equipo_id')
+        return $this->belongsToMany('App\Equipo', 'cuenta', 'user_id', 'equipo_id','estado')
         //->withPivot('goles', 'resultado', 'elo', 'elo_anterior') atributos de la tabla intermedia
         ->withTimestamps();
     }

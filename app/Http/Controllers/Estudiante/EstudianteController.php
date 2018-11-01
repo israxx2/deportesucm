@@ -282,14 +282,36 @@ class EstudianteController extends Controller
         return Redirect('e/partidos/')->with('message', 'Reclamo Enviado con exito!');;
     }
 
+
     public function solicitud_equipo(Request $request){
-        $request->equipo_id;
-        $request->user_id;
-        
-        
-        return Redirect('e/partidos/');
+
+        $equipo=$request->equipo_id;
+        $user_id=Auth::user()->id;
+        $user= User::find($user_id);
+        $user->equipos()->attach($equipo, ['user_id'=>$user_id,'estado' => 'pendiente']);  
+        return Redirect('e/comunidad/');
     }
 
+    public function abandonar_equipo(Request $request){
+       
+        $equipo=$request->equipo_id;
+        $user_id=Auth::user()->id;
+
+        $equipo= Equipo::find($equipo);
+        $equipo->users()->detach($user_id);
+        return Redirect('e/comunidad/');
+    }
+
+
+
+    public function show_all_equipos(){
+        $equipos = Equipo::all();
+        $deportes_sidebar = Deporte::all();
+       
+        return view('estudiante.comunidad')
+        ->with('deportes_sidebar', $deportes_sidebar)
+        ->with('equipos', $equipos);
+    }
 
 
 }

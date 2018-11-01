@@ -17,6 +17,7 @@ class CreateCuentaTable extends Migration
             $table->increments('id');
             $table->integer('equipo_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->enum('estado',['pendiente', 'aceptada']);
             $table->timestamps();
 
             $table->foreign('equipo_id')->references('id')->on('equipos')->onDelete('cascade');

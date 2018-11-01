@@ -278,6 +278,24 @@ Route::group(['prefix' => 'e'], function () {
       'uses'  =>'Estudiante\EstudianteController@reclamo',
       'as'    =>'estudiante.reclamo'
     ]);
+
+    Route::get('comunidad/',[
+      'uses'  =>'Estudiante\EstudianteController@show_all_equipos',
+      'as'    =>'estudiante.show_all_equipos'
+    ]);
+
+    //solicitud de equipo
+    Route::post('solicitud_equipo/',[
+      'uses'  =>'Estudiante\EstudianteController@solicitud_equipo',
+      'as'    =>'estudiante.solicitud_equipo'
+    ]);
+
+    //Abandonar un  equipo
+    Route::post('abandonar_equipo/',[
+      'uses'  =>'Estudiante\EstudianteController@abandonar_equipo',
+      'as'    =>'estudiante.abandonar_equipo'
+    ]);
+
     //show_partido
     Route::get('partido_show/{id}',[
         'uses'  =>'Estudiante\EstudianteController@partido_show',
