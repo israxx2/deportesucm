@@ -73,7 +73,7 @@
 			
 	  {!! Form::hidden('id_local', '', ['id' => 'id1']) !!}
 	  {!! Form::hidden('id_visita', '', ['id' => 'id2']) !!}
-	  {!! Form::hidden('id_invitacion', '', ['id' => 'id3']) !!}
+	  {!! Form::hidden('invitacion_id', '', ['id' => 'id3']) !!}
 
 			<div class="row">
 			<div class="col md6">
@@ -100,10 +100,14 @@
   </div>
 </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>    
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
+
+
 
 <script>
-$(function() {
 	$(function() {
     $('#favoritesModal').on("show.bs.modal", function (e) {
          $("#favoritesModalLabel").html($(e.relatedTarget).data('title'));
@@ -112,7 +116,6 @@ $(function() {
 		 $("#id2").val($(e.relatedTarget).data('id2'));
 		 $("#id3").val($(e.relatedTarget).data('id3'));
     });
-});
 });
 
 

@@ -1,7 +1,10 @@
-
 @extends('estudiante.layouts.app')
-
+@section('title', 'Partidos Jugados')
 @section('content')
+
+@if(Session::has('message'))
+<p class="alert alert-danger">{{ Session::get('message') }}</p>
+@endif
 
 <br>
 <hr>
@@ -24,7 +27,16 @@
                
             {!! Form::close() !!}
         </div>
+    @if(count($contador)==0)
+    <div class= "col-md-9 " align="right">
+            <a href="/e/registrar_resultado_index" class="btn btn-warning navbar-btn disabled"> 
+            <i class="fa fa-lightbulb"></i>
+            <span > Registrar Partidos ({{ count($contador) }}) </span>
+            </a>
+        </div>
 
+    </div>
+    @else
         <div class= "col-md-9 " align="right">
             <a href="/e/registrar_resultado_index" class="btn btn-warning navbar-btn"> 
             <i class="fa fa-lightbulb"></i>
@@ -33,13 +45,14 @@
         </div>
 
     </div>
-    
+    @endif
 
 
 <br><br>
 <div id="div_user">
+
 @foreach($resultado as $resultado)
-    <div  class="card" style="width: 20rem;">
+    <div  class="card" style="width: 30rem;">
         <img class="card-img-top" width="320" height="180"  
             src="{{ $resultado->imagen }}"        
             alt="Card image cap">
@@ -58,15 +71,17 @@
             </h4> 
             
             <p class="card-text">
-                <p> <b>Equipo Rival: {{ $resultado->visita_id }}</b ></p>
-                
-                <p> </p>
-                
+                <center><p> 
+                {{ $resultado->local_id }}  
+                 <strong> VS </strong> 
+                {{ $resultado->visita_id }}</p></center>
+        
+    
             </p>
             <button style="float: right;" type="button" 
                 class="btn btn-danger btn-xs" 
                 data-toggle="modal" 
-                data-id="{{$resultado->id_user }}"
+                data-id="{{$resultado->id }}"
                 data-target="#favoritesModal">Reclamar
 		</button>
             </div>
@@ -92,7 +107,8 @@
 	  {!! Form::open(['route' => 'estudiante.reclamo', 'class' => 'form'	]) !!}
 		
 			
-	    {!! Form::hidden('user_id', '', ['id' => 'id1']) !!}
+	    {!! Form::hidden('partido_id', '', ['id' => 'id1']) !!}
+
 
 
 			<div class="row">
@@ -117,7 +133,9 @@
   </div>
 </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>    
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
 
 <script>
       $(document).ready(function(){

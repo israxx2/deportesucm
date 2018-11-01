@@ -37,5 +37,6 @@ class CreatePartidosTable extends Migration
     public function down()
     {
         Schema::dropIfExists('partidos');
+
     }
 }

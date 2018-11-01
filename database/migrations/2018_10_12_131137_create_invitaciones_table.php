@@ -19,11 +19,12 @@ class CreateInvitacionesTable extends Migration
             $table->integer('receptor_id')->unsigned()->nullable();
             $table->enum('tipo',['PUBLICA','PRIVADA']);
             $table->string('descripcion');
-            $table->string('horario');
+            $table->dateTime('horario');
             $table->string('lugar');
             $table->string('numero');
+            $table->string('aceptado')->default('false');
             $table->timestamps();
-
+            $table->softDeletes();
             $table->foreign('emisor_id')->references('id')->on('equipos')->onDelete('cascade');
             $table->foreign('receptor_id')->references('id')->on('equipos')->onDelete('cascade');
         });

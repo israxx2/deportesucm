@@ -15,11 +15,19 @@ class CreateTorneosTable extends Migration
     {
         Schema::create('torneos', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('modalidad_id')->unsigned();
             $table->string('nombre');
+            $table->string('descripcion');
             $table->date('fecha');
+            $table->integer('min');
+            $table->integer('max');
             $table->enum('tipo', ['llave', 'grupo']);
+            $table->integer('fase_actual')->default(1);
+            $table->boolean('cerrado')->default(0);
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('modalidad_id')->references('id')->on('modalidades')->onDelete('cascade');
         });
     }
 

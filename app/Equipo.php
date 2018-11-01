@@ -32,11 +32,24 @@ class Equipo extends Model
         return $this->hasMany('App\Partido', 'visita_id');
     }
 
-    public function partidos()
+    public function partidosGanados()
     {
-        $partidosLocal = partidosLocal();
-        $partidosVisita = partidosVisita();
-        return $partidosLocal->concat($partidosVisita)->all();
+        return $this->hasMany('App\Partido', 'ganador_id');
+    }
+
+    public function enfrentamientosLocal()
+    {
+        return $this->hasMany('App\Enfrentamiento', 'local_id');
+    }
+
+    public function enfrentamientosVisita()
+    {
+        return $this->hasMany('App\Enfrentamiento', 'visita_id');
+    }
+
+    public function enfrentamientosGanados()
+    {
+        return $this->hasMany('App\Enfrentamiento', 'ganador_id');
     }
 
     public function users()
@@ -60,11 +73,11 @@ class Equipo extends Model
 
     public function invitacionesRealizadas()
     {
-        return $this->hasMany('App\Invitacion', 'equipo_id');
+        return $this->hasMany('App\Invitacion', 'emisor_id');
     }
 
     public function invitacionesRecibidas()
     {
-        return $this->hasMany('App\Invitacion', 'equipo_id');
+        return $this->hasMany('App\Invitacion', 'receptor_id');
     }
 }

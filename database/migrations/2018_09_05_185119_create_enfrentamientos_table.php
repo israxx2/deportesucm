@@ -15,14 +15,17 @@ class CreateEnfrentamientosTable extends Migration
     {
         Schema::create('enfrentamientos', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('fase');
             $table->integer('torneo_id')->unsigned();
             $table->integer('local_id')->unsigned();
-            $table->integer('visita_id')->unsigned();
+            $table->integer('visita_id')->unsigned()->nullable();
+            $table->integer('ganador_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('torneo_id')->references('id')->on('torneos')->onDelete('cascade');
             $table->foreign('local_id')->references('id')->on('equipos')->onDelete('cascade');
             $table->foreign('visita_id')->references('id')->on('equipos')->onDelete('cascade');
+            $table->foreign('ganador_id')->references('id')->on('equipos')->onDelete('cascade');
         });
     }
 

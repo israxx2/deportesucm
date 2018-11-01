@@ -46,6 +46,47 @@ class EquiposTableSeeder extends Seeder
             'user_id' => 3
         ]);
 
-       
+        DB::table('equipos')->insert([
+            'modalidad_id' => 10,
+            'conformado' => 1,
+            'nombre' => 'los bacanosos',
+            'user_id' => 1
+        ]);
+
+        DB::table('equipos')->insert([
+            'modalidad_id' => 10,
+            'conformado' => 1,
+            'nombre' => 'que sucede',
+            'user_id' => 2
+        ]);
+
+        DB::table('equipos')->insert([
+            'modalidad_id' => 10,
+            'conformado' => 1,
+            'nombre' => '1 + 1 soprole',
+            'user_id' => 3
+        ]);
+
+        DB::table('equipos')->insert([
+            'modalidad_id' => 10,
+            'conformado' => 1,
+            'nombre' => 'calla a ese viejo',
+            'user_id' => 4
+        ]);
+
+        DB::table('equipos')->insert([
+            'modalidad_id' => 10,
+            'conformado' => 1,
+            'nombre' => 'los pichacortes',
+            'user_id' => 5
+        ]);
+
+        DB::table('equipos')->insert([
+            'modalidad_id' => 10,
+            'conformado' => 1,
+            'nombre' => 'auxilio',
+            'user_id' => 6
+        ]);
+
     }
 }

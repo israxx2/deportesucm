@@ -8,10 +8,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Equipo;
+use App\Invitacion;
 use App\Deporte;
 use App\Modalidad;
 use App\Partido;
-use App\Invitacion;
+use App\Reclamo;
 use Illuminate\Support\Collection as Collection;
 
 class EstudianteController extends Controller
@@ -35,6 +36,8 @@ class EstudianteController extends Controller
 
         $deportes_sidebar = Deporte::all();
         $deporte = Deporte::find($id);
+
+
 
         return view('estudiante.deporte_show')
         ->with('deportes_sidebar', $deportes_sidebar)
@@ -132,12 +135,24 @@ class EstudianteController extends Controller
             where users.id='. $user.'
             ORDER BY partidos.created_at DESC');
 
+       for($i = 0; $i < sizeof($resultado); $i++)
+       {
+           
+        $n_local= Equipo::find($resultado[$i]->local_id);
+        $n_visita= Equipo::find($resultado[$i]->visita_id);
+
+         $resultado[$i]->local_id = strtoupper($n_local->nombre);
+         $resultado[$i]->visita_id = strtoupper($n_visita->nombre);
+       }
+      
+
+
         $contador = DB::select('SELECT *
         from invitaciones join equipos ON invitaciones.receptor_id = equipos.id
         join modalidades ON modalidades.id = equipos.modalidad_id
         join deportes ON deportes.id = modalidades.deporte_id
         join users ON users.id = equipos.user_id
-        where users.id='. $user);
+        where users.id='. $user.'  AND invitaciones.deleted_at is NULL');
 
         return view('estudiante.partidos')
         ->with('deportes_sidebar', $deportes_sidebar)
@@ -205,15 +220,23 @@ class EstudianteController extends Controller
             AND deportes.id ='.$request->id.'
             ORDER BY partidos.created_at DESC');
 
-
+      
 
         }
 
+        for($i = 0; $i < sizeof($resultado); $i++)
+        {
+            
+         $n_local= Equipo::find($resultado[$i]->local_id);
+         $n_visita= Equipo::find($resultado[$i]->visita_id);
+ 
+          $resultado[$i]->local_id = strtoupper($n_local->nombre);
+          $resultado[$i]->visita_id = strtoupper($n_visita->nombre);
+        }
         return view('estudiante.filtro_mis_partidos',['resultado'=>$resultado])->render();
 
 
     }
-
 
     public function registrar_resultado_index(){
         $user=Auth::user()->id;
@@ -231,7 +254,7 @@ class EstudianteController extends Controller
         join modalidades ON modalidades.id = equipos.modalidad_id
         join deportes ON deportes.id = modalidades.deporte_id
         join users ON users.id = equipos.user_id
-        where users.id='. $user);
+        where users.id='. $user.'  AND invitaciones.deleted_at is NULL');
 
 
         return view('estudiante.registrar_resultado_index')
@@ -241,11 +264,10 @@ class EstudianteController extends Controller
     }
 
     public function registrar_resultado_store(Request $request){
-
-        #$Invitacion = Invitacion::find($request->id_invitaciones); #softdelete?
-
-        #$Invitacion->delete();
-        #$Invitacion->save();
+        
+        $Invitacion = Invitacion::find($request->invitacion_id);     
+        $Invitacion->delete();
+        $Invitacion->save();
 
         $partido = new Partido();
         $partido->local_id = $request->id_local; //este dato debe venir de la invitacion
@@ -257,14 +279,9 @@ class EstudianteController extends Controller
 
             $partido->ganador_id = $request->id_local;
         }
-        else if($request->puntos_local = $request->puntos_visita ) {
-            $partido->ganador_id =0;
-        }
         else  {
             $partido->ganador_id = $request->id_visita;
         }
-
-
 
         $partido->save();
 
@@ -275,33 +292,21 @@ class EstudianteController extends Controller
 
     public function reclamo(Request $request){
 
-
-        dd("falta la tabla y hacer el store :) #palo pal edu a.a ");
-
-        #$request->user_id  #ide del usuario q reclama
-        #$request->Descripcion  #reclamooooooooo
-
-
-        return Redirect('e/partidos/');
-
-
+        $reclamo = new Reclamo();
+        $reclamo->descripcion = $request->Descripcion ;
+        $reclamo->partido_id = $request->partido_id ;
+        $reclamo->save();
+        return Redirect('e/partidos/')->with('message', 'Reclamo Enviado con exito!');;
     }
 
-        #METODO Q NO SE OCUPARA-
-    public function partido_show($id){
-        $deporte=Deporte::all();
-        $deportes_sidebar = Deporte::all();
-
-        $resultado = Partido::find($id);
-
-        return view('estudiante.partidos_show')
-        ->with('deportes_sidebar', $deportes_sidebar)
-        ->with('resultado', $resultado)
-        ->with('deporte', $deporte);
+    public function solicitud_equipo(Request $request){
+        $request->equipo_id;
+        $request->user_id;
+        
+        
         return Redirect('e/partidos/');
-
-
     }
+
 
 
 }

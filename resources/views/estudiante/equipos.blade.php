@@ -33,7 +33,7 @@
             @foreach($equipos as $equipo)
             <div class="card card-nav-tabs">
                 <div class="card-header card-header-warning">
-                {{ $equipo->modalidad->nombre }}
+                {{ $equipo->modalidad}}
                 </div>
                 <div class="card-body">
                 <h4 class="card-title">Special title treatment</h4>

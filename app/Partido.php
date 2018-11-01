@@ -31,4 +31,9 @@ class Partido extends Model
     {
         return $this->belongsTo('App\Equipo', 'visita_id');
     }
+
+    public function ganador()
+    {
+        return $this->belongsTo('App\Equipo', 'ganador_id');
+    }
 }
