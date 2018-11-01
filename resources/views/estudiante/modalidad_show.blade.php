@@ -1,6 +1,6 @@
 @extends('estudiante.layouts.app')
 
-@section('title', 'modalidad')
+@section('title', 'modalidad: '.$modalidad->nombre)
 @section('modalidad', 'active')
 @section('modalidad_'.$modalidad->id , 'active')
 @section('content')
@@ -13,85 +13,91 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="card card-chart">
-            <div class="card-header">
-            <li class="list-group-item"><b>NOMBRE: </b>{{ $modalidad->nombre }}</li>
-            <li class="list-group-item"><b>DESCRIPCION: </b>{{ $modalidad->descripcion }}</li>
+            <div class="card-header">   
+                <h5 class="text-center">{{ $modalidad->descripcion }}</h5>
+            </div>
         </div>
-
     <div>
-
 <div>
 
 
-</div>
+<div class="row">
 
 
-<div class="col-sm-12">
+    <div class="card   " style="width: 70rem;">
+        <div class="card-body">
+            <h4 class="card-title text-center"><b>EQUIPOS</b></h4>
+            <p class="card-text">
+            <table class="table ">
+                <thead>
+                    <tr>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($modalidad->equipos as $equipo)
+                        <tr>
+                            <td>{{ strtoupper($equipo->nombre) }}</td>
 
-    <h5 class="card-category">EQUIPOS</h5>
-    <div class="table-responsive">
-                    <table class="table table-striped display compact table-condensed" id="table_user">
+                            <td>{{ $equipo->descripcion }}</td>
+                            <td>
+                            <a href="{{ route('estudiante.equipos.show', ['id' => $equipo->id]) }}" class="btn btn-round btn-info">
+                                    <i class="fa fa-info"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                    @endforeach
+                </tbody>
+            </table>
+            
+            </p>
+        </div>
+    </div>
+
+    <div class="card bg-danger  " style="width: 30rem;">
+        <div class="card-body">
+            <h4 class="card-title text-center"><b>RANKING</b></h4>
+            <p class="card-text">
+                <table class="table">
                         <thead>
                             <tr>
-                                <th>Nombre</th>
-                                <th>DESCRIPCION</th>
-                                <th>ver mas+</th>
+                            
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($modalidad->equipos as $equipo)
+                            @foreach($ranking as $equipo)
                                 <tr>
-                                    <td>{{ $equipo->nombre }}</td>
+                                    <td>{{ $equipo->puesto }}</td>
+                                    <td>{{ strtoupper($equipo->nombre) }}</td>
+                                    <td>{{ $equipo->victorias_totales }}</td>
 
-                                    <td>{{ $equipo->descripcion }}</td>
-                                    <td>
-                                    <a href="{{ route('estudiante.equipos.show', ['id' => $equipo->id]) }}" class="btn btn-info">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                    </td>
+                                    
                                 </tr>
 
                             @endforeach
                         </tbody>
-                    </table>
-                </div>
-
-
-</div>
-
-</div>
-
-
-
-<div class="col-sm-12">
-
-<h5 class="card-category">Ranking</h5>
-<div class="table-responsive">
-                <table class="table table-striped display compact table-condensed" id="table_user">
-                    <thead>
-                        <tr>
-                            <th>PUESTO</th>
-                            <th>NOMBRE</th>
-                            <th>VICTORIAS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($ranking as $equipo)
-                            <tr>
-                                <td>{{ $equipo->puesto }}</td>
-                                <td>{{ $equipo->nombre }}</td>
-                                <td>{{ $equipo->victorias_totales }}</td>
-
-                                
-                            </tr>
-
-                        @endforeach
-                    </tbody>
                 </table>
-            </div>
-
+            </p>
+        </div>
+    </div>
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- CREAR EQUIPO -->
 <div class="modal fade" id="crearEquipo" tabindex="-1" role="dialog" aria-labelledby="crearEquipoTitulo" aria-hidden="true">

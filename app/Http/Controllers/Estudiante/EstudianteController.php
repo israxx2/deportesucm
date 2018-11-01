@@ -44,6 +44,7 @@ class EstudianteController extends Controller
         ->with('deporte', $deporte);
     }
 
+
     public function modalidad_show($id){
 
         $modalidad = Modalidad::find($id);
@@ -60,7 +61,8 @@ class EstudianteController extends Controller
         return view('estudiante.modalidad_show')
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('modalidad', $modalidad)
-        ->with('deporte', $deporte);
+        ->with('deporte', $deportes_sidebar)
+        ->with('ranking',$ranking);
     }
 
     public function equipo_store(Request $request){
@@ -91,8 +93,33 @@ class EstudianteController extends Controller
 
     public function equipo_show($id){
         $deportes_sidebar = Deporte::all();
+        $equipo= Equipo::find($id);
+
+        $is_miembro= DB::select('SELECT users.nombres, users.apellidos 
+        FROM `cuenta` join users ON users.id= cuenta.user_id
+        where cuenta.equipo_id='.$id.' 
+        AND cuenta.user_id='.Auth::user()->id.'
+        AND cuenta.estado="aceptada" ');
+
+        $is_enviada= DB::select('SELECT users.nombres, users.apellidos 
+        FROM `cuenta` join users ON users.id= cuenta.user_id
+        where cuenta.equipo_id='.$id.' 
+        AND cuenta.user_id='.Auth::user()->id.'
+        AND cuenta.estado="pendiente" ');
+       
+    
+
+        $miembros= DB::select('SELECT users.nombres, users.apellidos 
+        FROM `cuenta` join users ON users.id= cuenta.user_id
+        where cuenta.equipo_id='.$id.' 
+        AND cuenta.estado="aceptada" ');
+
 
         return view('estudiante.equipo_show')
+        ->with('equipo', $equipo)
+        ->with('is_miembro', $is_miembro)
+        ->with('is_enviada', $is_enviada)
+        ->with('miembros', $miembros)
         ->with('deportes_sidebar', $deportes_sidebar);
     }
 
@@ -290,27 +317,40 @@ class EstudianteController extends Controller
         return Redirect('e/partidos/')->with('message', 'Reclamo Enviado con exito!');;
     }
 
+    
 
     public function solicitud_equipo(Request $request){
+        
 
         $equipo=$request->equipo_id;
         $user_id=Auth::user()->id;
         $user= User::find($user_id);
         $user->equipos()->attach($equipo, ['user_id'=>$user_id,'estado' => 'pendiente']);  
-        return Redirect('e/comunidad/')
+        
+        $deportes_sidebar = Deporte::all();
+        $equipo2= Equipo::find($equipo);
+
+        return redirect('e/equipos/'.$request->equipo_id)
+        ->with('equipo', $equipo2)
+        ->with('deportes_sidebar', $deportes_sidebar)
         ->with('message', 'Solicitud Enviada con exito!');
     
     }
 
     public function abandonar_equipo(Request $request){
-       
         $equipo=$request->equipo_id;
         $user_id=Auth::user()->id;
-
         $equipo= Equipo::find($equipo);
         $equipo->users()->detach($user_id);
-        return Redirect('e/comunidad/')
-        ->with('message', 'Abdandonaste el equipo con exito!');
+        
+        $deportes_sidebar = Deporte::all();
+        $equipo2= Equipo::find($equipo);
+
+        return redirect('e/equipos/'.$request->equipo_id)
+        ->with('equipo', $equipo2)
+        ->with('deportes_sidebar', $deportes_sidebar)
+        ->with('alert', 'Abdandonaste el equipo con exito!');
+   
     }
 
 
