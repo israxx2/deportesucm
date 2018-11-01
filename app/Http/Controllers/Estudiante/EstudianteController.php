@@ -59,8 +59,8 @@ class EstudianteController extends Controller
 
         return view('estudiante.modalidad_show')
         ->with('deportes_sidebar', $deportes_sidebar)
-        ->with('ranking',$ranking)
-        ->with('modalidad', $modalidad);
+        ->with('modalidad', $modalidad)
+        ->with('deporte', $deporte);
     }
 
     public function equipo_store(Request $request){
@@ -297,7 +297,9 @@ class EstudianteController extends Controller
         $user_id=Auth::user()->id;
         $user= User::find($user_id);
         $user->equipos()->attach($equipo, ['user_id'=>$user_id,'estado' => 'pendiente']);  
-        return Redirect('e/comunidad/');
+        return Redirect('e/comunidad/')
+        ->with('message', 'Solicitud Enviada con exito!');
+    
     }
 
     public function abandonar_equipo(Request $request){
@@ -307,7 +309,8 @@ class EstudianteController extends Controller
 
         $equipo= Equipo::find($equipo);
         $equipo->users()->detach($user_id);
-        return Redirect('e/comunidad/');
+        return Redirect('e/comunidad/')
+        ->with('message', 'Abdandonaste el equipo con exito!');
     }
 
 
