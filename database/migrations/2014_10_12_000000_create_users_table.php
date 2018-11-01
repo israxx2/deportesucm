@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->integer('carrera_id')->unsigned();
             $table->string('nombres');
             $table->string('apellidos');
+            $table->string('ciudad');
             
             $table->string('nick')->nullable();
             $table->enum('tipo',['admin', 'coordinador','estudiante'])->default("estudiante");
