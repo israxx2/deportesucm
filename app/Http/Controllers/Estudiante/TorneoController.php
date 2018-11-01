@@ -74,7 +74,7 @@ class TorneoController extends Controller
                 $res = pow(2,$fases);
             }
 
-            return view('estudiante.torneos_show')
+            return view('estudiante.torneos_show_2')
             ->with('deportes_sidebar', $deportes_sidebar)
             ->with('torneo', $torneo)
             ->with('i', $i)

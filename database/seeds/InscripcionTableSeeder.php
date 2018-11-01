@@ -31,5 +31,15 @@ class InscripcionTableSeeder extends Seeder
             'torneo_id' => 4,
         ]);
 
+        DB::table('inscripcion')->insert([
+            'equipo_id' => 10,
+            'torneo_id' => 4,
+        ]);
+
+        DB::table('inscripcion')->insert([
+            'equipo_id' => 11,
+            'torneo_id' => 4,
+        ]);
+
     }
 }

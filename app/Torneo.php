@@ -36,6 +36,6 @@ class Torneo extends Model
 
     public function enfrentamientos()
     {
-
+        return $this->hasMany('App\Enfrentamiento', 'torneo_id');
     }
 }

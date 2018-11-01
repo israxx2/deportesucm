@@ -17,7 +17,7 @@ class TorneosTableSeeder extends Seeder
             'descripcion' => 'Torneo correspondiente al deporte, en donde se premiará al primer lugar con una medalla y un trofeo. este torneo se creo con la finalidad de fomentar la sana competencia dentro de la universidad y para insentivar el deporte.',
             'min' => 0,
             'max' => 8,
-            'tipo' => 'llave',
+            'tipo' => 'grupo',
             'modalidad_id' => 1
         ]);
 
@@ -47,7 +47,7 @@ class TorneosTableSeeder extends Seeder
             'descripcion' => 'Torneo correspondiente al deporte, en donde se premiará al primer lugar con una medalla y un trofeo. este torneo se creo con la finalidad de fomentar la sana competencia dentro de la universidad y para insentivar el deporte.',
             'min' => 0,
             'max' => 8,
-            'tipo' => 'grupo',
+            'tipo' => 'llave',
             'modalidad_id' => 10,
         ]);
     }
