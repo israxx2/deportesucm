@@ -27,14 +27,7 @@ class Modalidad extends Model
         return $this->belongsTo('App\Deporte', 'deporte_id');
     }
 
-<<<<<<< HEAD
-    public function torneos()
-    {
-        return $this->hasMany('App\Torneo', 'modalidad_id');
-    }
 
-=======
->>>>>>> 9c7fad57b0c866895474b39204fb297e0d69b456
     public function equipos()
     {
         return $this->hasMany('App\Equipo', 'modalidad_id');
