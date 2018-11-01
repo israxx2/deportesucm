@@ -35,13 +35,18 @@ class EstudianteController extends Controller
     public function deporte_show($id){
         $deportes_sidebar = Deporte::all();
         $deporte = Deporte::find($id);
+        $equipo = Equipo::all();
+        $modalidad = Modalidad::where('deporte_id', $id)->get();
 
 
 
         return view('estudiante.deporte_show')
         ->with('deportes_sidebar', $deportes_sidebar)
-        ->with('deporte', $deporte);
+        ->with('deporte', $deporte)
+        ->With('equipo',$equipo)
+        ->with('modalidad',$modalidad);
     }
+
 
     public function modalidad_show($id){
 
@@ -301,6 +306,26 @@ class EstudianteController extends Controller
         return Redirect('e/partidos/');
     }
 
+
+    public function filtro_equipo(Request $modalidad)
+    {
+      
+        dd($modalidad);
+        $deporte=1;
+
+        if($modalidad->id == 'null'){
+
+            $equipo = DB::select('SELECT nombre, descripcion FROM equipos where modalidad_id = '.$modalidad); 
+
+        }
+        else{
+            $equipo='null';
+        }
+        return view('estudiante.filtro_equipo',['equipo'=>$equipo])->render()->with('deporte',$deporte);
+
+
+
+    }
 
 
 }
