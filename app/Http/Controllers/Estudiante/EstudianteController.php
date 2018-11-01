@@ -33,41 +33,27 @@ class EstudianteController extends Controller
     }
 
     public function deporte_show($id){
+
         $deportes_sidebar = Deporte::all();
         $deporte = Deporte::find($id);
-        $equipo = Equipo::all();
-        $modalidad = Modalidad::where('deporte_id', $id)->get();
 
 
 
         return view('estudiante.deporte_show')
         ->with('deportes_sidebar', $deportes_sidebar)
-        ->with('deporte', $deporte)
-        ->With('equipo',$equipo)
-        ->with('modalidad',$modalidad);
+        ->with('deporte', $deporte);
     }
-
 
     public function modalidad_show($id){
 
         $modalidad = Modalidad::find($id);
         $deportes_sidebar = Deporte::all();
-        $ranking = $modalidad->equipos->sortBy('victorias_totales');
-        $i=1;
-
-        foreach($ranking as $equipo){
-            $equipo['puesto']=$i;
-            $i=$i+1;
-
-        }
+        $deporte = Deporte::find($modalidad->deporte->id);
 
         return view('estudiante.modalidad_show')
         ->with('deportes_sidebar', $deportes_sidebar)
-        ->with('ranking',$ranking)
-        ->with('modalidad', $modalidad);
+        ->with('deporte', $deporte);
     }
-
-
 
     public function equipo_store(Request $request){
         $equipo = new Equipo();
@@ -97,11 +83,9 @@ class EstudianteController extends Controller
 
     public function equipo_show($id){
         $deportes_sidebar = Deporte::all();
-        $equipo = Equipo::find($id);
 
         return view('estudiante.equipo_show')
-        ->with('deportes_sidebar', $deportes_sidebar)
-        ->with('equipo',$equipo);
+        ->with('deportes_sidebar', $deportes_sidebar);
     }
 
     public function partidos(){
@@ -316,27 +300,6 @@ class EstudianteController extends Controller
         $equipo= Equipo::find($equipo);
         $equipo->users()->detach($user_id);
         return Redirect('e/comunidad/');
-    }
-
-
-    public function filtro_equipo(Request $modalidad)
-    {
-      
-        dd($modalidad);
-        $deporte=1;
-
-        if($modalidad->id == 'null'){
-
-            $equipo = DB::select('SELECT nombre, descripcion FROM equipos where modalidad_id = '.$modalidad); 
-
-        }
-        else{
-            $equipo='null';
-        }
-        return view('estudiante.filtro_equipo',['equipo'=>$equipo])->render()->with('deporte',$deporte);
-
-
-
     }
 
 
