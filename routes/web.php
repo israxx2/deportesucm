@@ -204,6 +204,8 @@ Route::group(['prefix' => 'e'], function () {
         'as' => 'estudiante.modalidades.show'
     ]);
 
+ 
+
     //CREAR UN EQUIPO
     Route::post('equipo', [
         'uses' => 'Estudiante\EstudianteController@equipo_store',
@@ -251,6 +253,7 @@ Route::group(['prefix' => 'e'], function () {
         'uses' => 'Estudiante\EstudianteController@equipo_show',
         'as' => 'estudiante.equipos.show'
     ]);
+
     //FILTRO DE PARTIDOS POR MODALIDAD
     Route::post('partidos/filtro_deporte',[
       'uses'  =>'Estudiante\EstudianteController@filtro_deporte',
@@ -314,5 +317,6 @@ Route::group(['prefix' => 'e'], function () {
     ]);
 
     
+
 });
 
