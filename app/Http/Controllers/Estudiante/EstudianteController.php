@@ -40,7 +40,6 @@ class EstudianteController extends Controller
 
 
         return view('estudiante.deporte_show')
-        ->with('invitaciones',$invitaciones)
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('deporte', $deporte);
     }

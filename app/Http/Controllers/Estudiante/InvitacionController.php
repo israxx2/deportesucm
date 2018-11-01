@@ -176,13 +176,6 @@ class InvitacionController extends Controller
      */
     public function aceptar($id, Request $request)
     {
-        $partidos = new Partido();
-        $partidos->local_id = $request->emisor;
-        $partidos->visita_id = $request->receptor;
-        $partidos->puntos_local = 0;
-        $partidos->puntos_visita = 0;
-        $partidos->ganador_id = null;
-        $partidos->save();
         $invi=Invitacion::find($id);
         $invi->aceptado = "true";
         $invi->save();  

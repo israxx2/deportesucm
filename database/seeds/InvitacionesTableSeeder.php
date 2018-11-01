@@ -19,6 +19,7 @@ class InvitacionesTableSeeder extends Seeder
             'horario' => '2011-01-01',
             'lugar' => 'nose',
             'numero' => 'nose',
+            'aceptado' => 'false',
         ]);
 
         DB::table('invitaciones')->insert([
@@ -29,6 +30,7 @@ class InvitacionesTableSeeder extends Seeder
             'horario' => '2011-01-01',
             'lugar' => '123123',
             'numero' => 'nose',
+            'aceptado' => 'false',
         ]);
         DB::table('invitaciones')->insert([
             'emisor_id' => 4,
@@ -38,6 +40,7 @@ class InvitacionesTableSeeder extends Seeder
             'horario' => '2011-01-01',
             'lugar' => 'nose',
             'numero' => 'nose',
+            'aceptado' => 'false',
         ]);
         
     }
