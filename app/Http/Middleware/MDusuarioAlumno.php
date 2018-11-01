@@ -22,9 +22,14 @@ class MDusuarioAlumno
      */
     public function handle($request, Closure $next)
     {
-        if($this->auth->user()->tipo !="estudiante"){
-            Session::flash('message_error','No tiene permisos para acceder');
-            return redirect()->to('/');
+        if($this->auth->user() == null){
+            Session::flash('message_error','No tiene permisos suficientes para acceder');
+            return redirect()->to('/login');
+        }
+
+        if($this->auth->user()->tipo !='estudiante'){
+            Session::flash('message_error','No tiene permisos suficientes para acceder');
+            return redirect()->to('/login');
         }
         return $next($request);
     }

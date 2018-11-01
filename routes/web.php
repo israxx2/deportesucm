@@ -26,7 +26,7 @@ Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallb
 Route::group(['prefix' => 'admin'], function () {
 
       //Panel principal Administrador.
-	        Route::get('/','Admin\AdminController@index');
+          Route::get('/','Admin\AdminController@index');
 
       //Rutas de los Usuarios
           Route::resource('user', 'Admin\UserController', ['names' => [

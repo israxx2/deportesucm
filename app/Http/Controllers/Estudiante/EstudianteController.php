@@ -17,6 +17,24 @@ use Illuminate\Support\Collection as Collection;
 
 class EstudianteController extends Controller
 {
+    public function __construct(){
+        $this->middleware('usuarioAlumno',['only'=>['inicio']]);
+        $this->middleware('usuarioAlumno',['only'=>['perfil']]);
+        $this->middleware('usuarioAlumno',['only'=>['deporte_show']]);
+        $this->middleware('usuarioAlumno',['only'=>['modalidad_show']]);
+        $this->middleware('usuarioAlumno',['only'=>['equipo_store']]);
+        $this->middleware('usuarioAlumno',['only'=>['equipos']]);
+        $this->middleware('usuarioAlumno',['only'=>['equipo_show']]);
+        $this->middleware('usuarioAlumno',['only'=>['partidos']]);
+        $this->middleware('usuarioAlumno',['only'=>['filtro_deporte']]);
+        $this->middleware('usuarioAlumno',['only'=>['registrar_resultado_index']]);
+        $this->middleware('usuarioAlumno',['only'=>['registrar_resultado_store']]);
+        $this->middleware('usuarioAlumno',['only'=>['reclamo']]);
+        $this->middleware('usuarioAlumno',['only'=>['solicitud_equipo']]);
+        $this->middleware('usuarioAlumno',['only'=>['abandonar_equipo']]);
+        $this->middleware('usuarioAlumno',['only'=>['show_all_equipos']]);
+
+    }
     public function inicio(){
         $deportes_sidebar = Deporte::all();
 

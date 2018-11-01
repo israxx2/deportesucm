@@ -16,6 +16,19 @@ class DeporteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){
+        $this->middleware('usuarioAdmin',['only'=>['index']]);
+        $this->middleware('usuarioAdmin',['only'=>['create']]);
+        $this->middleware('usuarioAdmin',['only'=>['show']]);
+        $this->middleware('usuarioAdmin',['only'=>['store']]);
+        $this->middleware('usuarioAdmin',['only'=>['edit']]);
+        $this->middleware('usuarioAdmin',['only'=>['update']]);
+        $this->middleware('usuarioAdmin',['only'=>['destroy']]);
+        $this->middleware('usuarioAdmin',['only'=>['activar']]);
+        
+
+    }
     public function index()
     {
         //retorna todos los deportes (hasta los borrados logicamente)
