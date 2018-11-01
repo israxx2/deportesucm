@@ -89,9 +89,11 @@ class EstudianteController extends Controller
 
     public function equipo_show($id){
         $deportes_sidebar = Deporte::all();
+        $equipo = Equipo::find($id);
 
         return view('estudiante.equipo_show')
-        ->with('deportes_sidebar', $deportes_sidebar);
+        ->with('deportes_sidebar', $deportes_sidebar)
+        ->with('equipo',$equipo);
     }
 
     public function partidos(){

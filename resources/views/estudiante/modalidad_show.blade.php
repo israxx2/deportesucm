@@ -35,10 +35,6 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>DESCRIPCION</th>
-                                <th>VICTORIAS</th>
-                                <th>DERROTAS</th>
-                                <th>PUNTOS A FAVOR</th>
-                                <th>PUNTOS EN CONTRA</th>
                                 <th>ver mas+</th>
                             </tr>
                         </thead>
@@ -48,10 +44,6 @@
                                     <td>{{ $equipo->nombre }}</td>
 
                                     <td>{{ $equipo->descripcion }}</td>
-                                    <td>{{ $equipo->victorias_totales }}</td>
-                                    <td>{{ $equipo->derrotas_totales }}</td>
-                                    <td>{{ $equipo->puntos_favor_totales }}</td>
-                                    <td>{{ $equipo->puntos_contra_totales }}</td>
                                     <td>
                                     <a href="{{ route('estudiante.equipos.show', ['id' => $equipo->id]) }}" class="btn btn-info">
                                             <i class="fa fa-edit"></i>
