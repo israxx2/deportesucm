@@ -106,9 +106,8 @@ class TorneoController extends Controller
         //si está fuera de fecha tampoco puede entrar
         //si ya pertenece al torneo no puede ingresar denuevo
         //si no se ingresa ningun equipo que retorne a la pagina sin hacer nada
+        //si el torneo esta lleno no puede ingresar
 
-
-        //si no se ingresa ningun equipo que retorne a la pagina sin hacer nada
         if($request->equipoLiderado_id == null)
         {
             dd("no ha ingresado ningun equipo. Retorne a la página anterior.");
@@ -119,15 +118,13 @@ class TorneoController extends Controller
             $equipoLiderado = Equipo::find($request->equipoLiderado_id);
             $torneosEquipoLiderado = $equipoLiderado->torneos;
 
-            $consulta_1 = $torneosEquipoLiderado->where('modalidad_id', $equipoLiderado->modalidad_id);
-            $consulta_2 = $consulta_1->where('finalizado', 1);
-
             //si el torneo está cerrado no se puede entrar
             if($torneo->cerrado){
                 dd("el torneo está cerrado. Retorne a la página anterior.");
             }
 
-            if(count($equipoLiderado->torneos->where('id', $torneo->id)))
+            //si ya pertenece al torneo no puede volver a ingresar
+            if(count($equipoLiderado->torneos->where('id', $torneo->id)) > 0)
             {
                 dd("ya pertenece al torneo");
             }
@@ -137,7 +134,14 @@ class TorneoController extends Controller
                 dd("está fuera de plazo. Retorne a la página anterior.");
             }
 
-            //no tiene que pertenecer a otro torneo de la misma modalidad
+            //si el torneo esta lleno no puede ingresar
+            if($torneo->max <= count($torneo->equipos))
+            {
+                dd("el torneo está lleno. Retorne a la página anterior");
+            }
+            //si ya está inscrito en otro torneo de la misma modalidad no puede ingresar
+            $consulta_1 = $torneosEquipoLiderado->where('modalidad_id', $equipoLiderado->modalidad_id);
+            $consulta_2 = $consulta_1->where('finalizado', 1);
             if(count($consulta_2)>0){
                 dd("ya pertenece a un torneo. Retorne a la página anterior.");
             }
