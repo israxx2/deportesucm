@@ -9,7 +9,11 @@
 
         <div class="row">
             <div class="card card-chart">
+
                 <div class="card-header">
+                    <div class="container">
+                        @include('flash::message')
+                    </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <br>
@@ -205,5 +209,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
+<script>
+    $('#flash-overlay-modal').modal();
+</script>
 
 @endsection
