@@ -16,7 +16,8 @@
                             <h1 class="title">{{ $torneo->nombre }}</h5>
                         </div>
                         <div class="col-sm-5">
-                            <button type="button" class="btn btn-icon btn-round float-right" style="height: 8.375rem; width: 8.375rem; font-size: 2.9rem; border-radius: 40px; background-color: #2CA8FF;">
+                            <button type="button" class="btn btn-icon btn-round float-right" style="height: 8.375rem; width: 8.375rem; font-size: 2.9rem; border-radius: 40px; background-color: #2CA8FF;"
+                            data-toggle="modal" data-target="#ingresar">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
@@ -68,6 +69,8 @@
                                                 </div>
                                             @endif
                                         @endfor
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#baja">Dar de baja</button>
+                                        <br>
                                     </div>
 
                                     {{-- HISTORIAL --}}
@@ -119,6 +122,9 @@
                                                         </table>
                                                     </div>
                                                 @endfor
+
+                                                <h2>GANADOR</h2>
+
                                             @else
 
                                             @endif
@@ -133,5 +139,71 @@
             </div>
         </div>
 </div>
+
+{{-- MODAL UNIRSE A TORNEO --}}
+<div class="modal fade" id="ingresar"
+     tabindex="-1" role="dialog"
+     aria-labelledby="favoritesModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+            <h4 class="modal-title"
+        id="favoritesModalLabel">Ingresar torneo</h4>
+      </div>
+      <div class="modal-body">
+        {!! Form::open(['route' => 'estudiante.torneos.ingresar', 'class' => 'form', 'method' => 'POST']) !!}
+
+        <p>Para ingresar a un equipo debes ser el lider.</p>
+        {!! Form::hidden('torneo_id', $torneo->id) !!}
+	    <div class="form-group">
+            {!! Form::select('equipoLiderado_id', $equiposLiderados->pluck('nombre','id'), null, ['multiple' ,'class' => 'form-control', 'placeholder' => 'Seleccione un equipo']) !!}
+        </div>
+      </div>
+       <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        <span class="pull-right">
+          <button type="submit"class="btn btn-success">
+            Aceptar
+          </button>
+		  {!! Form::close() !!}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{-- DARSE DE BAJA DEL TORNEO --}}
+<div class="modal fade" id="baja"
+     tabindex="-1" role="dialog"
+     aria-labelledby="favoritesModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+            <h4 class="modal-title"
+        id="favoritesModalLabel">Dar de baja un equipo</h4>
+      </div>
+      <div class="modal-body">
+        {!! Form::open(['route' => 'estudiante.torneos.baja', 'class' => 'form', 'method' => 'POST']) !!}
+        {!! Form::hidden('torneo_id', $torneo->id) !!}
+	    <div class="form-group">
+            {!! Form::label('equipoBaja_id', 'Equipos') !!}
+            {!! Form::select('equipoBaja_id', $equiposBaja->pluck('nombre','id'), null, ['multiple' ,'class' => 'form-control', 'placeholder' => 'Seleccione un equipo']) !!}
+        </div>
+      </div>
+       <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        <span class="pull-right">
+          <button type="submit"class="btn btn-success">
+            Aceptar
+          </button>
+		  {!! Form::close() !!}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 
 @endsection

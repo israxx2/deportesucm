@@ -204,7 +204,7 @@ Route::group(['prefix' => 'e'], function () {
         'as' => 'estudiante.modalidades.show'
     ]);
 
- 
+
 
     //CREAR UN EQUIPO
     Route::post('equipo', [
@@ -316,7 +316,17 @@ Route::group(['prefix' => 'e'], function () {
         'as'    =>'estudiante.torneos.show'
     ]);
 
-    
+    //ingresar torneo
+    Route::post('torneos/ingresar',[
+        'uses'  =>'Estudiante\TorneoController@ingresar',
+        'as'    =>'estudiante.torneos.ingresar'
+    ]);
+
+    //darse de baja
+    Route::post('torneos/baja',[
+        'uses'  =>'Estudiante\TorneoController@baja',
+        'as'    =>'estudiante.torneos.baja'
+    ]);
 
 });
 

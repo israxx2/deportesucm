@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Estudiante;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Deporte;
+use App\User;
 use App\Torneo;
+use App\Equipo;
+use Illuminate\Support\Facades\Auth;
 
 class TorneoController extends Controller
 {
@@ -63,6 +66,11 @@ class TorneoController extends Controller
         $equipos = $torneo->equipos;
         $participantes = count($torneo->equipos);
         $res = 0;
+        $user = User::find(Auth::User()->id);
+        $equiposLiderados = $user->equiposLiderados
+        ->where('modalidad_id', $torneo->modalidad_id);
+
+        $equiposBaja = $equipos->where('user_id', $user->id);
 
         //SI ES DE TIPO LLAVE RETORNA ADEMÁS LAS FASES.
         if($torneo->tipo == 'llave')
@@ -73,31 +81,87 @@ class TorneoController extends Controller
                 $fases++;
                 $res = pow(2,$fases);
             }
-
             return view('estudiante.torneos_show_2')
             ->with('deportes_sidebar', $deportes_sidebar)
             ->with('torneo', $torneo)
             ->with('i', $i)
-            ->with('fases', $fases);
+            ->with('fases', $fases)
+            ->with('equiposLiderados', $equiposLiderados)
+            ->with('equiposBaja', $equiposBaja);
         } else
         {
-            return view('estudiante.torneos_show')
+            return view('estudiante.torneos_show_2')
             ->with('deportes_sidebar', $deportes_sidebar)
             ->with('torneo', $torneo)
-            ->with('i',$i);
+            ->with('i',$i)
+            ->with('equiposLiderados', $equiposLiderados)
+            ->with('equiposBaja', $equiposBaja);
         }
+    }
+
+    public function ingresar(Request $request)
+    {
+        //no tiene que estar en otro torneo
+        //si el torneo está cerrado no se puede entrar
+        //si está fuera de fecha tampoco puede entrar
+        //si ya pertenece al torneo no puede ingresar denuevo
+        //si no se ingresa ningun equipo que retorne a la pagina sin hacer nada
 
 
+        //si no se ingresa ningun equipo que retorne a la pagina sin hacer nada
+        if($request->equipoLiderado_id == null)
+        {
+            dd("no ha ingresado ningun equipo. Retorne a la página anterior.");
+            return Redirect(route('estudiante.torneos.show', ['id' => $request->torneo_id]));
+        }else
+        {
+            $torneo = Torneo::find($request->torneo_id);
+            $equipoLiderado = Equipo::find($request->equipoLiderado_id);
+            $torneosEquipoLiderado = $equipoLiderado->torneos;
 
+            $consulta_1 = $torneosEquipoLiderado->where('modalidad_id', $equipoLiderado->modalidad_id);
+            $consulta_2 = $consulta_1->where('finalizado', 1);
 
-        // if(time($reserva->fecha_reserva) > time())
-        // {
-        //     // hacer reserva
-        // }
+            //si el torneo está cerrado no se puede entrar
+            if($torneo->cerrado){
+                dd("el torneo está cerrado. Retorne a la página anterior.");
+            }
 
+            if(count($equipoLiderado->torneos->where('id', $torneo->id)))
+            {
+                dd("ya pertenece al torneo");
+            }
+            //si está fuera de fecha no puede puede entrar
+            if(strtotime($torneo->fecha) < time())
+            {
+                dd("está fuera de plazo. Retorne a la página anterior.");
+            }
+
+            //no tiene que pertenecer a otro torneo de la misma modalidad
+            if(count($consulta_2)>0){
+                dd("ya pertenece a un torneo. Retorne a la página anterior.");
+            }
+
+            $torneo->equipos()->attach($equipoLiderado->id);
+
+            return Redirect(route('estudiante.torneos.show', ['id' => $torneo->id]));
+        }
 
     }
 
+    public function baja(Request $request)
+    {
+        if($request->equipoBaja_id == null)
+        {
+            dd("no existe o no has seleccionado ningun equipo. Retorne a la página anterior");
+        } else
+        {
+            $torneo = Torneo::find($request->torneo_id);
+            $torneo->equipos()->detach($request->equipoBaja_id);
+
+            return Redirect(route('estudiante.torneos.show', ['id' => $torneo->id]));
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *

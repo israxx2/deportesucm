@@ -18,7 +18,7 @@ class TorneosTableSeeder extends Seeder
             'min' => 0,
             'max' => 8,
             'tipo' => 'grupo',
-            'modalidad_id' => 1
+            'modalidad_id' => 2
         ]);
 
         DB::table('torneos')->insert([
@@ -38,6 +38,8 @@ class TorneosTableSeeder extends Seeder
             'min' => 0,
             'max' => 8,
             'tipo' => 'llave',
+            'finalizado' => 0,
+            'cerrado' => 0,
             'modalidad_id' => 9,
         ]);
 
@@ -48,6 +50,8 @@ class TorneosTableSeeder extends Seeder
             'min' => 0,
             'max' => 8,
             'tipo' => 'llave',
+            'finalizado' => 1,
+            'cerrado' => 1,
             'modalidad_id' => 10,
         ]);
     }

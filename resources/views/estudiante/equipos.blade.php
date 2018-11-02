@@ -100,5 +100,9 @@
         {!! Form::close() !!}
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
 @endsection
 

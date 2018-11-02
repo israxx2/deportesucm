@@ -24,6 +24,8 @@ class CreateTorneosTable extends Migration
             $table->enum('tipo', ['llave', 'grupo']);
             $table->integer('fase_actual')->default(1);
             $table->boolean('cerrado')->default(0);
+            $table->boolean('finalizado')->default(0);
+            $table->integer('ganador_id')->unsigned()->nullable();
             $table->softDeletes();
             $table->timestamps();
 
