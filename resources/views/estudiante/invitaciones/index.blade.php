@@ -1,6 +1,6 @@
 @extends('estudiante.layouts.app')
 
-@section('title', 'deporte')
+@section('title', 'invitacion')
 @section('content')
 
 <div class="row">
@@ -44,6 +44,9 @@
     </div>
 </div>
 <!-- CREAR EQUIPO -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>    
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
 <div class="modal fade" id="crearInvitacion" tabindex="-1" role="dialog" aria-labelledby="crearInvitacionTitulo" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
