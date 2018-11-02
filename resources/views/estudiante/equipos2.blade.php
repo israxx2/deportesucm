@@ -52,7 +52,7 @@
               Jugadores pendientes
             </div>
             <div class="card-body">
-            {!! Form::open(['route' => 'estudiante.equipos2' , 'method' => 'POST']) !!}
+            {!! Form::open(['route' => 'estudiante.equipos2' , 'method' => 'post']) !!}
             <div class="form-group">
                 <select name="id" class="form-control">
                     <option value="">Seleccione un equipo</option>
@@ -63,7 +63,24 @@
             </div>
             <button type="submit" class="btn btn-primary">Buscar</button>
             {!! Form::close() !!}
-
+                <hr>
+                <div>
+                @foreach($miembro_p as $pendiente)
+                 {{$pendiente->nombre_us}} , {{$pendiente->apellido_us}} 
+                 
+                 
+                 {!! Form::open(['action' => 'Estudiante\EstudianteController@aceptar_soli' , 'method' => 'post']) !!}
+                 <input name="id_us" type="hidden" value="{{$pendiente->id_usuario}}">
+                 <input name="id_eq" type="hidden" value="{{$aux}}">
+                 <button type="submit" class="btn btn-sm btn-success ">aceptar</button>
+                 {!! Form::close() !!}
+                 {!! Form::open(['action' => 'Estudiante\EstudianteController@rechazar_soli' , 'method' => 'post']) !!}
+                 <input name="id_us" type="hidden" value="{{$pendiente->id_usuario}}">
+                 <input name="id_eq" type="hidden" value="{{$aux}}">
+                 <button type="submit" class="btn btn-sm btn-danger">rechazar</button>
+                 {!! Form::close() !!}
+                @endforeach
+                </div>
             </div>
           </div>
     </div>

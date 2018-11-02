@@ -247,7 +247,21 @@ Route::group(['prefix' => 'e'], function () {
         'uses' => 'Estudiante\EstudianteController@equipos',
         'as' => 'estudiante.equipos'
     ]);
-
+   //VER UN EQUIPO
+   Route::POST('equi', [
+    'uses' => 'Estudiante\EstudianteController@eq',
+    'as' => 'estudiante.equipos2'
+   ]);
+      //aceptar a un jugador
+      Route::post('equi/aceptar', [
+        'uses' => 'Estudiante\EstudianteController@aceptar_soli'
+       ]);
+      //aceptar a un jugador
+      Route::post('equi/rechazar', [
+        'uses' => 'Estudiante\EstudianteController@rechazar_soli'
+       ]);
+       
+       
     //VER UN EQUIPO
     Route::get('equipos/{id}', [
         'uses' => 'Estudiante\EstudianteController@equipo_show',

@@ -101,12 +101,36 @@ class EstudianteController extends Controller
         $user= User::find(Auth::user()->id);
         $equipos = $user->equipos;
         $deportes_sidebar = Deporte::all();
-
         $deportes = $deportes_sidebar;
+        $equi = DB::select('SELECT equipos.id, equipos.nombre
+        FROM equipos where user_id = '.Auth::user()->id);
         return view('estudiante.equipos')
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('deportes', $deportes)
-        ->with('equipos', $equipos);
+        ->with('equipos', $equipos)
+        ->with('equi', $equi);
+    }
+
+    public function eq(Request $request){
+
+        $user= User::find(Auth::user()->id);
+        $equipos = $user->equipos;
+        $deportes_sidebar = Deporte::all();
+        $deportes = $deportes_sidebar;
+        $aux= $request->id;
+        $equi = DB::select('SELECT equipos.id, equipos.nombre
+        FROM equipos where user_id = '.Auth::user()->id);
+        $miembro_p= DB::select('SELECT users.id as id_usuario, users.nombres as nombre_us, users.apellidos as apellido_us 
+        FROM `cuenta` join users ON users.id= cuenta.user_id
+        where cuenta.equipo_id='.$aux.' 
+        AND cuenta.estado="pendiente" ');
+        return view('estudiante.equipos2')
+        ->with('deportes_sidebar', $deportes_sidebar)
+        ->with('deportes', $deportes)
+        ->with('miembro_p', $miembro_p)
+        ->with('equipos', $equipos)
+        ->with('aux', $aux)
+        ->with('equi', $equi);
     }
 
     public function equipo_show($id){
@@ -380,6 +404,33 @@ class EstudianteController extends Controller
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('equipos', $equipos);
     }
+
+    public function aceptar_soli(Request $request){
+        $users=user::find($request->id_us);
+        $users->equipos($request->id_eq)->estado = 'aceptada'; 
+        $users->equipos($request->id_eq)->update();
+        $deportes_sidebar = Deporte::all();
+        $user= User::find(Auth::user()->id);
+        $equipos = $user->equipos;
+        $deportes_sidebar = Deporte::all();
+        $deportes = $deportes_sidebar;
+        $equi = Equipo::all();
+        return view('estudiante.equipos')
+        ->with('deportes_sidebar', $deportes_sidebar)
+        ->with('deportes', $deportes)
+        ->with('equipos', $equipos)
+        ->with('equi', $equi);
+    }
+
+
+    public function rechazar_soli(Request $request){
+        $equipo=$request->id_eq;
+        $equipo= Equipo::find($equipo);
+        $equipo->users()->detach($request->id_us);
+        return redirect('e/equipos');
+   
+    }
+
 
 
 }
