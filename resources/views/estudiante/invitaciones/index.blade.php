@@ -60,7 +60,17 @@
 
             {!! Form::open(['route' => 'estudiante.invitaciones.store' , 'method' => 'POST']) !!}
             <div class="form-group">
-                <select name="id" class="form-control">
+            <label>Equipo emisor</label>
+                <select name="id_e" class="form-control">
+                    <option value="">Seleccione un equipo</option>
+                    @foreach($equip as $equipo)
+                    <option value="{{$equipo->id}}">{{$equipo->nombre}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+            <label>Equipo destino</label>
+                <select name="id_d" class="form-control">
                     <option value="">Seleccione un equipo</option>
                     @foreach($equipos as $equipo)
                     <option value="{{$equipo->id}}">{{$equipo->nombre}}</option>

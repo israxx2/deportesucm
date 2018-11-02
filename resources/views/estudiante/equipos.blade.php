@@ -49,7 +49,7 @@
     <div class="col-sm-4">
         <div class="card card-nav-tabs">
             <div class="card-header card-header-warning">
-              Jugadores pendientes
+              <Label>seleccione un equipo</Label>
             </div>
             <div class="card-body">
             {!! Form::open(['route' => 'estudiante.equipos2' , 'method' => 'POST']) !!}

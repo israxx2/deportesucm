@@ -58,7 +58,16 @@
         <div class="modal-body">
 
             {!! Form::open(['route' => 'estudiante.invitaciones.store_pu' , 'method' => 'POST']) !!}
-
+            <div class="form-group">
+            <label>Equipo emisor</label>
+                <select name="id_e" class="form-control">
+                    <option value="">Seleccione un equipo</option>
+                    @foreach($equip as $equipo)
+                    <option value="{{$equipo->id}}">{{$equipo->nombre}}</option>
+                    @endforeach
+                </select>
+            </div>
+            
             <div class="form-group">
                 <label>horario</label>
                 <input name="horario" id="horario" type="text" class="form-control" placeholder="ej: 28/10/2018 16:50" required>

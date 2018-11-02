@@ -24,6 +24,8 @@ class InvitacionController extends Controller
         $user=Auth::user()->id;
         $equipos = DB::select('SELECT equipos.id,
         equipos.nombre from equipos where equipos.user_id <> '.$user);
+        $equip = DB::select('SELECT equipos.id,
+        equipos.nombre from equipos where equipos.user_id = '.$user);
         $invitaciones = DB::select('SELECT 
         invitaciones.id as id,
         invitaciones.emisor_id as emisor,
@@ -41,6 +43,7 @@ class InvitacionController extends Controller
         $deportes_sidebar = Deporte::all();
         return view('estudiante.invitaciones.index')
         ->with('equipos', $equipos)
+        ->with('equip', $equip)
         ->with('invitaciones', $invitaciones)
         ->with('deportes_sidebar', $deportes_sidebar);
     }
@@ -64,8 +67,8 @@ class InvitacionController extends Controller
     public function store(Request $request)
     {
         $invitacion = new Invitacion;
-        $invitacion->emisor_id =Auth::user()->id;
-        $invitacion->receptor_id = $request->id;
+        $invitacion->emisor_id =$request->id_e;
+        $invitacion->receptor_id = $request->id_d;
         $invitacion->horario = $request->horario;
         $invitacion->lugar = $request->lugar;
         $invitacion->descripcion = $request->descripcion;
@@ -77,7 +80,7 @@ class InvitacionController extends Controller
     public function store_pu(Request $request)
     {
         $invitacion = new Invitacion;
-        $invitacion->emisor_id =Auth::user()->id;
+        $invitacion->emisor_id =$request->id_e;
         $invitacion->receptor_id = null;
         $invitacion->horario = $request->horario;
         $invitacion->lugar = $request->lugar;
@@ -143,6 +146,8 @@ class InvitacionController extends Controller
         $user=Auth::user()->id;
         $equipos = DB::select('SELECT equipos.id,
         equipos.nombre from equipos where equipos.user_id <> '.$user);
+        $equip = DB::select('SELECT equipos.id,
+        equipos.nombre from equipos where equipos.user_id = '.$user);
         $invitaciones = DB::select('SELECT 
         deportes.nombre as deporte_nombre,
         invitaciones.id as id,
@@ -164,6 +169,7 @@ class InvitacionController extends Controller
         $deportes_sidebar = Deporte::all();
         return view('Estudiante.invitaciones.publico')
         ->with('equipos', $equipos)
+        ->with('equip', $equip)
         ->with('invitaciones', $invitaciones)
         ->with('deportes_sidebar', $deportes_sidebar);
     }

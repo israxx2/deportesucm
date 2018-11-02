@@ -256,11 +256,15 @@ Route::group(['prefix' => 'e'], function () {
       Route::post('equi/aceptar', [
         'uses' => 'Estudiante\EstudianteController@aceptar_soli'
        ]);
-      //aceptar a un jugador
+      //rechazar a un jugador
       Route::post('equi/rechazar', [
         'uses' => 'Estudiante\EstudianteController@rechazar_soli'
        ]);
-       
+     //eliminar a un jugador de un equipo
+      Route::post('equi/eliminar', [
+        'uses' => 'Estudiante\EstudianteController@eliminar_jugador',
+        'as' => 'estudiante.eliminar'
+       ]);
        
     //VER UN EQUIPO
     Route::get('equipos/{id}', [

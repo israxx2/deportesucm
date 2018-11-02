@@ -45,7 +45,17 @@
       
         <ul class="list-group list-group-flush " >
         @foreach($miembros as $miembro)
-            <li class="list-group-item bg-warning ">{{$miembro->nombres}}</li>
+            <li class="list-group-item bg-warning ">{{$miembro->nombres}}
+            @if ($equipo->user_id == Auth::user()->id)
+                {!! Form::open(['route' => 'estudiante.eliminar' , 'method' => 'POST']) !!}
+                     <input name="id_ju" type="hidden" value="{{$miembro->id}}">
+                     <input name="id_eq" type="hidden" value="{{$equipo->id}}">
+                    <button type="submit"class="btn btn-danger ">
+                            ELIMINAR <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                {!! Form::close() !!}
+            @endif
+            </li>
          @endforeach
         </ul>
 

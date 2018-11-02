@@ -151,7 +151,7 @@ class EstudianteController extends Controller
        
     
 
-        $miembros= DB::select('SELECT users.nombres, users.apellidos 
+        $miembros= DB::select('SELECT users.id, users.nombres, users.apellidos 
         FROM `cuenta` join users ON users.id= cuenta.user_id
         where cuenta.equipo_id='.$id.' 
         AND cuenta.estado="aceptada" ');
@@ -406,20 +406,11 @@ class EstudianteController extends Controller
     }
 
     public function aceptar_soli(Request $request){
-        $users=user::find($request->id_us);
-        $users->equipos($request->id_eq)->estado = 'aceptada'; 
-        $users->equipos($request->id_eq)->update();
-        $deportes_sidebar = Deporte::all();
-        $user= User::find(Auth::user()->id);
-        $equipos = $user->equipos;
-        $deportes_sidebar = Deporte::all();
-        $deportes = $deportes_sidebar;
-        $equi = Equipo::all();
-        return view('estudiante.equipos')
-        ->with('deportes_sidebar', $deportes_sidebar)
-        ->with('deportes', $deportes)
-        ->with('equipos', $equipos)
-        ->with('equi', $equi);
+        $us=user::find($request->id_us);
+        $equipos=equipo::find($request->id_eq);
+        $equipos->users()->detach($request->id_us);
+        $us->equipos()->attach($request->id_eq, ['user_id'=>$request->id_us,'estado' => 'aceptada']); 
+        return redirect('e/equipos');
     }
 
 
@@ -431,6 +422,13 @@ class EstudianteController extends Controller
    
     }
 
+    public function eliminar_jugador(Request $request){
+        $equipo=$request->id_eq;
+        $equipo= Equipo::find($equipo);
+        $equipo->users()->detach($request->id_ju);
+        return redirect('e/equipos');
+   
+    }
 
 
 }
