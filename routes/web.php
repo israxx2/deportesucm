@@ -265,7 +265,7 @@ Route::group(['prefix' => 'e'], function () {
         'uses' => 'Estudiante\EstudianteController@eliminar_jugador',
         'as' => 'estudiante.eliminar'
        ]);
-       
+
     //VER UN EQUIPO
     Route::get('equipos/{id}', [
         'uses' => 'Estudiante\EstudianteController@equipo_show',
@@ -348,3 +348,8 @@ Route::group(['prefix' => 'e'], function () {
 
 });
 
+Route::group(['prefix' => 'mod'], function () {
+
+    Route::resource('torneos', 'Mod\TorneoController');
+
+});

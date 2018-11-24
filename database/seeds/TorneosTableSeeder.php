@@ -45,13 +45,26 @@ class TorneosTableSeeder extends Seeder
 
         DB::table('torneos')->insert([
             'nombre' => 'TORNEO 4',
-            'fecha' => '2018-11-22',
+            'fecha' => '2018-10-22',
             'descripcion' => 'Torneo correspondiente al deporte, en donde se premiará al primer lugar con una medalla y un trofeo. este torneo se creo con la finalidad de fomentar la sana competencia dentro de la universidad y para insentivar el deporte.',
             'min' => 0,
             'max' => 8,
             'tipo' => 'llave',
             'finalizado' => 1,
             'cerrado' => 1,
+            'modalidad_id' => 10,
+        ]);
+
+
+        DB::table('torneos')->insert([
+            'nombre' => 'TORNEO 5',
+            'fecha' => '2018-11-22',
+            'descripcion' => 'Torneo correspondiente al deporte, en donde se premiará al primer lugar con una medalla y un trofeo. este torneo se creo con la finalidad de fomentar la sana competencia dentro de la universidad y para insentivar el deporte.',
+            'min' => 0,
+            'max' => 8,
+            'tipo' => 'llave',
+            'finalizado' => 0,
+            'cerrado' => 0,
             'modalidad_id' => 10,
         ]);
     }
