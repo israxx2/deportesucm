@@ -59,50 +59,31 @@
                     </ul>
                 </div>
 
-                {{-- COMUNIDAD --}}
-                  <li class="@yield('comunidad', ' ')">
-                      <a href="#">
-                          <i class="now-ui-icons emoticons_satisfied"></i>
-                          <p>Comunidad</p>
-                      </a>
-                  </li>
 
+   
+                
                 {{-- TORNEOS --}}
                 <li class="@yield('torneos', ' ')">
                   <a href="{{ route('estudiante.torneos.index') }}">
                       <i class="now-ui-icons sport_trophy"></i>
                       <p>Torneos</p>
                   </a>
-                  {{-- INVITACIONES --}}
-                <li class="@yield('invitacion', ' ')">
-                    <a data-toggle="collapse" href="#invitacion">
-                        <i class="now-ui-icons ui-1_calendar-60"></i>
-                        <p>Invitaciones
-                            <b class="caret"></b>
-                        </p>
+                  </li>
+                  {{-- COMUNIDAD --}}
+                  <li class="@yield('comunidad', '')">
+                    <a href="{{ route('estudiante.invitaciones.publico') }}">
+                    <i class="now-ui-icons location_world"></i>
+                    <p>Comunidad</p></a>
+                  </li>
+
+                  {{-- BUZON --}}
+                <li class="@yield('Buzon', 'invitacion ')">
+                    <a href="{{ route('estudiante.invitaciones.index') }}">
+                    <i class="now-ui-icons ui-1_email-85"></i>
+                    <p>Buzon</p>
                     </a>
+                        
                 </li>
-             
-
-                <div class="collapse" id="invitacion">
-                    <ul class="nav">
-                        {{-- OPCIONES DE LAS INVITACIONES --}}
-                        <li class="@yield('Buzon', 'invitacion ')">
-                        <a href="{{ route('estudiante.invitaciones.index') }}">
-                        <i class="now-ui-icons ui-1_email-85"></i>
-                        <p>Buzon</p>
-                        </a>
-                        </li>
-                        {{-- OPCIONES DE LAS INVITACIONES --}}
-                        <li class="@yield('publico', 'publico ')">
-                        <a href="{{ route('estudiante.invitaciones.publico') }}">
-                        <i class="now-ui-icons location_world"></i>
-                        <p>Publicas</p>
-                        </a>
-                        </li>       
-                    </ul>
-                </div>
-
 
                 {{-- INFORMACION --}}
                 <li class="@yield('informacion', ' ')">

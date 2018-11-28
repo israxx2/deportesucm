@@ -21,7 +21,7 @@
         <hr>
         </div>
             <div class="card-body">
-                @foreach( $mis_invitaciones as $invitacion)
+                @foreach( $invitaciones as $invitacion)
             
             <b>
             <h6  style="text-align: right; "> {{strtoupper($invitacion->nombre_equipo)}}</h6>
