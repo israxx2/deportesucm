@@ -138,6 +138,11 @@ Route::group(['prefix' => 'admin'], function () {
           'update' => 'admin.partido.update',
           ]]);
 
+          Route::resource('reclamo','Admin\ReclamosController', ['names' => [
+            'index' => 'admin.reclamo.index',
+            'destroy' => 'admin.reclamo.destroy',
+            ]]);
+
           Route::post('partido/activar/{partido}',[
             'uses'  =>'Admin\PartidoController@activar',
             'as'    =>'admin.partido.activar'

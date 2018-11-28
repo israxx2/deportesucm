@@ -102,6 +102,8 @@ function current_page($url = '/'){
             <li><a href="/admin/deporte">Ver Deportes</a></li>
             <li><a href="/admin/deporte/create">Nuevo Deporte</a></li>
           </ul>
+
+          <li class="treeview">
           <a href="#"><i class="fa fa-support"></i> <span>Partidos</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -129,6 +131,13 @@ function current_page($url = '/'){
             <li><a href="/admin/torneo/create">Nuevo Torneo</a></li>
           </ul>
         </li>
+        <li class="button">
+          <a href="/admin/reclamo"> <span>Reclamos</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          </li>
           <ul class="treeview-menu">
             <li><a href="#">Equipos</a></li>
             <li><a href="#">Usuarios</a></li>
