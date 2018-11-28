@@ -39,4 +39,11 @@ class ReclamosController extends Controller
 
         return Redirect('admin/reclamo');
     }
+
+    public function estado($id){
+        $reclamo = Reclamo::find($id);
+        $reclamo->delete();
+        $reclamo->save();
+        return Redirect('admin/reclamo');
+    }
 }

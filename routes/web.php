@@ -141,6 +141,7 @@ Route::group(['prefix' => 'admin'], function () {
           Route::resource('reclamo','Admin\ReclamosController', ['names' => [
             'index' => 'admin.reclamo.index',
             'destroy' => 'admin.reclamo.destroy',
+            'estado'=> 'admin.reclamo.estado',
             ]]);
 
           Route::post('partido/activar/{partido}',[
