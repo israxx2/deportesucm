@@ -350,6 +350,16 @@ Route::group(['prefix' => 'e'], function () {
 
 Route::group(['prefix' => 'mod'], function () {
 
-    Route::resource('torneos', 'Mod\TorneoController');
+    Route::resource('torneos', 'Mod\TorneoController', [
+        'names' => [
+            'index' => 'mod.torneos.index',
+            'create' => 'mod.torneos.create',
+            'store' => 'mod.torneos.store',
+            'show' => 'mod.torneos.show',
+            'update' => 'mod.torneos.update',
+            'edit' => 'mod.torneos.edit',
+            'destroy' => 'mod.torneos.destroy',
+        ]
+    ]);
 
 });

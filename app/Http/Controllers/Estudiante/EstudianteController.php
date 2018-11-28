@@ -120,9 +120,9 @@ class EstudianteController extends Controller
         $aux= $request->id;
         $equi = DB::select('SELECT equipos.id, equipos.nombre
         FROM equipos where user_id = '.Auth::user()->id);
-        $miembro_p= DB::select('SELECT users.id as id_usuario, users.nombres as nombre_us, users.apellidos as apellido_us 
+        $miembro_p= DB::select('SELECT users.id as id_usuario, users.nombres as nombre_us, users.apellidos as apellido_us
         FROM `cuenta` join users ON users.id= cuenta.user_id
-        where cuenta.equipo_id='.$aux.' 
+        where cuenta.equipo_id='.$aux.'
         AND cuenta.estado="pendiente" ');
         return view('estudiante.equipos2')
         ->with('deportes_sidebar', $deportes_sidebar)
@@ -137,23 +137,23 @@ class EstudianteController extends Controller
         $deportes_sidebar = Deporte::all();
         $equipo= Equipo::find($id);
 
-        $is_miembro= DB::select('SELECT users.nombres, users.apellidos 
+        $is_miembro= DB::select('SELECT users.nombres, users.apellidos
         FROM `cuenta` join users ON users.id= cuenta.user_id
-        where cuenta.equipo_id='.$id.' 
+        where cuenta.equipo_id='.$id.'
         AND cuenta.user_id='.Auth::user()->id.'
         AND cuenta.estado="aceptada" ');
 
-        $is_enviada= DB::select('SELECT users.nombres, users.apellidos 
+        $is_enviada= DB::select('SELECT users.nombres, users.apellidos
         FROM `cuenta` join users ON users.id= cuenta.user_id
-        where cuenta.equipo_id='.$id.' 
+        where cuenta.equipo_id='.$id.'
         AND cuenta.user_id='.Auth::user()->id.'
         AND cuenta.estado="pendiente" ');
-       
-    
 
-        $miembros= DB::select('SELECT users.id, users.nombres, users.apellidos 
+
+
+        $miembros= DB::select('SELECT users.id, users.nombres, users.apellidos
         FROM `cuenta` join users ON users.id= cuenta.user_id
-        where cuenta.equipo_id='.$id.' 
+        where cuenta.equipo_id='.$id.'
         AND cuenta.estado="aceptada" ');
 
 
@@ -197,14 +197,14 @@ class EstudianteController extends Controller
 
        for($i = 0; $i < sizeof($resultado); $i++)
        {
-           
+
         $n_local= Equipo::find($resultado[$i]->local_id);
         $n_visita= Equipo::find($resultado[$i]->visita_id);
 
          $resultado[$i]->local_id = strtoupper($n_local->nombre);
          $resultado[$i]->visita_id = strtoupper($n_visita->nombre);
        }
-      
+
 
 
         $contador = DB::select('SELECT *
@@ -280,16 +280,16 @@ class EstudianteController extends Controller
             AND deportes.id ='.$request->id.'
             ORDER BY partidos.created_at DESC');
 
-      
+
 
         }
 
         for($i = 0; $i < sizeof($resultado); $i++)
         {
-            
+
          $n_local= Equipo::find($resultado[$i]->local_id);
          $n_visita= Equipo::find($resultado[$i]->visita_id);
- 
+
           $resultado[$i]->local_id = strtoupper($n_local->nombre);
           $resultado[$i]->visita_id = strtoupper($n_visita->nombre);
         }
@@ -324,8 +324,8 @@ class EstudianteController extends Controller
     }
 
     public function registrar_resultado_store(Request $request){
-        
-        $Invitacion = Invitacion::find($request->invitacion_id);     
+
+        $Invitacion = Invitacion::find($request->invitacion_id);
         $Invitacion->delete();
         $Invitacion->save();
 
@@ -359,16 +359,16 @@ class EstudianteController extends Controller
         return Redirect('e/partidos/')->with('message', 'Reclamo Enviado con exito!');;
     }
 
-    
+
 
     public function solicitud_equipo(Request $request){
-        
+
 
         $equipo=$request->equipo_id;
         $user_id=Auth::user()->id;
         $user= User::find($user_id);
-        $user->equipos()->attach($equipo, ['user_id'=>$user_id,'estado' => 'pendiente']);  
-        
+        $user->equipos()->attach($equipo, ['user_id'=>$user_id,'estado' => 'pendiente']);
+
         $deportes_sidebar = Deporte::all();
         $equipo2= Equipo::find($equipo);
 
@@ -376,7 +376,7 @@ class EstudianteController extends Controller
         ->with('equipo', $equipo2)
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('message', 'Solicitud Enviada con exito!');
-    
+
     }
 
     public function abandonar_equipo(Request $request){
@@ -384,7 +384,7 @@ class EstudianteController extends Controller
         $user_id=Auth::user()->id;
         $equipo= Equipo::find($equipo);
         $equipo->users()->detach($user_id);
-        
+
         $deportes_sidebar = Deporte::all();
         $equipo2= Equipo::find($equipo);
 
@@ -392,14 +392,14 @@ class EstudianteController extends Controller
         ->with('equipo', $equipo2)
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('alert', 'Abdandonaste el equipo con exito!');
-   
+
     }
 
 
     public function show_all_equipos(){
         $equipos = Equipo::all();
         $deportes_sidebar = Deporte::all();
-       
+
         return view('estudiante.comunidad')
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('equipos', $equipos);
@@ -409,7 +409,7 @@ class EstudianteController extends Controller
         $us=user::find($request->id_us);
         $equipos=equipo::find($request->id_eq);
         $equipos->users()->detach($request->id_us);
-        $us->equipos()->attach($request->id_eq, ['user_id'=>$request->id_us,'estado' => 'aceptada']); 
+        $us->equipos()->attach($request->id_eq, ['user_id'=>$request->id_us,'estado' => 'aceptada']);
         return redirect('e/equipos');
     }
 
@@ -419,7 +419,7 @@ class EstudianteController extends Controller
         $equipo= Equipo::find($equipo);
         $equipo->users()->detach($request->id_us);
         return redirect('e/equipos');
-   
+
     }
 
     public function eliminar_jugador(Request $request){
@@ -427,7 +427,7 @@ class EstudianteController extends Controller
         $equipo= Equipo::find($equipo);
         $equipo->users()->detach($request->id_ju);
         return redirect('e/equipos');
-   
+
     }
 
 

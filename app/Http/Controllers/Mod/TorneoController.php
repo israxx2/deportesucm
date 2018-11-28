@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Mod;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Deporte;
 
 class TorneoController extends Controller
 {
@@ -14,7 +15,10 @@ class TorneoController extends Controller
      */
     public function index()
     {
-        //
+        $deportes_sidebar = Deporte::all();
+
+        return view('mod.torneos.index')
+        ->with('deportes_sidebar', $deportes_sidebar);
     }
 
     /**
