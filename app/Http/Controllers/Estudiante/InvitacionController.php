@@ -11,6 +11,8 @@ use App\Equipo;
 use App\Modalidad;
 use App\Partido;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 
 class InvitacionController extends Controller
 {
@@ -26,6 +28,7 @@ class InvitacionController extends Controller
         equipos.nombre from equipos where equipos.user_id <> '.$user);
         $equip = DB::select('SELECT equipos.id,
         equipos.nombre from equipos where equipos.user_id = '.$user);
+
         $invitaciones = DB::select('SELECT 
         invitaciones.id as id,
         invitaciones.emisor_id as emisor,
@@ -40,11 +43,44 @@ class InvitacionController extends Controller
         and invitaciones.aceptado = "false"
         and invitaciones.receptor_id in (SELECT equipos.id from equipos where 
         equipos.user_id = '. $user.')');
+
+        $mis_invitaciones = DB::select('SELECT 
+        invitaciones.id as id,
+        invitaciones.emisor_id as emisor,
+        invitaciones.receptor_id as receptor, 
+        equipos.nombre as nombre_equipo,
+        invitaciones.descripcion as descripcion_invi,
+        invitaciones.horario as horario_invi,
+        invitaciones.lugar as lugar_invi,
+        invitaciones.numero as numero_invi
+        FROM invitaciones join equipos on invitaciones.emisor_id = equipos.id
+        and invitaciones.aceptado = "false"
+        and invitaciones.emisor_id in (SELECT equipos.id from equipos where 
+        equipos.user_id = '. $user.')');
+
+    
+        $aceptadas = DB::select('SELECT 
+        invitaciones.id as id,
+        invitaciones.emisor_id as emisor,
+        invitaciones.receptor_id as receptor, 
+        equipos.nombre as nombre_equipo,
+        invitaciones.descripcion as descripcion_invi,
+        invitaciones.horario as horario_invi,
+        invitaciones.lugar as lugar_invi,
+        invitaciones.numero as numero_invi
+        FROM invitaciones join equipos on invitaciones.emisor_id = equipos.id
+        and invitaciones.aceptado = "true"
+        and invitaciones.horario >  '.Carbon::now()->toDateString().'
+        and invitaciones.emisor_id in (SELECT equipos.id from equipos where 
+        equipos.user_id = '. $user.')');
+
         $deportes_sidebar = Deporte::all();
         return view('estudiante.invitaciones.index')
         ->with('equipos', $equipos)
         ->with('equip', $equip)
         ->with('invitaciones', $invitaciones)
+        ->with('mis_invitaciones', $mis_invitaciones)
+        ->with('aceptadas', $aceptadas)
         ->with('deportes_sidebar', $deportes_sidebar);
     }
 
@@ -167,7 +203,7 @@ class InvitacionController extends Controller
         equipos.user_id = '. $user.')');
 
         $deportes_sidebar = Deporte::all();
-        return view('Estudiante.invitaciones.publico')
+        return view('estudiante.invitaciones.publico')
         ->with('equipos', $equipos)
         ->with('equip', $equip)
         ->with('invitaciones', $invitaciones)
@@ -188,5 +224,11 @@ class InvitacionController extends Controller
         return Redirect('e/invitacion/');
     }
 
+    public function rechazar($id, Request $request)
+    {
+    
+        Invitacion::where('id',$id)->forceDelete(); 
+        return Redirect('e/invitacion/');
+    }
     
 }

@@ -4,43 +4,145 @@
 @section('content')
 
 <div class="row">
-    <div class="col-sm-8">
-        <div class="card card-chart">
+    <div class="col-sm-12">
+        <div class="card card-chart bg-info">
             <div class="card-header">
-                <h5 class="card-category">Invitacion</h5>
-                <h3 class="card-title">Realizar una Invitacion <button type="button" class="btn btn-info" data-toggle="modal" data-target="#crearInvitacion"><i class="fas fa-plus"></i></button></h3>
+                <h4 class="card-title">Realizar Nueva Invitacion Privada 
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crearInvitacion"><i class="fas fa-plus"></i></button></h4>
             </div>
-            <div class="card-body">
 
-            </div>
-            <div class="card-footer">
-
-            </div>
         </div>
-    @foreach( $invitaciones as $invitacion)
-            {!! Form::open(['route' => ['estudiante.invitaciones.aceptar', $invitacion->id] , 'method' => 'POST']) !!}
-            <div class="card card-chart">
-                <div class="card-header">
-                    <h6 class="card-title">{{$invitacion->nombre_equipo}}</button></h6>
-                </div>
-                <div class="card-body">
-                    <p class="text-muted">{{$invitacion->descripcion_invi}}</p>
-                    <hr>
-                    <p>Horario: {{$invitacion->horario_invi}}.</p>
-                    <hr>
-                    <p>Lugar: {{$invitacion->lugar_invi}}</p>
-                    <hr>
-                    <p>Número contacto: {{$invitacion->numero_invi}}</p>
-                    <input name="emisor" type="hidden" value="{{$invitacion->emisor}}">
-                    <input name="receptor" type="hidden" value="{{$invitacion->receptor}}">
-                    <button type="submit" class="btn btn-primary">ACEPTAR</button>
-                </div>
-                <div class="card-footer">
+    </div>
 
+    <div class="col-sm-4">
+        <div class="card card-chart ">
+        <div class="card-header">
+        <center><h4>INVITACIONES RECIBIDAS</h4></center>
+        <hr>
+        </div>
+            <div class="card-body">
+                @foreach( $mis_invitaciones as $invitacion)
+            
+            <b>
+            <h6  style="text-align: right; "> {{strtoupper($invitacion->nombre_equipo)}}</h6>
+            
+            </b>
+                <p class="text-muted">{{$invitacion->descripcion_invi}}</p><br>
+                
+                <p><b>Horario:</b> {{$invitacion->horario_invi}}.</p>
+                
+                <p><b>Lugar:</b> {{$invitacion->lugar_invi}}</p>
+                
+                <p><b>Número contacto:</b> {{$invitacion->numero_invi}}</p>
+                <input name="emisor" type="hidden" value="{{$invitacion->emisor}}">
+                <input name="receptor" type="hidden" value="{{$invitacion->receptor}}">
+                <div class="row">
+                    <div class="col-sm-6"> {!! Form::open(['route' => ['estudiante.invitaciones.aceptar', $invitacion->id] , 'method' => 'POST']) !!}
+                        <button class="btn btn-success">ACEPTAR</button>
+                    {!! Form::close() !!}
+                    </div>
+                    <div class="col-sm-6"  style="text-align: right">
+                    {!! Form::open(['route' => ['estudiante.invitaciones.rechazar', $invitacion->id] , 'method' => 'POST']) !!}
+                        <button class="btn btn-danger">CANCELAR</button>
+                    {!! Form::close() !!}
+                    </div>
                 </div>
-            </div>
-            {!! Form::close() !!}
+
+                   
+
+                
+               
+                <br><hr>
+
             @endforeach
+               
+            </div>
+
+        </div>
+    </div>   
+
+    <div class="col-sm-4">
+        <div class="card card-chart">
+        <div class="card-header">
+            <center><h4>INVITACIONES ENVIADAS</h4></center>
+            <hr>
+        </div>
+            <div class="card-body">
+            @foreach( $mis_invitaciones as $invitacion)
+           
+             <b>
+             <h6  style="text-align: right; "> {{strtoupper($invitacion->nombre_equipo)}}</h6>
+            
+             </b>
+                <p class="text-muted">{{$invitacion->descripcion_invi}}</p><br>
+               
+                <p><b>Horario:</b> {{$invitacion->horario_invi}}.</p>
+                
+                <p><b>Lugar:</b> {{$invitacion->lugar_invi}}</p>
+               
+                <p><b>Número contacto:</b> {{$invitacion->numero_invi}}</p>
+                <input name="emisor" type="hidden" value="{{$invitacion->emisor}}">
+                <input name="receptor" type="hidden" value="{{$invitacion->receptor}}">
+                <div  style="text-align: right">
+                {!! Form::open(['route' => ['estudiante.invitaciones.rechazar', $invitacion->id] , 'method' => 'POST']) !!}
+                     <button class="btn btn-danger">CANCELAR</button>
+                {!! Form::close() !!}
+                </div>
+              
+                <br><hr>
+
+             @endforeach
+                
+            </div>
+
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card card-chart">
+        <div class="card-header">
+            <center><h4>INVITACIONES ACEPTADAS</h4></center>
+            <hr>
+        </div>
+            <div class="card-body">
+            @foreach( $aceptadas as $invitacion)
+           
+             <b>
+             <h6  style="text-align: right; "> {{strtoupper($invitacion->nombre_equipo)}}</h6>
+            
+             </b>
+                <p class="text-muted">{{$invitacion->descripcion_invi}}</p><br>
+               
+                <p><b>Horario:</b> {{$invitacion->horario_invi}}.</p>
+                
+                <p><b>Lugar:</b> {{$invitacion->lugar_invi}}</p>
+               
+                <p><b>Número contacto:</b> {{$invitacion->numero_invi}}</p>
+                <input name="emisor" type="hidden" value="{{$invitacion->emisor}}">
+                <input name="receptor" type="hidden" value="{{$invitacion->receptor}}">
+                <div  style="text-align: right">
+                {!! Form::open(['route' => ['estudiante.invitaciones.rechazar', $invitacion->id] , 'method' => 'POST']) !!}
+                     <button class="btn btn-danger">CANCELAR</button>
+                {!! Form::close() !!}
+                </div>
+              
+                <br><hr>
+
+             @endforeach
+                
+            </div>
+
+        </div>
+    </div>
+      
+        
+   
+
+ </div>
+
+
+
+
+         
     </div>
 </div>
 <!-- CREAR EQUIPO -->
