@@ -367,5 +367,10 @@ Route::group(['prefix' => 'mod'], function () {
             'destroy' => 'mod.torneos.destroy',
         ]
     ]);
+    Route::resource('solicitud','Mod\SolicitudController',[
+      'names'=>[
+        'index'=> 'mod.solicitud.index',
+      ]
+    ]);
 
 });

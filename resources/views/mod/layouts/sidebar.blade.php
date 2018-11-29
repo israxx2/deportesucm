@@ -46,24 +46,20 @@
                 </li>
 
 
-                <div class="collapse" id="deportes">
-                    <ul class="nav">
-                        @foreach($deportes_sidebar as $deporte_sidebar)
-                        <li class="@yield('deporte_'.$deporte_sidebar->id , ' ')">
-                        <a href="{{ route('estudiante.deportes.show', [ 'id' => $deporte_sidebar->id]) }}">
-                                <span class="sidebar-mini-icon"><i class="{{ $deporte_sidebar->icon }}"></i></span>
-                                <span class="sidebar-normal">{{ $deporte_sidebar->nombre }}</span>
-                            </a>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
 
                 {{-- COMUNIDAD --}}
                   <li class="@yield('comunidad', ' ')">
                       <a href="#">
                           <i class="now-ui-icons emoticons_satisfied"></i>
                           <p>Comunidad</p>
+                      </a>
+                  </li>
+
+                 {{-- INSCRIPCIONES --}}
+                  <li class="@yield('inscripcion', ' ')">
+                      <a href="{{ route('mod.solicitud.index') }}">
+                          <i class="now-ui-icons emoticons_satisfied"></i>
+                          <p>INSCRIPCION</p>
                       </a>
                   </li>
 
@@ -102,6 +98,7 @@
                         </li>
                     </ul>
                 </div>
+
             </ul>
         </div>
       </div>
