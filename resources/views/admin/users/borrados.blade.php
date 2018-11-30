@@ -213,7 +213,7 @@
 		$('.delete-all').on('click', function(e) {
 			var idsArr = [];
 			$(".checkbox:checked").each(function() {
-				idsArr.push($(this).attr('data-id'));
+				idsArr.push($(this).attr('data->id'));
 			});
 			if(idsArr.length <=0)
 			{
