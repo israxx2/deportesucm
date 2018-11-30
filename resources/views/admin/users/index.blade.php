@@ -185,7 +185,7 @@
 					var strIds = idsArr.join(",");
 
 					$.ajax({
-						url: "{{ route('admin.user.softdeleteall') }}",
+						url: "{{ route('admin.user.borrados') }}",
 						type: 'POST',
 						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 						data: 'ids='+strIds,

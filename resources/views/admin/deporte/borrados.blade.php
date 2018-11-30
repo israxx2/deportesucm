@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Usuarios')
+@section('title', 'Deportes')
 
 @section('content')
 
@@ -8,32 +8,13 @@
 <hr>
 <div class="container-fluid">
 	<div class="box">
-		<h3 class="box-title">Usuarios</h3>
+		<h3 class="box-title">Deportes</h3>
 		<div class="box-body">
 		<ul class="nav nav-pills" role="tablist">
-		<li role="presentation"><a href="{{ route('admin.user.index') }}">Usuarios <span class="badge">{{ count($users) - count($usersOnlyTrashed) }}</span></a></li>
-		<li role="presentation" class="active"><a href="{{ route('admin.user.borrados') }}">Borrados <span class="badge">{{ count($usersOnlyTrashed) }}</span></a></li>
+		<li role="presentation"><a href="{{ route('admin.deporte.index') }}">Deportes <span class="badge">{{ count($deporte) - count($deportesOnlyTrashed) }}</span></a></li>
+		<li role="presentation" class="active"><a href="{{ route('admin.deporte.borrados') }}">Borrados <span class="badge">{{ count($deportesOnlyTrashed) }}</span></a></li>
 		</ul>
 
-		<div class="row">
-			{!! Form::open(['route' => 'admin.user.filtro1' , 'method' => 'POST']) !!}
-			<div class="col-sm-3">
-				<hr>
-					<label>Filtro </label>
-				<select class="form-control" id="carrera_id" name="carrera_id" required style="width: 100%">
-				<option value="null">Seleccione una carrera</option>
-
-				@foreach($carreras as $carrera)
-					<option value="{{ $carrera->id }}">{{ $carrera->id.'- '.$carrera->nombre }}</option>
-				@endforeach
-				</select>
-			</div>
-			{!! Form::close() !!}
-			<div class="col-sm-6">
-
-			</div>
-		</div>
-		</div>
 
 
 	<div class="table-responsive" id="div_user">
@@ -42,50 +23,44 @@
 				<tr>
 					<th><input type="checkbox" id="check_all"></th>
 					<th>#</th>
-					<th>Nombres</th>
-					<th>Apellidos</th>
-					<th>Reactivar</th>
-					<th>Detalles</th>
-					<th>Eliminar</th>
+					<th>Nombre</th>
+					<th>Descripcion</th>
+					<th>Activar</th>
+					<th>Borrar </th>
 
 				</tr>
 			</thead>
 			<tbody>
-                @if($usersOnlyTrashed->isEmpty())
+                @if($deportesOnlyTrashed->isEmpty())
 
                 @else
-                    @foreach($usersOnlyTrashed as $user)
+                    @foreach($deportesOnlyTrashed as $deporte)
 
                         <tr>
-                            <td><input type="checkbox" class="checkbox" data-id="{{$user->id}}"></td>
-                            <td>{{ $user->id }}</td>
-                            <td>{{ $user->nombres }}</td>
-                            <td>{{ $user->apellidos }}</td>
+                            <td><input type="checkbox" class="checkbox" data-id="{{$deporte->id}}"></td>
+                            <td>{{ $deporte->id }}</td>
+                            <td>{{ $deporte->nombre }}</td>
+                            <td>{{ $deporte->descripcion }}</td>
 
 
                             <td>
-                                @if($user->deleted_at == null)
+                                @if($deporte->deleted_at == null)
                                     <p href="#" class="btn btn-success">
                             Activo
                         </p>
                                 @else
-                        <p href="#" class="btn btn-success" data-toggle="modal" data-target="#activar{{ $user->id }}">
+                        <p href="#" class="btn btn-success" data-toggle="modal" data-target="#activar{{ $deporte->id }}">
                         <i class="fa fa-check"></i>
                         </p>
                                 @endif
                             </td>
                     <td>
-                        <a href="{{ '/admin/user/'.$user->id  }}" class="btn btn-info">
-                            <i class="fa fa-info"></i>
-                        </a>
-                    </td>
-                    <td>
-                    @if($user->deleted_at == null)
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $user->id }}">
+                    @if($deporte->deleted_at == null)
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $deporte->id }}">
                                     <i class="fa fa-trash"></i>
                         </button>
                             @else
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $user->id }}" >
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $deporte->id }}" >
                                     <i class="fa fa-trash"></i>
                         </button>
                             @endif
@@ -95,20 +70,20 @@
                         </tr>
 
                         <!-- Modal Delete-->
-                        <div class="modal" tabindex="-1" role="dialog" id = "destroy{{ $user->id }}" style="top:20%;">
+                        <div class="modal" tabindex="-1" role="dialog" id = "destroy{{ $deporte->id }}" style="top:20%;">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Borrar Jugador {{ $user->id }}</h5>
+                                        <h5 class="modal-title">Borrar Jugador {{ $deporte->id }}</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>¿Estás seguro de borrar al jugador?</p>
+                                        <p>¿Estás seguro de borrar el deporte?</p>
                                     </div>
                                     <div class="modal-footer">
-                                        {!! Form::open(['route' => ['admin.user.destroy_force', $user->id] , 'method' => 'post']) !!}
+                                        {!! Form::open(['route' => ['admin.deporte.destroy_force', $deporte->id] , 'method' => 'post']) !!}
                                             <button type="submit" class="btn btn-danger">
                                                                 <i class="fa fa-check" aria-hidden="true"></i>
                                                             </button>
@@ -122,20 +97,20 @@
                         </div>
 
                         <!-- Modal Activar-->
-                        <div class="modal" tabindex="-1" role="dialog" id = "activar{{ $user->id }}" style="top:20%;">
+                        <div class="modal" tabindex="-1" role="dialog" id = "activar{{ $deporte->id }}" style="top:20%;">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Activar Jugador {{ $user->id }}</h5>
+                                        <h5 class="modal-title">Activar Deporte {{ $deporte->id }}</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>¿Estás seguro de volver a activar al jugador?</p>
+                                        <p>¿Estás seguro de volver a activar a¿el Deporte?</p>
                                     </div>
                                     <div class="modal-footer">
-                                        {!! Form::open(['route' => ['admin.user.activar', $user->id] , 'method' => 'POST']) !!}
+                                        {!! Form::open(['route' => ['admin.deporte.activar', $deporte->id] , 'method' => 'POST']) !!}
                                             <button type="submit" class="btn btn-success">
                                                                 <i class="fa fa-check" aria-hidden="true"></i>
                                                             </button>
@@ -161,17 +136,6 @@
 </div>
 
 <script>
-    $(document).ready(function(){
-            $('#carrera_id').on('change',function(){
-                $.post("{{ route('admin.user.filtro2') }}",{
-                    id:$('#carrera_id').val(),
-                    _token:'{{ csrf_token() }}'
-                }).done(function(data){
-                   $('#div_user').html(data);
-                });
-            });
-        });
-
         function del(id){
             $('#n_id').html(id);
             $('#id_del').val(id);
@@ -179,7 +143,7 @@
         };
 
         $('#form_delete').on('submit', function(e){
-            axios.delete('/admin/user/'+$('#id_del').val()).then(response => {
+            axios.delete('/admin/deporte/'+$('#id_del').val()).then(response => {
                 console.log(response);
                 location.reload();
             }).catch(error => {
@@ -223,7 +187,7 @@
 				if(confirm("¿Estas seguro?, se borraran de forma permanente")){
 					var strIds = idsArr.join(",");
 					$.ajax({
-						url: "{{ route('admin.user.borrados') }}",
+						url: "{{ route('admin.deporte.borrados') }}",
 						type: 'GET',
 						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 						data: 'ids='+strIds,
