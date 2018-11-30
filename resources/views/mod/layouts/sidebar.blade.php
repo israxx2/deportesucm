@@ -69,7 +69,7 @@
 
                 {{-- TORNEOS --}}
                 <li class="@yield('torneos', ' ')">
-                  <a href="{{ route('estudiante.torneos.index') }}">
+                  <a href="/mod/torneos">
                       <i class="now-ui-icons sport_trophy"></i>
                       <p>Torneos</p>
                   </a>
@@ -88,7 +88,7 @@
                     <ul class="nav">
                         {{-- OPCIONES DE LOS TORNEOS --}}
                         <li class="@yield('verTorneos', '')">
-                        <a href="{{ route('mod.torneos.index') }}">
+                        <a href="mod/torneos">
                         <i class="now-ui-icons ui-1_email-85"></i>
                         <p>Ver</p>
                         </a>
