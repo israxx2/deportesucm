@@ -62,7 +62,7 @@
 							<td>{{ $modalidad->min }}</td>
 							<td>{{ $modalidad->max }}</td>
                             <td>
-                                <a href="{{ '/admin/modadlidad/'.$modalidad->id  }}" class="btn btn-info">
+                                <a href="{{ '/admin/modalidad/'.$modalidad->id  }}" class="btn btn-info">
                                     <i class="fa fa-info"></i>
                                 </a>
                             </td>
