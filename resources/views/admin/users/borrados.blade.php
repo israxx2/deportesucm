@@ -213,7 +213,7 @@
 		$('.delete-all').on('click', function(e) {
 			var idsArr = [];
 			$(".checkbox:checked").each(function() {
-				idsArr.push($(this).attr('data->id'));
+				idsArr.push($(this).attr('data-id'));
 			});
 			if(idsArr.length <=0)
 			{
@@ -223,7 +223,7 @@
 				if(confirm("¿Estas seguro?, se borraran de forma permanente")){
 					var strIds = idsArr.join(",");
 					$.ajax({
-						url: "{{ route('admin.user.borrados') }}",
+						url: "{{ route('admin.user.deleteall') }}",
 						type: 'GET',
 						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 						data: 'ids='+strIds,
