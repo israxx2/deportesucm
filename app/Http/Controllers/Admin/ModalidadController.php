@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Response;
 use App\User;
 use App\Modalidad;
 use App\Deporte;
+use Illuminate\Support\Collection as Collection;
 
 class ModalidadController extends Controller
 {
@@ -82,7 +84,7 @@ class ModalidadController extends Controller
 
         //$a = response()->json(['success' => 'Pasó la prueba :3']);
 
-        return view('admin.modalidad.filtro_carrera',['modalidad'=>$modalidad])->render();
+        return view('admin.modalidad.filtro_deporte',['modalidad'=>$modalidad])->render();
         //->with('users', $users);
     }
 
@@ -94,11 +96,11 @@ class ModalidadController extends Controller
             $modalidad = Modalidad::onlyTrashed()->orderBy('id', 'ASC')
             ->get();
         } else {
-            $Modalidad = Modalidad::onlyTrashed()->orderBy('id', 'ASC')
-            ->where('carrera_id', $request->id)
+            $modalidad = Modalidad::onlyTrashed()->orderBy('id', 'ASC')
+            ->where('deporte_id', $request->id)
             ->get();
         }
-        return view('admin.modaldiad.filtro_carrera',['modalidad'=>$modalidad])->render();
+        return view('admin.modalidad.filtro_deporte',['modalidad'=>$modalidad])->render();
 
     }
     /**
@@ -188,9 +190,9 @@ class ModalidadController extends Controller
      */
     public function destroy($id)
     {
-        $modadliad = Modalidad::find($id);
+        $modalidad = Modalidad::find($id);
         $modalidad->delete();
-        $modadliad->save();
+        $modalidad->save();
         return Redirect(route('admin.modalidad.index'));
     }
 
@@ -227,7 +229,7 @@ class ModalidadController extends Controller
         dd("llegó");
         $ids = $request->ids;
         Modalidad::whereIn('id',explode(",",$ids))->forceDelete();
-        return response()->json(['status'=>true,'message'=>"Usuarios Borrados Correctamente."]);
+        return response()->json(['status'=>true,'message'=>"Modalidad Borrados Correctamente."]);
 
 
     }

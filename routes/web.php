@@ -128,16 +128,12 @@ Route::group(['prefix' => 'admin'], function () {
         ]);
 
       Route::post('modalidad/aa/filtro2',[
-      'uses'  =>'Admin\ModaliadadController@filtro2',
+      'uses'  =>'Admin\ModalidadController@filtro2',
       'as'    =>'admin.modalidad.filtro2'
       ]);
         Route::post('modalidad/activar/{modalidad}',[
           'uses'  =>'Admin\ModalidadController@activar',
           'as'    =>'admin.modalidad.activar'
-          ]);
-          Route::post('modalidad/activar/{modalidad}',[
-            'uses'  =>'Admin\ModalidadController@activar',
-            'as'    =>'admin.modalidad.activar'
           ]);
           Route::post('modalidad/destroy_force/{modalidad}', [
             'as'=>'admin.modalidad.destroy_force',
@@ -156,7 +152,7 @@ Route::group(['prefix' => 'admin'], function () {
               'uses'  =>'Admin\ModalidadController@borrados',
               'as'    =>'admin.modalidad.borrados'
             ]);
-          Route::get('modaliad/activar/{modalidad}',[
+          Route::get('modalidad/activar/{modalidad}',[
               'uses'  =>'Admin\ModalidadController@activar',
               'as'    =>'admin.modalidad.activar'
             ]);

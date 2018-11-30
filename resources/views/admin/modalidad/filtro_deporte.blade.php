@@ -10,32 +10,26 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($users as $user)
+        @foreach($modalidad as $modalidad)
             <tr>
-                <td>{{ $user->id }}</td>
-                <td>{{ $user->nombres }}</td>
-                <td>{{ $user->apellidos }}</td>
+                <td>{{ $modalidad->id }}</td>
+				<td>{{ $modalidad->nombre }}</td>
+				<td>{{ $modalidad->descripcion }}</td>
+				<td>{{ $modalidad->deporte_id }}</td>
+				<td>{{ $modalidad->min }}</td>
+				<td>{{ $modalidad->max }}</td>
                 <td>
-                    @if($user->tipo == 'admin')
-                        <p class="label label-info">ADMIN</p>
-                    @elseif($user->tipo == 'coordinador')
-                        <p class="label label-danger">COORDINADOR</p>
-                    @else
-                        <p class="label label-success">ESTUDIANTE</p>
-                    @endif
-                </td>
-                <td>
-                    <a href="{{ '/admin/user/'.$user->id  }}" class="btn btn-info">
+                    <a href="{{ '/admin/modalidad/'.$modalidad->id  }}" class="btn btn-info">
                         <i class="fa fa-info"></i>
                     </a>
                 </td>
                 <td>
-                @if($user->deleted_at == null)
-                    <button type="button" class="btn btn-danger" onclick="del({{ $user->id }})">
+                @if($modalidad->deleted_at == null)
+                    <button type="button" class="btn btn-danger" onclick="del({{ $modalidad->id }})">
                                 <i class="fa fa-trash"></i>
                     </button>
                         @else
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $user->id }}" disabled>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $modalidad->id }}" disabled>
                                 <i class="fa fa-trash"></i>
                     </button>
                         @endif

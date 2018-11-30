@@ -13,7 +13,7 @@
 
         <div class="box-body">
                 <ul class="nav nav-pills" role="tablist">
-                    <li role="presentation" class="active"><a href="{{ route('admin.modalidad.index') }}">Usuarios <span class="badge">{{ count($modalidad) }}</span></a></li>
+                    <li role="presentation" class="active"><a href="{{ route('admin.modalidad.index') }}">Modalidades <span class="badge">{{ count($modalidad) }}</span></a></li>
                     <li role="presentation"><a href="{{ route('admin.modalidad.borrados') }}">Borrados <span class="badge">{{ count($modalidadesOnlyTrashed) }}</span></a></li>
                 </ul>
 
@@ -47,7 +47,6 @@
 						<th>Deporte</th>
 						<th>Minimo</th>
 						<th>Maximo</th>
-						<th>Estado</th>
 						<th>Ver Mas </th>
 						<th>Borrar</th>
                     </tr>
@@ -120,7 +119,7 @@
 
 </div>
 <script>
-    $(document).ready(function(){
+        $(document).ready(function(){
             $('#deporte_id').on('change',function(){
                 $.post("{{ route('admin.modalidad.filtro1') }}",{
                     id:$('#deporte_id').val(),
@@ -130,7 +129,6 @@
                 });
             });
         });
-
         function del(id){
             $('#n_id').html(id);
             $('#id_del').val(id);
