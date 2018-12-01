@@ -16,7 +16,51 @@
     </div>
 </div>
 <div class="row">
+<div class="card card-chart">
+            <div class="card-header">
+                <h5 class="card-category">Torneos</h5>
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <p>FILTROS (PRÓXIMAMENTE)</p>
+                </div>
 
+
+                <div class="table-responsive">
+                    <table class="table table-striped display compact table-condensed" id="table_user">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Deporte</th>
+                                <th>Modalidad</th>
+                                <th>Capacidad</th>
+                                <th>Fecha</th>
+                                <th>Ver+</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($torneos as $torneo)
+                                <tr>
+                                    <td>{{ $torneo->nombre }}</td>
+
+                                    <td>{{ $torneo->modalidad->deporte->nombre }}</td>
+                                    <td>{{ $torneo->modalidad->nombre }}</td>
+                                    <td>{{ $torneo['participantes_actuales'].'/'.$torneo->max }}</td>
+                                    <td>{{ date("d/m/Y", strtotime($torneo->fecha)) }}</td>
+                                    <td>
+                                    <a href="{{ route('mod.torneos.show', ['id' => $torneo->id]) }}" class="btn btn-info">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>    
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
@@ -72,7 +116,7 @@
             <div class="col-sm-4">  
                     <label>Modalidad</label>
                     <select name="modalidad">
-                    @foreach($torneos as $modalidad)
+                    @foreach($modalidades as $modalidad)
                         <option value="{{$modalidad->id}}">{{ $modalidad->deporte->nombre }},{{ $modalidad->nombre }}</option>
                     @endforeach
                     </select>

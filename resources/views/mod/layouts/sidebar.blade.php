@@ -22,7 +22,7 @@
 
                 {{-- EQUIPOS DEL USUARIO --}}
                 <li class="@yield('equipos', ' ')">
-                    <a href="{{ route('estudiante.equipos') }}">
+                    <a href="/mod/equipos">
                         <i class="now-ui-icons business_badge"></i>
                         <p>Equipos</p>
                     </a>

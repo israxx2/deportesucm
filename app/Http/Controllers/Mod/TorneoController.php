@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Deporte;
 use App\Torneo;
+use App\User;
 use App\Modalidad;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class TorneoController extends Controller
 {
@@ -19,10 +21,15 @@ class TorneoController extends Controller
     public function index()
     {
         $deportes_sidebar = Deporte::all();
-        $torneos = Modalidad::orderBy('id', 'DESC')->get();
+        $modalidad = Modalidad::orderBy('id', 'DESC')->get();
+        $torneo = Torneo::orderBy('id', 'DESC')->get();
+        foreach($torneo as $torneos){
+            $torneos['participantes_actuales'] = $torneos->equipos->count();
+        }
         return view('mod.torneos.index')
         ->with('deportes_sidebar', $deportes_sidebar)
-        ->with('torneos', $torneos);
+        ->with('torneos', $torneo)
+        ->with('modalidades', $modalidad);
     }
 
     /**
@@ -55,6 +62,9 @@ class TorneoController extends Controller
         $torneo->cerrado = 0;
         $torneo->finalizado = 0;
         $torneo->save();
+        $deportes_sidebar = Deporte::all();
+        return view('mod.torneos.index')
+        ->with('deportes_sidebar', $deportes_sidebar);
     }
 
     /**
@@ -65,7 +75,43 @@ class TorneoController extends Controller
      */
     public function show($id)
     {
-        //
+        $torneo = Torneo::find($id);
+        $deportes_sidebar = Deporte::all();
+        $i = 0;
+        $equipos = $torneo->equipos;
+        $participantes = count($torneo->equipos);
+        $res = 0;
+        $user = User::find(Auth::User()->id);
+        $equiposLiderados = $user->equiposLiderados
+        ->where('modalidad_id', $torneo->modalidad_id);
+
+        $equiposBaja = $equipos->where('user_id', $user->id);
+
+        //SI ES DE TIPO LLAVE RETORNA ADEMÁS LAS FASES.
+        if($torneo->tipo == 'llave')
+        {
+            $fases = 0;
+            while($res <= $participantes)
+            {
+                $fases++;
+                $res = pow(2,$fases);
+            }
+            return view('mod.torneos.torneos_show_2')
+            ->with('deportes_sidebar', $deportes_sidebar)
+            ->with('torneo', $torneo)
+            ->with('i', $i)
+            ->with('fases', $fases)
+            ->with('equiposLiderados', $equiposLiderados)
+            ->with('equiposBaja', $equiposBaja);
+        } else
+        {
+            return view('mod.torneos.torneos_show_2')
+            ->with('deportes_sidebar', $deportes_sidebar)
+            ->with('torneo', $torneo)
+            ->with('i',$i)
+            ->with('equiposLiderados', $equiposLiderados)
+            ->with('equiposBaja', $equiposBaja);
+        }
     }
 
     /**
@@ -100,5 +146,34 @@ class TorneoController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function editarres(Request $request)
+    {
+        dd($request);
+    }
+    public function registrarenf(Request $request)
+    {   
+        $torneus = DB::select('SELECT 
+        equipo_id from inscripcion where torneo_id = '.$request->torneo);     
+
+        $torneo = DB::select('SELECT 
+        DISTINCT
+        inscripcion.equipo_id,
+        equipos.nombre,
+        inscripcion.torneo_id
+        from inscripcion join equipos on inscripcion.equipo_id =equipos.id
+        join torneos on inscripcion.torneo_id = torneos.id
+        join enfrentamientos on enfrentamientos.torneo_id = torneos.id
+        where torneos.id= '.$request->torneo. ' and enfrentamientos.fase = '.$request->fase);
+        $deportes_sidebar = Deporte::all();
+
+        return view('mod.torneos.registrarenf')
+        ->with('deportes_sidebar', $deportes_sidebar)
+        ->with('torneo',$torneo);
+
+    }
+    public function guardar(Request $request)
+    {   
+        dd($request);
     }
 }
