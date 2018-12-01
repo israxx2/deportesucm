@@ -193,6 +193,20 @@ Route::group(['prefix' => 'e'], function () {
         'uses' => 'Estudiante\EstudianteController@perfil',
         'as' => 'estudiante.perfil'
     ]);
+    Route::post('perfil/imagen', [
+        'uses' => 'Estudiante\EstudianteController@imagen',
+        'as' => 'estudiante.perfil.imagen'
+    ]);
+
+    Route::post('perfil/imagen/delete', [
+        'uses' => 'Estudiante\EstudianteController@imagen_delete',
+        'as' => 'estudiante.perfil.imagen.delete'
+    ]);
+
+    Route::post('perfil/descripcion', [
+        'uses' => 'Estudiante\EstudianteController@descripcion',
+        'as' => 'estudiante.perfil.descripcion'
+    ]);
     //VER DEPORTE
     Route::get('deporte/{id}', [
         'uses' => 'Estudiante\EstudianteController@deporte_show',

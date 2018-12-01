@@ -4,15 +4,15 @@
   <script src="{{ asset('estudiante/assets/js/core/bootstrap.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('estudiante/assets/js/plugins/perfect-scrollbar.jquery.min.js') }}" type="text/javascript"></script>
 
-    <!--	Plugin para el Select, la documentacion completa aqui: http://silviomoreto.github.io/bootstrap-select -->
-    <script src="{{ asset('estudiante/assets/js/plugins/bootstrap-select.js') }}" type="text/javascript"></script>
+  <!--	Plugin para el Select, la documentacion completa aqui: http://silviomoreto.github.io/bootstrap-select -->
+  <script src="{{ asset('estudiante/assets/js/plugins/bootstrap-select.js') }}" type="text/javascript"></script>
 
    <!-- <script src="../assets/js/plugins/bootstrap-datetimepicker.js"></script> -->
 
 
-    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput
-    <script src="../assets/js/plugins/jasny-bootstrap.min.js"></script>
-    -->
+    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
+
 
     <!-- Chart JS -->
     <script src="{{ asset('estudiante/assets/js/plugins/chartjs.min.js') }}"></script>

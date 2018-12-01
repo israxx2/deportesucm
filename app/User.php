@@ -20,7 +20,7 @@ class User extends Authenticatable
     protected $table = 'users';
 
     protected $fillable = [
-        'nombres', 'apellidos', 'password', 'email', 'nick', 'tipo',
+        'nombres', 'apellidos', 'password', 'email', 'nick', 'tipo', 'social_name', 'social_id', 'avatar', 'descripcion'
     ];
 
     /**
@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public function equipos()
     {
-        return $this->belongsToMany('App\Equipo', 'cuenta', 'user_id', 'equipo_id','estado')
+        return $this->belongsToMany('App\Equipo', 'cuenta', 'user_id', 'equipo_id')
         //->withPivot('goles', 'resultado', 'elo', 'elo_anterior') atributos de la tabla intermedia
         ->withTimestamps();
     }

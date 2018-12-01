@@ -120,7 +120,7 @@ class TorneoController extends Controller
             $equipoLiderado = Equipo::find($request->equipoLiderado_id);
             $torneosEquipoLiderado = $equipoLiderado->torneos;
             $consulta_1 = $torneosEquipoLiderado->where('modalidad_id', $equipoLiderado->modalidad_id);
-            $consulta_2 = $consulta_1->where('finalizado', 1);
+            $consulta_2 = $consulta_1->where('finalizado', 0);
 
             //si el torneo está cerrado no se puede entrar
             if($torneo->cerrado){

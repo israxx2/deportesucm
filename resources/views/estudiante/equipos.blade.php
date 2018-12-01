@@ -22,7 +22,7 @@
 
             </div>
         </div>
-        @if($equipos->isEmpty())
+        @if($user->equipos->isEmpty())
         <div class="card card-nav-tabs">
 
             <div class="card-body">
@@ -30,15 +30,15 @@
             </div>
         </div>
         @else
-            @foreach($modalidad->equipos as $equipo)
+            @foreach($user->equipos as $equipo)
             <div class="card card-nav-tabs">
                 <div class="card-header card-header-warning">
-                {{ $equipo->modalidad}}
+                {{ $equipo->modalidad->deporte->nombre.'/'.$equipo->modalidad->nombre }}
                 </div>
                 <div class="card-body">
-                <h4 class="card-title">Special title treatment</h4>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h4 class="card-title">{{ $equipo->nombre }}</h4>
+                <p class="card-text">{{ $equipo->descripcion }}</p>
+                <a href="#" class="btn btn-primary">Ver+</a>
                 </div>
             </div>
             @endforeach

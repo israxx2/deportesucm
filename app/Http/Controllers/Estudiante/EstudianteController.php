@@ -45,8 +45,9 @@ class EstudianteController extends Controller
     public function perfil(){
 
         $deportes_sidebar = Deporte::all();
-
+        $user = User::find(Auth::User()->id);
         return view('estudiante.perfil')
+        ->with('user', $user)
         ->with('deportes_sidebar', $deportes_sidebar);
     }
 
@@ -96,6 +97,36 @@ class EstudianteController extends Controller
         return Redirect(route('estudiante.equipos.show', ['id' => $equipo->id]));
     }
 
+    public function imagen(Request $request){
+
+        // ruta de las imagenes guardadas
+        $ruta = public_path().'/estudiante/img_perfil';
+
+        // recogida del form
+        $imagenOriginal = $request->file('avatar');
+        $imagen = time() . '.' . $imagenOriginal->getClientOriginalExtension();
+        $imagenOriginal->move($ruta, $imagen);
+
+        $user = User::find(Auth::User()->id);
+        $user->avatar = time() . '.' . $imagenOriginal->getClientOriginalExtension();
+        $user->save();
+        return Redirect('e/perfil');
+    }
+
+    public function imagen_delete(){
+        $user = User::find(Auth::User()->id);
+        $user->avatar = "default.png";
+        $user->save();
+        return Redirect('e/perfil');
+    }
+
+    public function descripcion(Request $request){
+        $user = User::find(Auth::User()->id);
+        $user->descripcion = $request->descripcion;
+        $user->save();
+        return Redirect('e/perfil');
+    }
+
     public function equipos(){
 
         $user= User::find(Auth::user()->id);
@@ -105,6 +136,7 @@ class EstudianteController extends Controller
         $equi = DB::select('SELECT equipos.id, equipos.nombre
         FROM equipos where user_id = '.Auth::user()->id);
         return view('estudiante.equipos')
+        ->with('user', $user)
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('deportes', $deportes)
         ->with('equipos', $equipos)

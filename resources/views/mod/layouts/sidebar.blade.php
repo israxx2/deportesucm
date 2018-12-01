@@ -12,28 +12,7 @@
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
-                {{-- PERFIL DEL USUARIO --}}
-                <li class="@yield('perfil', ' ')">
-                <a href="{{ route('estudiante.perfil') }}">
-                        <i class="now-ui-icons business_badge"></i>
-                        <p>Perfil</p>
-                    </a>
-                </li>
 
-                {{-- EQUIPOS DEL USUARIO --}}
-                <li class="@yield('equipos', ' ')">
-                    <a href="{{ route('estudiante.equipos') }}">
-                        <i class="now-ui-icons business_badge"></i>
-                        <p>Equipos</p>
-                    </a>
-                </li>
-                {{-- Partidos DEL USUARIO --}}
-                <li class="@yield('partidos', ' ')">
-                    <a href="{{ route('estudiante.partidos') }}">
-                        <i class="now-ui-icons business_badge"></i>
-                        <p>Mis Partidos</p>
-                    </a>
-                </li>
 
                 {{-- DEPORTES --}}
                 <li class="@yield('deporte', ' ')">
@@ -44,7 +23,6 @@
                         </p>
                     </a>
                 </li>
-
 
                 <div class="collapse" id="deportes">
                     <ul class="nav">
@@ -59,20 +37,13 @@
                     </ul>
                 </div>
 
-                {{-- COMUNIDAD --}}
-                  <li class="@yield('comunidad', ' ')">
-                      <a href="#">
-                          <i class="now-ui-icons emoticons_satisfied"></i>
-                          <p>Comunidad</p>
-                      </a>
-                  </li>
-
                 {{-- TORNEOS --}}
                 <li class="@yield('torneos', ' ')">
                   <a href="{{ route('estudiante.torneos.index') }}">
                       <i class="now-ui-icons sport_trophy"></i>
                       <p>Torneos</p>
                   </a>
+                  
                 {{-- TORNEOS --}}
                 <li class="@yield('torneos', ' ')">
                     <a data-toggle="collapse" href="#torneo">
