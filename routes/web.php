@@ -272,7 +272,7 @@ Route::group(['prefix' => 'e'], function () {
         'as' => 'estudiante.equipos'
     ]);
    //VER UN EQUIPO
-   Route::POST('equi', [
+   Route::post('equi', [
     'uses' => 'Estudiante\EstudianteController@eq',
     'as' => 'estudiante.equipos2'
    ]);
@@ -332,7 +332,14 @@ Route::group(['prefix' => 'e'], function () {
     Route::post('user/comunidad/filtro1',[
         'uses'  =>'Estudiante\EstudianteController@comunidad_carreras',
         'as'    =>'estudiante.comunidad.carreras'
+    ]);
+
+    //ver perfil de otro jugador
+    Route::get('perfil/{id}',[
+        'uses'  =>'Estudiante\EstudianteController@perfil_show',
+        'as'    =>'estudiante.perfil.show'
       ]);
+
     //solicitud de equipo
     Route::post('solicitud_equipo/',[
       'uses'  =>'Estudiante\EstudianteController@solicitud_equipo',

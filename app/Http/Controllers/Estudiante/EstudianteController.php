@@ -72,7 +72,7 @@ class EstudianteController extends Controller
             }
         }
         $historial = $historial->sortBy('created_at');
-        $a = $historial->splice(2);
+        $a = $historial->splice(5);
 
         return view('estudiante.perfil')
         ->with('user', $user)
@@ -467,7 +467,7 @@ class EstudianteController extends Controller
     public function comunidad(){
         $users = User::orderBy('apellidos', 'ASC')
         ->where('tipo','estudiante')
-        ->get();
+        ->paginate(15);
         $deportes_sidebar = Deporte::all();
         $carreras = Carrera::all();
         return view('estudiante.comunidad')
@@ -486,7 +486,10 @@ class EstudianteController extends Controller
             ->get();
         } else {
             $users = User::orderBy('apellidos', 'ASC')
-            ->where('carrera_id', $request->id)
+            ->where([
+                ['carrera_id', $request->id],
+                ['tipo', 'estudiante']
+            ])
             ->get();
         }
 
