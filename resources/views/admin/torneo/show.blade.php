@@ -38,6 +38,13 @@
 							@foreach($torneo->equipos as $equipo)
 							<tr>
 							<td>{{ $equipo->nombre}}</td>
+							<td>{!! Form::open(['route' => ['admin.torneo.desinscripcion', $equipo->id] , 'method' => 'POST']) !!}
+										<button type="submit" class="btn btn-danger">
+														<input type="hidden" id="fase" name="torneo" value="{{$torneo->id}}">														
+														<i class="fa fa-check" aria-hidden="true"></i>
+														</button>
+									{!! Form::close() !!}
+									</td>
 							</tr>
 							@endforeach
 						</tbody>

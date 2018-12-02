@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Torneo;
 use App\Equipo;
+use App\Modalidad;
 class TorneoController extends Controller
 {
     /**
@@ -43,7 +44,11 @@ class TorneoController extends Controller
      */
     public function create()
     {
-        return view('admin.torneo.create');
+       $modalidad = Modalidad::orderBy('id', 'DESC')->get();
+        $torneo = Torneo::orderBy('id', 'DESC')->get();
+        return view('admin.torneo.create')
+        ->with('torneos', $torneo)
+        ->with('modalidades', $modalidad);
     }
 
     /**
@@ -54,10 +59,18 @@ class TorneoController extends Controller
      */
     public function store(Request $request)
     {
-        $torneo = new Torneo();
-        $torneo->nombre = $request->nombre;
+        $torneo = new Torneo;
+        $torneo->nombre = $request->n_torneo;
+        $torneo->descripcion = $request->descripcion;
         $torneo->fecha = $request->fecha;
-        $torneo->tipo = $request->tipo;
+        $torneo->min = $request->min;
+        $torneo->max = $request->max;
+        $torneo->tipo = $request->tipo_t;
+        $torneo->modalidad_id=$request->modalidad;
+        $torneo->fase_actual = 1;
+        $torneo->cerrado = 0;
+        $torneo->finalizado = 0;
+        $torneo->save();
         $torneo->save();
     }
 
@@ -102,9 +115,12 @@ class TorneoController extends Controller
      */
     public function edit($id)
     {
-        $torneo = Torneo::find($id);
-        
-        return view('admin.torneo.edit')->with('torneo', $torneo);
+        $torneos = Torneo::find($id);
+        $modalidad = Modalidad::orderBy('id', 'DESC')->get();
+
+        return view('admin.torneo.edit')->with('torneo', $torneos)
+        ->with('modalidades', $modalidad);
+
     }
 
     /**
@@ -117,9 +133,13 @@ class TorneoController extends Controller
     public function update(Request $request, $id)
     {
         $torneo = Torneo::find($id);
-        $torneo->nombre = strtoupper($request->nombre);
-        $torneo->fecha = strtoupper($request->fecha);
-        $torneo->tipo = strtoupper($request->tipo);
+        $torneo->nombre = $request->n_torneo;
+        $torneo->descripcion = $request->descripcion;
+        $torneo->fecha = $request->fecha;
+        $torneo->min = $request->min;
+        $torneo->max = $request->max;
+        $torneo->tipo = $request->tipo_t;
+        $torneo->modalidad_id=$request->modalidad;
         
         $torneo->save();
 
@@ -152,7 +172,7 @@ class TorneoController extends Controller
     {   
         
         //se mostraran todos los equipos que no esten inscritos en un torneo
-        $coleccion = collect([]);
+        $collection = collect([]);
         $torneo = Torneo::find($id);
         $equipo = Equipo::withTrashed()->
         orderBy('id', 'ASC')->get();
@@ -184,6 +204,12 @@ class TorneoController extends Controller
     {   
         $torneo = Torneo::find($id);
         $torneo->equipos()->attach($request->id);
-        return Redirect('admin/torneo');
+        return Redirect('admin/torneo/'.$id);
+    }
+    public function desinscribir(Request $request, $id)
+    {   
+        $torneo = Torneo::find($request->torneo);
+        $torneo->equipos()->detach($id);
+        return Redirect('admin/torneo/'.$request->torneo);
     }
 }
