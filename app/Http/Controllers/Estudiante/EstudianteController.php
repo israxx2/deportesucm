@@ -43,12 +43,40 @@ class EstudianteController extends Controller
     }
 
     public function perfil(){
-
+        $historial = collect([]);
         $deportes_sidebar = Deporte::all();
         $user = User::find(Auth::User()->id);
+        foreach($user->equipos as $equipo){
+            foreach($equipo->partidosLocal as $partido){
+                $equipoLocal = $partido->equipoLocal;
+                $equipoVisita = $partido->equipoVisita;
+                $modalidad = $equipo->modalidad;
+                $deporte = $modalidad->deporte;
+                $partido['deporte'] = $deporte->nombre;
+                $partido['modalidad'] = $modalidad->nombre;
+                $partido['equipoLocal'] = $equipoLocal->nombre;
+                $partido['equipoVisita'] = $equipoVisita->nombre;
+                $historial->push($partido);
+            }
+            foreach($equipo->partidosVisita as $partido){
+                $equipoLocal = $partido->equipoLocal;
+                $equipoVisita = $partido->equipoVisita;
+                $modalidad = $equipo->modalidad;
+                $deporte = $modalidad->deporte;
+                $partido['deporte'] = $deporte->nombre;
+                $partido['modalidad'] = $modalidad->nombre;
+                $partido['equipoLocal'] = $equipoLocal->nombre;
+                $partido['equipoVisita'] = $equipoVisita->nombre;
+                $historial->push($partido);
+            }
+        }
+        $historial = $historial->sortBy('created_at');
+        $a = $historial->splice(2);
+
         return view('estudiante.perfil')
         ->with('user', $user)
-        ->with('deportes_sidebar', $deportes_sidebar);
+        ->with('deportes_sidebar', $deportes_sidebar)
+        ->with('historial', $historial);
     }
 
     public function deporte_show($id){
@@ -123,6 +151,13 @@ class EstudianteController extends Controller
     public function descripcion(Request $request){
         $user = User::find(Auth::User()->id);
         $user->descripcion = $request->descripcion;
+        $user->save();
+        return Redirect('e/perfil');
+    }
+
+    public function nick(Request $request){
+        $user = User::find(Auth::User()->id);
+        $user->nick = $request->nick;
         $user->save();
         return Redirect('e/perfil');
     }
@@ -428,7 +463,7 @@ class EstudianteController extends Controller
     }
 
 
-    public function show_all_equipos(){
+    public function comunidad(){
         $equipos = Equipo::all();
         $deportes_sidebar = Deporte::all();
 

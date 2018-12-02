@@ -32,6 +32,7 @@ class UsersTableSeeder extends Seeder
             'ciudad' =>'Talca',
             'nick' => null,
             'tipo' => 'estudiante',
+            'avatar' => 'default.png',
             'email' => 'e1@ucm.cl',
             'password' => bcrypt('1234'),
         ]);
@@ -44,6 +45,7 @@ class UsersTableSeeder extends Seeder
             'ciudad' =>'Talca',
             'nick' => null,
             'tipo' => 'estudiante',
+            'avatar' => 'default.png',
             'email' => 'e2@ucm.cl',
             'password' => bcrypt('1234'),
         ]);
@@ -55,6 +57,7 @@ class UsersTableSeeder extends Seeder
             'ciudad' =>'Talca',
             'nick' => null,
             'tipo' => 'estudiante',
+            'avatar' => 'default.png',
             'email' => 'e3@ucm.cl',
             'password' => bcrypt('1234'),
         ]);
@@ -66,6 +69,7 @@ class UsersTableSeeder extends Seeder
             'ciudad' =>'Talca',
             'nick' => null,
             'tipo' => 'estudiante',
+            'avatar' => 'default.png',
             'email' => 'e4@ucm.cl',
             'password' => bcrypt('1234'),
         ]);
@@ -77,6 +81,7 @@ class UsersTableSeeder extends Seeder
             'ciudad' =>'Talca',
             'nick' => null,
             'tipo' => 'estudiante',
+            'avatar' => 'default.png',
             'email' => 'e5@ucm.cl',
             'password' => bcrypt('1234'),
         ]);
@@ -88,6 +93,7 @@ class UsersTableSeeder extends Seeder
             'ciudad' =>'Talca',
             'nick' => null,
             'tipo' => 'estudiante',
+            'avatar' => 'default.png',
             'email' => 'e6@ucm.cl',
             'password' => bcrypt('1234'),
         ]);

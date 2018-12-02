@@ -207,6 +207,11 @@ Route::group(['prefix' => 'e'], function () {
         'uses' => 'Estudiante\EstudianteController@descripcion',
         'as' => 'estudiante.perfil.descripcion'
     ]);
+
+    Route::post('perfil/nick', [
+        'uses' => 'Estudiante\EstudianteController@nick',
+        'as' => 'estudiante.perfil.nick'
+    ]);
     //VER DEPORTE
     Route::get('deporte/{id}', [
         'uses' => 'Estudiante\EstudianteController@deporte_show',
@@ -315,8 +320,8 @@ Route::group(['prefix' => 'e'], function () {
     ]);
 
     Route::get('comunidad/',[
-      'uses'  =>'Estudiante\EstudianteController@show_all_equipos',
-      'as'    =>'estudiante.show_all_equipos'
+      'uses'  =>'Estudiante\EstudianteController@comunidad',
+      'as'    =>'estudiante.comunidad'
     ]);
 
     //solicitud de equipo

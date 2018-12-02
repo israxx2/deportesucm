@@ -61,7 +61,7 @@
 
                 {{-- COMUNIDAD --}}
                   <li class="@yield('comunidad', ' ')">
-                      <a href="#">
+                  <a href="{{ route('estudiante.comunidad') }}">
                           <i class="now-ui-icons emoticons_satisfied"></i>
                           <p>Comunidad</p>
                       </a>
@@ -82,7 +82,7 @@
                         </p>
                     </a>
                 </li>
-             
+
 
                 <div class="collapse" id="invitacion">
                     <ul class="nav">
@@ -99,7 +99,7 @@
                         <i class="now-ui-icons location_world"></i>
                         <p>Publicas</p>
                         </a>
-                        </li>       
+                        </li>
                     </ul>
                 </div>
 

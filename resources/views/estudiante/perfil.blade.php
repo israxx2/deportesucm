@@ -18,9 +18,9 @@
                     </a>
                     <p class="description">
                         @if($user->nick == null)
-                            Sin Apodo
+                            Sin Apodo <a class="btn btn-link" href="#" role="button" data-toggle="modal" data-target="#nick"><i class="fas fa-pen"></i></a>
                         @else
-                            {{ $user->nick }}
+                            {{ $user->nick }} <a class="btn btn-link" href="#" role="button" data-toggle="modal" data-target="#nick"><i class="fas fa-pen"></i></a>
                         @endif
                     </p>
 
@@ -57,19 +57,34 @@
     <div class="col-ml-9 col-sm-8">
         <div class="card card-chart">
             <div class="card-header">
-              <h5 class="card-category">Estadisticas</h5>
+              <h5 class="card-category">Últimos partidos jugados</h5>
               <h4 class="card-title"></h4>
             </div>
             <div class="card-body">
-              <div class="chart-area">
-                <canvas id="lineChartExample"></canvas>
-              </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Deporte</th>
+                            <th>Modalidad</th>
+                            <th>Equipo Local</th>
+                            <th>Equipo Visita</th>
+                            <th>Resultado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($historial as $h)
+                        <tr>
+                            <td>{{ $h['deporte'] }}</td>
+                            <td>{{ $h['modalidad'] }}</td>
+                            <td>{{ $h['equipoLocal'] }}</td>
+                            <td>{{ $h['equipoVisita'] }}</td>
+                            <td>{{ $h->puntos_local.' - '.$h->puntos_visita }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
-              </div>
-            </div>
+
           </div>
     </div>
 
@@ -132,6 +147,27 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Descripcion -->
+<div class="modal fade" id="nick" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Cambiar Nick</h5>
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+                {!! Form::open(['route' => 'estudiante.perfil.nick' , 'method' => 'POST']) !!}
+                    <input name="nick" id="nick" type="text" class="form-control" placeholder="Ingrese el nick..." required>
+                    {!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+                {!! Form::close() !!}
+        </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 @endsection
+
