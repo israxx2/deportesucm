@@ -68,7 +68,7 @@
                   </li>
                   {{-- COMUNIDAD --}}
                   <li class="@yield('comunidad', '')">
-                    <a href="{{ route('estudiante.invitaciones.publico') }}">
+                    <a href="{{ route('estudiante.comunidad') }}">
                     <i class="now-ui-icons location_world"></i>
                     <p>Comunidad</p></a>
                   </li>

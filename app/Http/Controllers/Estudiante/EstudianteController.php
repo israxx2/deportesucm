@@ -13,6 +13,7 @@ use App\Deporte;
 use App\Modalidad;
 use App\Partido;
 use App\Reclamo;
+use App\Carrera;
 use Illuminate\Support\Collection as Collection;
 
 class EstudianteController extends Controller
@@ -464,14 +465,36 @@ class EstudianteController extends Controller
 
 
     public function comunidad(){
-        $equipos = Equipo::all();
+        $users = User::orderBy('apellidos', 'ASC')
+        ->where('tipo','estudiante')
+        ->get();
         $deportes_sidebar = Deporte::all();
-
+        $carreras = Carrera::all();
         return view('estudiante.comunidad')
         ->with('deportes_sidebar', $deportes_sidebar)
-        ->with('equipos', $equipos);
+        ->with('users', $users)
+        ->with('carreras', $carreras);
     }
 
+    public function comunidad_carreras(Request $request)
+    {
+        //retorna todos los usuarios
+        //ordenados por apellido
+
+        if($request->id == 'null'){
+            $users = User::orderBy('apellidos', 'ASC')
+            ->get();
+        } else {
+            $users = User::orderBy('apellidos', 'ASC')
+            ->where('carrera_id', $request->id)
+            ->get();
+        }
+
+        //$a = response()->json(['success' => 'Pasó la prueba :3']);
+
+        return view('estudiante.comunidad_filtro1',['users'=>$users])->render();
+        //->with('users', $users);
+    }
     public function aceptar_soli(Request $request){
         $us=user::find($request->id_us);
         $equipos=equipo::find($request->id_eq);
