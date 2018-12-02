@@ -174,11 +174,33 @@ Route::group(['prefix' => 'admin'], function () {
             'estado'=> 'admin.reclamo.estado',
             ]]);
 
-          Route::post('partido/activar/{partido}',[
-            'uses'  =>'Admin\PartidoController@activar',
-            'as'    =>'admin.partido.activar'
+            Route::post('partido/activar/{partido}',[
+              'uses'  =>'Admin\PartidoController@activar',
+              'as'    =>'admin.partido.activar'
+              ]);
+              Route::post('partido/destroy_force/{partido}', [
+                'as'=>'admin.partido.destroy_force',
+                'uses'=>'Admin\PartidoController@destroy_force']);
+    
+              Route::get('deleteall', [
+                'as'=>'admin.partido.deleteall',
+                'uses'=>'Admin\PartidoController@deleteall']);
+    
+              Route::post('softdeleteall', [
+              'as'=>'admin.partido.softdeleteall',
+              'uses'=>'Admin\PartidoController@softdeleteAll']
+              );
+    
+              Route::get('partidoesTrashed',[
+                  'uses'  =>'Admin\PartidoController@borrados',
+                  'as'    =>'admin.partido.borrados'
+                ]);
+              Route::get('partido/activar/{partido}',[
+                  'uses'  =>'Admin\PartidoController@activar',
+                  'as'    =>'admin.partido.activar'
+                ]);
 
-          ]);
+     
 
         // Rutas de los deportes
         Route::resource('deporte', 'Admin\DeporteController', ['names' => [

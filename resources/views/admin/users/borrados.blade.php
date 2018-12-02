@@ -223,7 +223,7 @@
 				if(confirm("¿Estas seguro?, se borraran de forma permanente")){
 					var strIds = idsArr.join(",");
 					$.ajax({
-						url: "{{ route('admin.user.deleteall') }}",
+						url: "{{ route('admin.user.borrados') }}",
 						type: 'GET',
 						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 						data: 'ids='+strIds,

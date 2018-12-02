@@ -58,7 +58,7 @@
 							<td>{{ $modalidad->id }}</td>
 							<td>{{ $modalidad->nombre }}</td>
 							<td>{{ $modalidad->descripcion }}</td>
-							<td>{{ $modalidad->deporte_id }}</td>
+							<td>{{ $modalidad->deporte->nombre }}</td>
 							<td>{{ $modalidad->min }}</td>
 							<td>{{ $modalidad->max }}</td>
                             <td>

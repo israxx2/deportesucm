@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Modalidades')
+@section('title', 'Partidos')
 
 @section('content')
 
@@ -8,11 +8,11 @@
 <hr>
 <div class="container-fluid">
 	<div class="box">
-		<h3 class="box-title">Modalidades</h3>
+		<h3 class="box-title">Partido</h3>
 		<div class="box-body">
 		<ul class="nav nav-pills" role="tablist">
-		<li role="presentation"><a href="{{ route('admin.modalidad.index') }}">Modalidades <span class="badge">{{ count($modalidad) - count($modalidadesOnlyTrashed) }}</span></a></li>
-		<li role="presentation" class="active"><a href="{{ route('admin.modalidad.borrados') }}">Borrados <span class="badge">{{ count($modalidadesOnlyTrashed) }}</span></a></li>
+		<li role="presentation"><a href="{{ route('admin.partido.index') }}">Partidos <span class="badge">{{ count($partido) - count($partidosOnlyTrashed) }}</span></a></li>
+		<li role="presentation" class="active"><a href="{{ route('admin.partido.borrados') }}">Borrados <span class="badge">{{ count($partidosOnlyTrashed) }}</span></a></li>
 		</ul>
 
 
@@ -23,44 +23,44 @@
 				<tr>
 					<th><input type="checkbox" id="check_all"></th>
 					<th>#</th>
-					<th>Nombre</th>
-					<th>Descripcion</th>
+					<th>local</th>
+                    <th>visita</th>
 					<th>Activar</th>
 					<th>Borrar </th>
 
 				</tr>
 			</thead>
 			<tbody>
-                @if($modalidadesOnlyTrashed->isEmpty())
+                @if($partidosOnlyTrashed->isEmpty())
 
                 @else
-                    @foreach($modalidadesOnlyTrashed as $modalidad)
+                    @foreach($partidosOnlyTrashed as $partido)
 
                         <tr>
-                            <td><input type="checkbox" class="checkbox" data-id="{{$modalidad->id}}"></td>
-                            <td>{{ $modalidad->id }}</td>
-                            <td>{{ $modalidad->nombre }}</td>
-                            <td>{{ $modalidad->descripcion }}</td>
+                            <td><input type="checkbox" class="checkbox" data-id="{{$partido->id}}"></td>
+                            <td>{{ $partido->id }}</td>
+                            <td>{{ $partido->local_id }}</td>
+                            <td>{{ $partido->visita_id }}</td>
 
 
                             <td>
-                                @if($modalidad->deleted_at == null)
+                                @if($partido->deleted_at == null)
                                     <p href="#" class="btn btn-success">
                             Activo
                         </p>
                                 @else
-                        <p href="#" class="btn btn-success" data-toggle="modal" data-target="#activar{{ $modalidad->id }}">
+                        <p href="#" class="btn btn-success" data-toggle="modal" data-target="#activar{{ $partido->id }}">
                         <i class="fa fa-check"></i>
                         </p>
                                 @endif
                             </td>
                     <td>
-                    @if($modalidad->deleted_at == null)
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $modalidad->id }}">
+                    @if($partido->deleted_at == null)
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $partido->id }}">
                                     <i class="fa fa-trash"></i>
                         </button>
                             @else
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $modalidad->id }}" >
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroy{{ $partido->id }}" >
                                     <i class="fa fa-trash"></i>
                         </button>
                             @endif
@@ -70,20 +70,20 @@
                         </tr>
 
                         <!-- Modal Delete-->
-                        <div class="modal" tabindex="-1" role="dialog" id = "destroy{{ $modalidad->id }}" style="top:20%;">
+                        <div class="modal" tabindex="-1" role="dialog" id = "destroy{{ $partido->id }}" style="top:20%;">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Borrar Jugador {{ $modalidad->id }}</h5>
+                                        <h5 class="modal-title">Borrar Jugador {{ $partido->id }}</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>¿Estás seguro de borrar la modalidad?</p>
+                                        <p>¿Estás seguro de borrar la partido?</p>
                                     </div>
                                     <div class="modal-footer">
-                                        {!! Form::open(['route' => ['admin.modalidad.destroy_force', $modalidad->id] , 'method' => 'post']) !!}
+                                        {!! Form::open(['route' => ['admin.partido.destroy_force', $partido->id] , 'method' => 'post']) !!}
                                             <button type="submit" class="btn btn-danger">
                                                                 <i class="fa fa-check" aria-hidden="true"></i>
                                                             </button>
@@ -97,20 +97,20 @@
                         </div>
 
                         <!-- Modal Activar-->
-                        <div class="modal" tabindex="-1" role="dialog" id = "activar{{ $modalidad->id }}" style="top:20%;">
+                        <div class="modal" tabindex="-1" role="dialog" id = "activar{{ $partido->id }}" style="top:20%;">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Activar Modalidad {{ $modalidad->id }}</h5>
+                                        <h5 class="modal-title">Activar Modalidad {{ $partido->id }}</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p>¿Estás seguro de volver a activar la modalidad?</p>
+                                        <p>¿Estás seguro de volver a activar la partido?</p>
                                     </div>
                                     <div class="modal-footer">
-                                        {!! Form::open(['route' => ['admin.modalidad.activar', $modalidad->id] , 'method' => 'POST']) !!}
+                                        {!! Form::open(['route' => ['admin.partido.activar', $partido->id] , 'method' => 'POST']) !!}
                                             <button type="submit" class="btn btn-success">
                                                                 <i class="fa fa-check" aria-hidden="true"></i>
                                                             </button>
@@ -143,7 +143,7 @@
         };
 
         $('#form_delete').on('submit', function(e){
-            axios.delete('/admin/modalidad/'+$('#id_del').val()).then(response => {
+            axios.delete('/admin/partido/'+$('#id_del').val()).then(response => {
                 console.log(response);
                 location.reload();
             }).catch(error => {
@@ -187,7 +187,7 @@
 				if(confirm("¿Estas seguro?, se borraran de forma permanente")){
 					var strIds = idsArr.join(",");
 					$.ajax({
-						url: "{{ route('admin.modalidad.borrados') }}",
+						url: "{{ route('admin.partido.borrados') }}",
 						type: 'GET',
 						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 						data: 'ids='+strIds,
