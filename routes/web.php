@@ -267,9 +267,9 @@ Route::group(['prefix' => 'e'], function () {
     ]);
     //ver invitaciones publicas
     Route::get('publico', [
-      'uses' => 'Estudiante\InvitacionController@publico',
-      'as' => 'estudiante.invitaciones.publico'
-    ]);
+        'uses' => 'Estudiante\InvitacionController@publico',
+        'as' => 'estudiante.invitaciones.publico'
+      ]);
     //VER EQUIPOS
     Route::get('equipos/', [
         'uses' => 'Estudiante\EstudianteController@equipos',
@@ -327,12 +327,16 @@ Route::group(['prefix' => 'e'], function () {
       'uses'  =>'Estudiante\EstudianteController@reclamo',
       'as'    =>'estudiante.reclamo'
     ]);
-
+    //Ver a los demas estudiantes
     Route::get('comunidad/',[
       'uses'  =>'Estudiante\EstudianteController@comunidad',
       'as'    =>'estudiante.comunidad'
     ]);
-
+    //filtro por carreras de la comunidad
+    Route::post('user/comunidad/filtro1',[
+        'uses'  =>'Estudiante\EstudianteController@comunidad_carreras',
+        'as'    =>'estudiante.comunidad.carreras'
+      ]);
     //solicitud de equipo
     Route::post('solicitud_equipo/',[
       'uses'  =>'Estudiante\EstudianteController@solicitud_equipo',
