@@ -63,6 +63,7 @@
     </div>
 </div>
 
+<script src="{{ asset('estudiante/assets/js/core/jquery.min.js') }}" type="text/javascript"></script>
 <script>
     $(document).ready(function(){
         $('#carrera_id').on('change',function(){
