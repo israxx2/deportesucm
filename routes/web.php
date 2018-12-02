@@ -237,7 +237,7 @@ Route::group(['prefix' => 'e'], function () {
       'as' => 'estudiante.partidos'
     ]);
 
-    Route::resource('invitacion', 'estudiante\InvitacionController', ['names' => [
+    Route::resource('invitacion', 'Estudiante\InvitacionController', ['names' => [
       'index' => 'estudiante.invitaciones.index',
       'create' => 'estudiante.invitaciones.create',
       'store' => 'estudiante.invitaciones.store',
@@ -248,9 +248,14 @@ Route::group(['prefix' => 'e'], function () {
       ]]);
     //Aceptar una invitacion
     Route::post('invitacion/aceptar/{id}', [
-    'uses' => 'estudiante\InvitacionController@aceptar',
+    'uses' => 'Estudiante\InvitacionController@aceptar',
     'as' => 'estudiante.invitaciones.aceptar'
     ]);
+    //Rechazar una invitacion
+    Route::post('invitacion/rechazar/{id}', [
+      'uses' => 'Estudiante\InvitacionController@rechazar',
+      'as' => 'estudiante.invitaciones.rechazar'
+      ]);
     //realizar invitacion publica
     Route::post('store_pu', [
     'uses' => 'estudiante\InvitacionController@store_pu',
@@ -258,7 +263,7 @@ Route::group(['prefix' => 'e'], function () {
     ]);
     //ver invitaciones publicas
     Route::get('publico', [
-      'uses' => 'estudiante\InvitacionController@publico',
+      'uses' => 'Estudiante\InvitacionController@publico',
       'as' => 'estudiante.invitaciones.publico'
     ]);
     //VER EQUIPOS
