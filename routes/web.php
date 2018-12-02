@@ -375,5 +375,33 @@ Route::group(['prefix' => 'mod'], function () {
             'destroy' => 'mod.torneos.destroy',
         ]
     ]);
+    Route::resource('equipos', 'Mod\EquipoController', [
+      'names' => [
+          'index' => 'mod.equipos.index',
+          'create' => 'mod.equipos.create',
+          'store' => 'mod.equipos.store',
+          'show' => 'mod.equipos.show',
+          'update' => 'mod.equipos.update',
+          'edit' => 'mod.equipos.edit',
+          'destroy' => 'mod.equipos.destroy',
+      ]
+  ]);
+
+  Route::post('filtro',[
+    'uses'  =>'Mod\EquipoController@filtro',
+    'as'    =>'mod.filtro'
+  ]);
+  Route::post('edres',[
+    'uses'  =>'Mod\TorneoController@editarres',
+    'as'    =>'mod.edresultado'
+  ]);
+  Route::post('enfrent',[
+    'uses'  =>'Mod\TorneoController@registrarenf',
+    'as'    =>'mod.enfrent'
+  ]);
+  Route::post('guardar',[
+    'uses'  =>'Mod\TorneoController@guardar',
+    'as'    =>'mod.guardar'
+  ]);
 
 });

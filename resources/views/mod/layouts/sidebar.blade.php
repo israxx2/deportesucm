@@ -13,6 +13,20 @@
         <div class="sidebar-wrapper">
             <ul class="nav">
 
+                {{-- EQUIPOS DEL USUARIO --}}
+                <li class="@yield('equipos', ' ')">
+                    <a href="/mod/equipos">
+                        <i class="now-ui-icons business_badge"></i>
+                        <p>Equipos</p>
+                    </a>
+                </li>
+                {{-- Partidos DEL USUARIO --}}
+                <li class="@yield('partidos', ' ')">
+                    <a href="{{ route('estudiante.partidos') }}">
+                        <i class="now-ui-icons business_badge"></i>
+                        <p>Mis Partidos</p>
+                    </a>
+                </li>
 
                 {{-- DEPORTES --}}
                 <li class="@yield('deporte', ' ')">
@@ -39,11 +53,11 @@
 
                 {{-- TORNEOS --}}
                 <li class="@yield('torneos', ' ')">
-                  <a href="{{ route('estudiante.torneos.index') }}">
+                  <a href="/mod/torneos">
                       <i class="now-ui-icons sport_trophy"></i>
                       <p>Torneos</p>
                   </a>
-                  
+
                 {{-- TORNEOS --}}
                 <li class="@yield('torneos', ' ')">
                     <a data-toggle="collapse" href="#torneo">
@@ -59,7 +73,7 @@
                     <ul class="nav">
                         {{-- OPCIONES DE LOS TORNEOS --}}
                         <li class="@yield('verTorneos', '')">
-                        <a href="{{ route('mod.torneos.index') }}">
+                        <a href="mod/torneos">
                         <i class="now-ui-icons ui-1_email-85"></i>
                         <p>Ver</p>
                         </a>
