@@ -8,7 +8,7 @@
         <div class="card card-chart">
             <div class="card-header">
                 <h5 class="card-category">Crear un Nuevo Torneo</h5>
-                <h3 class="card-title">Realizar una Invitacion <button type="button" class="btn btn-info" data-toggle="modal" data-target="#crearTorneo"><i class="fas fa-plus"></i></button></h3>
+                <h3 class="card-title">Crea tu torneo <button type="button" class="btn btn-info" data-toggle="modal" data-target="#crearTorneo"><i class="fas fa-plus"></i></button></h3>
             </div>
             <div class="card-footer">
             </div>
@@ -79,27 +79,27 @@
         {!! Form::open(['route' => 'mod.torneos.store' , 'method' => 'POST']) !!}
         <div class="form-group">
             <label>Nombre Del Torneo</label>
-                <input type="text" name="n_torneo" class="form-control"> 
+                <input type="text" name="n_torneo" class="form-control" required> 
         </div>
         <div class="form-group">
             <label>Descripcion</label>
-                <textarea name="descripcion" class="form-control" rows="3"> </textarea>
+                <textarea name="descripcion" class="form-control" rows="3" required> </textarea>
         </div>
         <div class="form-group">
             <label>Fecha</label>
-                <input type="text" name="fecha" class="form-control"> 
+                <input type="text" name="fecha" class="form-control" required> 
         </div>
         <div class="row">
             <div class="col-sm-5">
                 <div class="form-group">
                     <label>Min Jugadores</label>
-                        <input type="number" name="min" class="form-control"> 
+                        <input type="number" name="min" class="form-control" required> 
                 </div>
             </div>
             <div class="col-sm-5">
                 <div class="form-group">
                     <label>Max Jugadores</label>
-                        <input type="number" name="max" class="form-control"> 
+                        <input type="number" name="max" class="form-control" required> 
                 </div>
             </div>
         </div>
