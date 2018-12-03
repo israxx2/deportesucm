@@ -13,6 +13,7 @@ use App\Deporte;
 use App\Modalidad;
 use App\Partido;
 use App\Reclamo;
+use App\Carrera;
 use Illuminate\Support\Collection as Collection;
 
 class EstudianteController extends Controller
@@ -43,11 +44,40 @@ class EstudianteController extends Controller
     }
 
     public function perfil(){
-
+        $historial = collect([]);
         $deportes_sidebar = Deporte::all();
+        $user = User::find(Auth::User()->id);
+        foreach($user->equipos as $equipo){
+            foreach($equipo->partidosLocal as $partido){
+                $equipoLocal = $partido->equipoLocal;
+                $equipoVisita = $partido->equipoVisita;
+                $modalidad = $equipo->modalidad;
+                $deporte = $modalidad->deporte;
+                $partido['deporte'] = $deporte->nombre;
+                $partido['modalidad'] = $modalidad->nombre;
+                $partido['equipoLocal'] = $equipoLocal->nombre;
+                $partido['equipoVisita'] = $equipoVisita->nombre;
+                $historial->push($partido);
+            }
+            foreach($equipo->partidosVisita as $partido){
+                $equipoLocal = $partido->equipoLocal;
+                $equipoVisita = $partido->equipoVisita;
+                $modalidad = $equipo->modalidad;
+                $deporte = $modalidad->deporte;
+                $partido['deporte'] = $deporte->nombre;
+                $partido['modalidad'] = $modalidad->nombre;
+                $partido['equipoLocal'] = $equipoLocal->nombre;
+                $partido['equipoVisita'] = $equipoVisita->nombre;
+                $historial->push($partido);
+            }
+        }
+        $historial = $historial->sortBy('created_at');
+        $a = $historial->splice(5);
 
         return view('estudiante.perfil')
-        ->with('deportes_sidebar', $deportes_sidebar);
+        ->with('user', $user)
+        ->with('deportes_sidebar', $deportes_sidebar)
+        ->with('historial', $historial);
     }
 
     public function deporte_show($id){
@@ -96,6 +126,43 @@ class EstudianteController extends Controller
         return Redirect(route('estudiante.equipos.show', ['id' => $equipo->id]));
     }
 
+    public function imagen(Request $request){
+
+        // ruta de las imagenes guardadas
+        $ruta = public_path().'/estudiante/img_perfil';
+
+        // recogida del form
+        $imagenOriginal = $request->file('avatar');
+        $imagen = time() . '.' . $imagenOriginal->getClientOriginalExtension();
+        $imagenOriginal->move($ruta, $imagen);
+
+        $user = User::find(Auth::User()->id);
+        $user->avatar = time() . '.' . $imagenOriginal->getClientOriginalExtension();
+        $user->save();
+        return Redirect('e/perfil');
+    }
+
+    public function imagen_delete(){
+        $user = User::find(Auth::User()->id);
+        $user->avatar = "default.png";
+        $user->save();
+        return Redirect('e/perfil');
+    }
+
+    public function descripcion(Request $request){
+        $user = User::find(Auth::User()->id);
+        $user->descripcion = $request->descripcion;
+        $user->save();
+        return Redirect('e/perfil');
+    }
+
+    public function nick(Request $request){
+        $user = User::find(Auth::User()->id);
+        $user->nick = $request->nick;
+        $user->save();
+        return Redirect('e/perfil');
+    }
+
     public function equipos(){
 
         $user= User::find(Auth::user()->id);
@@ -105,6 +172,7 @@ class EstudianteController extends Controller
         $equi = DB::select('SELECT equipos.id, equipos.nombre
         FROM equipos where user_id = '.Auth::user()->id);
         return view('estudiante.equipos')
+        ->with('user', $user)
         ->with('deportes_sidebar', $deportes_sidebar)
         ->with('deportes', $deportes)
         ->with('equipos', $equipos)
@@ -396,15 +464,40 @@ class EstudianteController extends Controller
     }
 
 
-    public function show_all_equipos(){
-        $equipos = Equipo::all();
+    public function comunidad(){
+        $users = User::orderBy('apellidos', 'ASC')
+        ->where('tipo','estudiante')
+        ->paginate(15);
         $deportes_sidebar = Deporte::all();
-
+        $carreras = Carrera::all();
         return view('estudiante.comunidad')
         ->with('deportes_sidebar', $deportes_sidebar)
-        ->with('equipos', $equipos);
+        ->with('users', $users)
+        ->with('carreras', $carreras);
     }
 
+    public function comunidad_carreras(Request $request)
+    {
+        //retorna todos los usuarios
+        //ordenados por apellido
+
+        if($request->id == 'null'){
+            $users = User::orderBy('apellidos', 'ASC')
+            ->get();
+        } else {
+            $users = User::orderBy('apellidos', 'ASC')
+            ->where([
+                ['carrera_id', $request->id],
+                ['tipo', 'estudiante']
+            ])
+            ->get();
+        }
+
+        //$a = response()->json(['success' => 'Pasó la prueba :3']);
+
+        return view('estudiante.comunidad_filtro1',['users'=>$users])->render();
+        //->with('users', $users);
+    }
     public function aceptar_soli(Request $request){
         $us=user::find($request->id_us);
         $equipos=equipo::find($request->id_eq);

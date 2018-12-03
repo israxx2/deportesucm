@@ -1,27 +1,21 @@
 @extends('estudiante.layouts.app')
 
-@section('title', 'invitacion')
+@section('title', 'invitaciones Publicas')
 @section('content')
 
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-12">
         <div class="card card-chart">
             <div class="card-header">
-                <h5 class="card-category">Invitacion</h5>
-                <h3 class="card-title">Realizar una Invitacion <button type="button" class="btn btn-info" data-toggle="modal" data-target="#crearInvitacion"><i class="fas fa-plus"></i></button></h3>
+                <h4 class="card-title">Realizar una Invitacion <button type="button" class="btn btn-info" data-toggle="modal" data-target="#crearInvitacion"><i class="fas fa-plus"></i></button></h4>
             </div>
-            <div class="card-body">
 
-            </div>
-            <div class="card-footer">
-
-            </div>
         </div>
     @foreach( $invitaciones as $invitacion)
             {!! Form::open(['route' => ['estudiante.invitaciones.aceptar', $invitacion->id] , 'method' => 'POST']) !!}
             <div class="card card-chart">
                 <div class="card-header">
-                    <h6 class="card-title">{{$invitacion->nombre_equipo}}</button></h6>
+                    <h6 class="card-title">El {{strtoupper($invitacion->nombre_equipo)}} esta buscando un rival! </button></h6>
                 </div>
                 <div class="card-body">
                     <p class="text-muted">{{$invitacion->descripcion_invi}}</p>
@@ -33,7 +27,7 @@
                     <p>Número contacto: {{$invitacion->numero_invi}}</p>
                     <input name="emisor" type="hidden" value="{{$invitacion->emisor}}">
                     <input name="receptor" type="hidden" value="{{$invitacion->receptor}}">
-                    <button type="submit" class="btn btn-primary">ACEPTAR</button>
+                    <button type="submit" class="btn btn-success">ACEPTAR</button>
                 </div>
                 <div class="card-footer">
 
@@ -43,6 +37,9 @@
             @endforeach
     </div>
 </div>
+
+
+
 <!-- CREAR EQUIPO -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>    
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>

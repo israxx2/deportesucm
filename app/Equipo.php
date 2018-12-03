@@ -71,6 +71,11 @@ class Equipo extends Model
         return $this->belongsTo('App\User', 'user_id');
     }
 
+    public function modalidad()
+    {
+        return $this->belongsTo('App\Modalidad', 'modalidad_id');
+    }
+
     public function invitacionesRealizadas()
     {
         return $this->hasMany('App\Invitacion', 'emisor_id');

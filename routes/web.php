@@ -259,6 +259,10 @@ Route::group(['prefix' => 'admin'], function () {
               'uses'  =>'Admin\TorneoController@inscripcion',
               'as'    =>'admin.torneo.inscripcion'
             ]);
+            Route::post('torneo/desins/{torneo}',[
+              'uses'  =>'Admin\TorneoController@desinscribir',
+              'as'    =>'admin.torneo.desinscripcion'
+            ]);
             Route::post('torneo/inscrito/{torneo}',[
               'uses'  =>'Admin\TorneoController@inscribir',
               'as'    =>'admin.torneo.inscribir'
@@ -273,6 +277,25 @@ Route::group(['prefix' => 'e'], function () {
     Route::get('perfil', [
         'uses' => 'Estudiante\EstudianteController@perfil',
         'as' => 'estudiante.perfil'
+    ]);
+    Route::post('perfil/imagen', [
+        'uses' => 'Estudiante\EstudianteController@imagen',
+        'as' => 'estudiante.perfil.imagen'
+    ]);
+
+    Route::post('perfil/imagen/delete', [
+        'uses' => 'Estudiante\EstudianteController@imagen_delete',
+        'as' => 'estudiante.perfil.imagen.delete'
+    ]);
+
+    Route::post('perfil/descripcion', [
+        'uses' => 'Estudiante\EstudianteController@descripcion',
+        'as' => 'estudiante.perfil.descripcion'
+    ]);
+
+    Route::post('perfil/nick', [
+        'uses' => 'Estudiante\EstudianteController@nick',
+        'as' => 'estudiante.perfil.nick'
     ]);
     //VER DEPORTE
     Route::get('deporte/{id}', [
@@ -299,7 +322,7 @@ Route::group(['prefix' => 'e'], function () {
       'as' => 'estudiante.partidos'
     ]);
 
-    Route::resource('invitacion', 'estudiante\InvitacionController', ['names' => [
+    Route::resource('invitacion', 'Estudiante\InvitacionController', ['names' => [
       'index' => 'estudiante.invitaciones.index',
       'create' => 'estudiante.invitaciones.create',
       'store' => 'estudiante.invitaciones.store',
@@ -310,9 +333,14 @@ Route::group(['prefix' => 'e'], function () {
       ]]);
     //Aceptar una invitacion
     Route::post('invitacion/aceptar/{id}', [
-    'uses' => 'estudiante\InvitacionController@aceptar',
+    'uses' => 'Estudiante\InvitacionController@aceptar',
     'as' => 'estudiante.invitaciones.aceptar'
     ]);
+    //Rechazar una invitacion
+    Route::post('invitacion/rechazar/{id}', [
+      'uses' => 'Estudiante\InvitacionController@rechazar',
+      'as' => 'estudiante.invitaciones.rechazar'
+      ]);
     //realizar invitacion publica
     Route::post('store_pu', [
     'uses' => 'estudiante\InvitacionController@store_pu',
@@ -320,16 +348,16 @@ Route::group(['prefix' => 'e'], function () {
     ]);
     //ver invitaciones publicas
     Route::get('publico', [
-      'uses' => 'estudiante\InvitacionController@publico',
-      'as' => 'estudiante.invitaciones.publico'
-    ]);
+        'uses' => 'Estudiante\InvitacionController@publico',
+        'as' => 'estudiante.invitaciones.publico'
+      ]);
     //VER EQUIPOS
     Route::get('equipos/', [
         'uses' => 'Estudiante\EstudianteController@equipos',
         'as' => 'estudiante.equipos'
     ]);
    //VER UN EQUIPO
-   Route::POST('equi', [
+   Route::post('equi', [
     'uses' => 'Estudiante\EstudianteController@eq',
     'as' => 'estudiante.equipos2'
    ]);
@@ -380,11 +408,22 @@ Route::group(['prefix' => 'e'], function () {
       'uses'  =>'Estudiante\EstudianteController@reclamo',
       'as'    =>'estudiante.reclamo'
     ]);
-
+    //Ver a los demas estudiantes
     Route::get('comunidad/',[
-      'uses'  =>'Estudiante\EstudianteController@show_all_equipos',
-      'as'    =>'estudiante.show_all_equipos'
+      'uses'  =>'Estudiante\EstudianteController@comunidad',
+      'as'    =>'estudiante.comunidad'
     ]);
+    //filtro por carreras de la comunidad
+    Route::post('user/comunidad/filtro1',[
+        'uses'  =>'Estudiante\EstudianteController@comunidad_carreras',
+        'as'    =>'estudiante.comunidad.carreras'
+    ]);
+
+    //ver perfil de otro jugador
+    Route::get('perfil/{id}',[
+        'uses'  =>'Estudiante\EstudianteController@perfil_show',
+        'as'    =>'estudiante.perfil.show'
+      ]);
 
     //solicitud de equipo
     Route::post('solicitud_equipo/',[
@@ -442,5 +481,33 @@ Route::group(['prefix' => 'mod'], function () {
             'destroy' => 'mod.torneos.destroy',
         ]
     ]);
+    Route::resource('equipos', 'Mod\EquipoController', [
+      'names' => [
+          'index' => 'mod.equipos.index',
+          'create' => 'mod.equipos.create',
+          'store' => 'mod.equipos.store',
+          'show' => 'mod.equipos.show',
+          'update' => 'mod.equipos.update',
+          'edit' => 'mod.equipos.edit',
+          'destroy' => 'mod.equipos.destroy',
+      ]
+  ]);
+
+  Route::post('filtro',[
+    'uses'  =>'Mod\EquipoController@filtro',
+    'as'    =>'mod.filtro'
+  ]);
+  Route::post('edres',[
+    'uses'  =>'Mod\TorneoController@editarres',
+    'as'    =>'mod.edresultado'
+  ]);
+  Route::post('enfrent',[
+    'uses'  =>'Mod\TorneoController@registrarenf',
+    'as'    =>'mod.enfrent'
+  ]);
+  Route::post('guardar',[
+    'uses'  =>'Mod\TorneoController@guardar',
+    'as'    =>'mod.guardar'
+  ]);
 
 });
