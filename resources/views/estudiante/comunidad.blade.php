@@ -44,7 +44,11 @@
                             <p>{{ $user->nick }}</p>
                         </div>
                         <div class="col-3">
-
+                            <a href="{{ route('estudiante.perfil.show', ['id' => $user->id]) }}">
+                                <button class="btn btn-info btn-round">
+                                        <i class="far fa-hand-point-right"></i> Detalles
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
