@@ -17,6 +17,23 @@
     {!! Form::label('descripcion', 'Descripcion') !!}
     {!! Form::input('text', 'descripcion', $deporte->descripcion, ['class' => 'form-control', 'placeholder' => 'Descripcion del deporte', 'required']) !!}
     </div>
+    
+    <div class="form-group">
+    
+    {!! Form::label('icono', 'Icono') !!}
+    <br/>
+    {!! Form::radio('icono','far fa-futbol')!!} Pelota de futbol
+    <br/>
+    {!! Form::radio('icono','fas fa-basketball-ball')!!} Pelota de basquetball
+    <br/>
+    {!! Form::radio('icono','fas fa-dumbbell')!!} Pesas
+    <br/>
+    {!! Form::radio('icono','fas fa-table-tennis')!!} Paleta de ping pong
+    <br/>
+    {!! Form::radio('icono','fas fa-baseball')!!} Pelota de Baseball
+    <br/>
+    
+  </div>
 
     <center>
       <div class="form-group">

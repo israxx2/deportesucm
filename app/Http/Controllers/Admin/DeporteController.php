@@ -84,6 +84,7 @@ class DeporteController extends Controller
         $deporte = new Deporte();
         $deporte->nombre = $request->nombre;
         $deporte->descripcion = $request->descripcion;
+        $deporte->icon = $request->icono;
 
         $deporte->save();
 
@@ -128,6 +129,7 @@ class DeporteController extends Controller
         $deporte = Deporte::find($id);
         $deporte->nombre = strtoupper($request->nombre);
         $deporte->descripcion = strtoupper($request->descripcion);
+        $deporte->icon = $request->icono;
   
         $deporte->save();
 
