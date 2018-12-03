@@ -29,10 +29,11 @@ class MDusuarioAdmin
             return redirect()->to('/login');
         }
 
-        if($this->auth->user()->tipo !='admin'){
+        if($this->auth->user()->tipo =='estudiante'){
             Session::flash('message_error','No tiene permisos suficientes para acceder');
-            return redirect()->to('/login');
+            return redirect()->to('/e/inicio');
         }
+
         return $next($request);
     }
 }
