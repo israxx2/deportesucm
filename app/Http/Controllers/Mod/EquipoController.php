@@ -99,7 +99,7 @@ class EquipoController extends Controller
     {
 
         $deportes_sidebar = Deporte::all();
-        if($request->filto){
+        if($request->filtro){
             $equipos = DB::select('SELECT equipos.nombre, 
             equipos.descripcion, 
             equipos.victorias_totales,
