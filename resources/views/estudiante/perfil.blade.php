@@ -8,7 +8,7 @@
     <div class="col-ml-3 col-sm-4">
         <div class="card card-user">
             <div class="image">
-                <img src="{{ asset('estudiante/assets/img/fondo-de-pantalla-plano-de-color-arena.jpg') }}" alt="...">
+                <img src="{{ asset('img/portada.jpg') }}" alt="...">
             </div>
             <div class="card-body">
                 <div class="author">

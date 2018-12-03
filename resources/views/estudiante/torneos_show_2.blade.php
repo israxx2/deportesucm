@@ -20,7 +20,7 @@
                             <h1 class="title">{{ $torneo->nombre }}</h5>
                         </div>
                         <div class="col-sm-5">
-                            <button type="button" class="btn btn-icon btn-round float-right" style="height: 8.375rem; width: 8.375rem; font-size: 2.9rem; border-radius: 40px; background-color: #2CA8FF;"
+                            <button type="button" class="btn btn-icon btn-round float-right" style="height: 8.375rem; width: 8.375rem; font-size: 2.9rem; border-radius: 100%; background-color: #2CA8FF;"
                             data-toggle="modal" data-target="#ingresar">
                                 <i class="fa fa-plus"></i>
                             </button>
@@ -60,13 +60,13 @@
                                         <h3>Inscritos</h3>
                                         @for($i=0;$i<$torneo->max;$i++)
                                             @if(isset($torneo->equipos[$i]))
-                                                <div class="card" style="width: 50rem;">
+                                                <div class="card" style="width: 30rem;">
                                                     <div class="card-body">
                                                         <h5 class="card-title">{{ $torneo->equipos[$i]->nombre }}</h5>
                                                     </div>
                                                 </div>
                                             @else
-                                                <div class="card" style="width: 50rem;">
+                                                <div class="card" style="width: 30rem;">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Espacio Disponible</h5>
                                                     </div>

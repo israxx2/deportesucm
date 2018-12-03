@@ -55,6 +55,9 @@
     <div class="row">
         <div class="col-8">
             <div class="d-flex justify-content-around" id="div_invi">
+                @if($invitaciones->isEmpty())
+                    <p>No hay invitaciones públicas</p>
+                @else
                 @foreach($invitaciones as $invitacion)
                     <div class="card" style="width: 20rem;">
                         <div class="card-header">
@@ -73,14 +76,16 @@
                         </div>
                     </div>
                 @endforeach
+                @endif
+                
             </div>
         </div>
         <div class="col-4">
             <div class="card">
-                <div class="card-body" style="background-color: #ebecf1;">
+                <div class="card-body" style="background-color: #bdc0ce82;">
                     <h5 class="card-title">Equipos por modalidad</h5>
                     @foreach($deporte->modalidades as $modalidad)
-                        <a href="{{ route('estudiante.modalidades.show', ['id' => $modalidad->id]) }}" class="btn btn-neutral btn-sm" aria-disabled="true" style="background-color: #ebecf1; color: #3f3836;"><i class="far fa-hand-point-right"></i>{{ ' '.$modalidad->nombre }}</a><br>
+                        <a href="{{ route('estudiante.modalidades.show', ['id' => $modalidad->id]) }}" class="btn btn-neutral btn-sm" aria-disabled="true" style="background-color: #ffffff00; color: #3f3836;"><i class="far fa-hand-point-right"></i>{{ ' '.$modalidad->nombre }}</a><br>
                     @endforeach
                 </div>
             </div>
