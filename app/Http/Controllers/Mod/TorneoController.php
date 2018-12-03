@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Deporte;
 use App\Torneo;
 use App\User;
+use App\Enfrentamiento;
 use App\Modalidad;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -172,6 +173,22 @@ class TorneoController extends Controller
     }
     public function guardar(Request $request)
     {   
-        dd($request);
+        $deportes_sidebar = Deporte::all();
+        $modalidad = Modalidad::orderBy('id', 'DESC')->get();
+        $torneo = Torneo::orderBy('id', 'DESC')->get();
+        foreach($torneo as $torneos){
+            $torneos['participantes_actuales'] = $torneos->equipos->count();
+        }
+        $enfrentamiento = new Enfrentamiento();
+        $enfrentamiento->fase = $request->fase;
+        $enfrentamiento->torneo_id = $request->torneo;
+        $enfrentamiento->local_id = $request->e_local;
+        $enfrentamiento->visita_id =$request->e_visitante;
+        $enfrentamiento->ganador_id = $request->e_local;
+        $enfrentamiento->save();
+        return redirect('/mod/torneos/'.$request->torneo)
+        ->with('deportes_sidebar', $deportes_sidebar)
+        ->with('torneos', $torneo)
+        ->with('modalidades', $modalidad);
     }
 }

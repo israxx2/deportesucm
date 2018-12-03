@@ -76,21 +76,23 @@
                                         <div class="container">
                                             @if($torneo->tipo == 'llave')
                                                 @for($i=1; $i<=$fases; $i++)
-                                                <div class="col-sm-5">
-                                {!! Form::open(['route' => 'mod.enfrent' , 'method' => 'POST']) !!}
-                                                                            <input type="hidden" id="torneo" name="torneo" value="{{$torneo->id}}">
-                                                                            <input type="hidden" id="fase" name="fase" value="{{$i}}">
-                                                                             <button type="submit" class="btn btn-warning">Editar</button>
-                                             {!! Form::close() !!}
-                        </div>
+
                                                     <div class="table-responsive">
-                                                        <h2>{{ 'FASE '.+$i }}</h2>
-                                                        <table class="table table-striped display compact table-condensed" id="{{ 'table_fases_'.$i }}">
+                                                        <h2>{{ 'FASE '.+$i }}
+                                                        </h2>
+                                                                          <table class="table table-striped display compact table-condensed" id="{{ 'table_fases_'.$i }}">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Equipo</th>
                                                                     <th>vs</th>
                                                                     <th>Equipo</th>
+                                                                    <th> <div class="col-sm-3" style="width: 5rem;">
+                                                                        {!! Form::open(['route' => 'mod.enfrent' , 'method' => 'POST']) !!}
+                                                                            <input type="hidden" id="torneo" name="torneo" value="{{$torneo->id}}">
+                                                                            <input type="hidden" id="fase" name="fase" value="{{$i}}">
+                                                                             <button type="submit" class="btn btn-success">Ingresar Enf</button>
+                                                                        {!! Form::close() !!}
+                                                                       </div></th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
