@@ -5,7 +5,7 @@
 @section('content')
 <div class="row">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-lg-12">
             @foreach($equipos as $equipo)
             <div class="card">
                 <div class="card-body">
@@ -37,18 +37,34 @@
             </div>    
             @endforeach
         </div>
-        <div class="col-md-4">
-            <div class="card" style="width: 27rem;"  >
-                {!! Form::open(['route' => 'mod.filtro' , 'method' => 'POST']) !!}
-                    <div class="form-group">
-                        <label>Filtro</label>
-                        <input type="text" name="filtro" class="form-control" placeholder="Busca un lider o equipo..."> 
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            @foreach($jugadores as $jugador)
+            <div class="card">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p><b>Nombre Jugador:</b> {{$jugador->nombres}}, {{$jugador->apellidos}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-8">
+                            <b>Ciudad:</b> {{$jugador->ciudad}}
+                        </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <b>nick:</b> <p>{{$jugador->nick}}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <button type="submit" class="btn btn-primary">Aplicar Filtro</button>
-                    </div>
-                {!! Form::close() !!}   
-            </div> 
+                </div>
+            </div>    
+            @endforeach
         </div>
     </div>
 </div>

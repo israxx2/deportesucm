@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Deporte;
 use App\Torneo;
 use App\User;
+use App\Enfrentamiento;
 use App\Modalidad;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -153,27 +154,41 @@ class TorneoController extends Controller
     }
     public function registrarenf(Request $request)
     {   
-        $torneus = DB::select('SELECT 
-        equipo_id from inscripcion where torneo_id = '.$request->torneo);     
-
-        $torneo = DB::select('SELECT 
-        DISTINCT
-        inscripcion.equipo_id,
-        equipos.nombre,
-        inscripcion.torneo_id
-        from inscripcion join equipos on inscripcion.equipo_id =equipos.id
-        join torneos on inscripcion.torneo_id = torneos.id
-        join enfrentamientos on enfrentamientos.torneo_id = torneos.id
-        where torneos.id= '.$request->torneo. ' and enfrentamientos.fase = '.$request->fase);
+     
+        $torneo = DB::select('select equipos.nombre as equipo_nombre,
+        equipos.id as id_equipo 
+        from equipos join inscripcion on equipos.id = inscripcion.equipo_id where 
+        equipos.id not in (SELECT equipos.id FROM enfrentamientos 
+        JOIN EQUIPOS on equipos.id = enfrentamientos.visita_id WHERE fase = '.$request->fase.' and torneo_id = '.$request->torneo.')
+        and equipos.id not in(SELECT equipos.id FROM enfrentamientos 
+        JOIN EQUIPOS on equipos.id = enfrentamientos.local_id WHERE fase = '.$request->fase.' and torneo_id = '.$request->torneo.')');
         $deportes_sidebar = Deporte::all();
 
         return view('mod.torneos.registrarenf')
         ->with('deportes_sidebar', $deportes_sidebar)
-        ->with('torneo',$torneo);
+        ->with('torneo',$request->torneo)
+        ->with('torn',$torneo)
+        ->with('fase',$request->fase);
 
     }
     public function guardar(Request $request)
     {   
-        dd($request);
+        $deportes_sidebar = Deporte::all();
+        $modalidad = Modalidad::orderBy('id', 'DESC')->get();
+        $torneo = Torneo::orderBy('id', 'DESC')->get();
+        foreach($torneo as $torneos){
+            $torneos['participantes_actuales'] = $torneos->equipos->count();
+        }
+        $enfrentamiento = new Enfrentamiento();
+        $enfrentamiento->fase = $request->fase;
+        $enfrentamiento->torneo_id = $request->torneo;
+        $enfrentamiento->local_id = $request->e_local;
+        $enfrentamiento->visita_id =$request->e_visitante;
+        $enfrentamiento->ganador_id = $request->e_local;
+        $enfrentamiento->save();
+        return redirect('/mod/torneos/'.$request->torneo)
+        ->with('deportes_sidebar', $deportes_sidebar)
+        ->with('torneos', $torneo)
+        ->with('modalidades', $modalidad);
     }
 }

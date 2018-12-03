@@ -17,7 +17,8 @@ class EquipoController extends Controller
     public function index()
     {
         $deportes_sidebar = Deporte::all();
-        $equipos = DB::select('SELECT equipos.nombre, 
+        $equipos = DB::select('SELECT equipos.id,
+        equipos.nombre, 
         equipos.descripcion, 
         equipos.victorias_totales,
         equipos.derrotas_totales,
@@ -58,7 +59,26 @@ class EquipoController extends Controller
      */
     public function show($id)
     {
-        //
+        $jugadores = DB::select('SELECT users.nombres,
+        users.apellidos,
+        users.ciudad,
+        users.nick
+        from users join cuenta on users.id = cuenta.user_id
+        join equipos on cuenta.equipo_id = equipos.id
+        where equipos.id = '.$id);
+
+        $equipos = DB::select('SELECT equipos.id,
+        equipos.nombre, 
+        equipos.descripcion, 
+        equipos.victorias_totales,
+        equipos.derrotas_totales,
+        users.nombres as nombre_u,
+        users.apellidos as apellido_u FROM equipos join users
+        on equipos.user_id = users.id where equipos.id = '.$id);
+        return view('mod.equipos.equiposhow')
+        ->with('jugadores',$jugadores)
+        ->with('equipos', $equipos);
+        dd($equipos);
     }
 
     /**
@@ -99,7 +119,7 @@ class EquipoController extends Controller
     {
 
         $deportes_sidebar = Deporte::all();
-        if($request->filto){
+        if($request->filtro){
             $equipos = DB::select('SELECT equipos.nombre, 
             equipos.descripcion, 
             equipos.victorias_totales,

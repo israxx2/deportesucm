@@ -513,5 +513,6 @@ Route::group(['prefix' => 'mod'], function () {
     'uses'  =>'Mod\TorneoController@guardar',
     'as'    =>'mod.guardar'
   ]);
+  
 
 });
