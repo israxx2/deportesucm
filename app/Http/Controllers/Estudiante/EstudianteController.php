@@ -509,9 +509,6 @@ class EstudianteController extends Controller
             return Redirect('e/perfil');
         }
         else{
-            foreach($deportes->modalidades as $modalidad){
-                dd($modalidad);
-            }
             return view('estudiante.perfil_show')
             ->with('user', $user)
             ->with('deportes', $deportes)

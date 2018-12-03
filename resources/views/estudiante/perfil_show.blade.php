@@ -36,19 +36,21 @@
 
                         <div class="container" style="background-color: #E1F5FE; width: 70%; padding: 10px;">
                             <div class="card card-nav-tabs">
-                                @foreach($deportes->modalidades as $modalidad)
-                                    @foreach($modalidad->equipos as $equipo)
-                                        <div class="card-header card-header-danger">
-                                            {{ $equipo->nombre }}
-                                        </div>
+                                @foreach($deportes as $deporte)
+                                    <div class="card-header card-header-danger">
+                                        <h6>{{ $equipo->nombre }}</h6>
+                                    </div>
+                                    @foreach($deporte->modalidades as $modalidad)
+                                        @foreach($modalidad->equipos as $equipo)
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">Cras justo odio</li>
+                                            </ul>
+                                        @endforeach
                                     @endforeach
                                 @endforeach
 
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Cras justo odio</li>
-                                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                                    <li class="list-group-item">Vestibulum at eros</li>
-                                </ul>
+
+
                             </div>
                         </div>
 
