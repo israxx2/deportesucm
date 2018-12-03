@@ -72,7 +72,7 @@ class EstudianteController extends Controller
             }
         }
         $historial = $historial->sortBy('created_at');
-        $a = $historial->splice(2);
+        $a = $historial->splice(5);
 
         return view('estudiante.perfil')
         ->with('user', $user)
@@ -467,7 +467,7 @@ class EstudianteController extends Controller
     public function comunidad(){
         $users = User::orderBy('apellidos', 'ASC')
         ->where('tipo','estudiante')
-        ->get();
+        ->paginate(15);
         $deportes_sidebar = Deporte::all();
         $carreras = Carrera::all();
         return view('estudiante.comunidad')
@@ -486,7 +486,10 @@ class EstudianteController extends Controller
             ->get();
         } else {
             $users = User::orderBy('apellidos', 'ASC')
-            ->where('carrera_id', $request->id)
+            ->where([
+                ['carrera_id', $request->id],
+                ['tipo', 'estudiante']
+            ])
             ->get();
         }
 
@@ -495,6 +498,34 @@ class EstudianteController extends Controller
         return view('estudiante.comunidad_filtro1',['users'=>$users])->render();
         //->with('users', $users);
     }
+
+    public function perfil_show($id){
+        $historial = collect([]);
+        $deportes_sidebar = Deporte::all();
+        $user = User::find(Auth::User()->id);
+        $deportes = Deporte::all();
+
+        if(Auth::User()->id == $id){
+            return Redirect('e/perfil');
+        }
+        else{
+            foreach($deportes->modalidades as $modalidad){
+                dd($modalidad);
+            }
+            return view('estudiante.perfil_show')
+            ->with('user', $user)
+            ->with('deportes', $deportes)
+            ->with('deportes_sidebar', $deportes_sidebar);
+        }
+        $historial = $historial->sortBy('created_at');
+        $a = $historial->splice(5);
+
+        return view('estudiante.perfil_show')
+        ->with('user', $user)
+        ->with('deportes_sidebar', $deportes_sidebar)
+        ->with('historial', $historial);
+    }
+
     public function aceptar_soli(Request $request){
         $us=user::find($request->id_us);
         $equipos=equipo::find($request->id_eq);

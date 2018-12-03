@@ -22,6 +22,7 @@ class Deporte extends Model
      */
     protected $dates = ['deleted_at'];
 
+
     public function modalidades()
     {
         return $this->hasMany('App\Modalidad', 'deporte_id');

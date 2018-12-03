@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Response;
 use App\User;
 use App\Partido;
 use App\Equipo;
+use Illuminate\Support\Collection as Collection;
 
 class PartidoController extends Controller
 {
@@ -30,18 +32,44 @@ class PartidoController extends Controller
         
 
     }
+
     
-    public function index()
+    public function borrados()
     {
-        //retorna todos los partidos (hasta los borrados logicamente)
+        //retorna todos los usuarios (hasta los borrados logicamente)
         //ordenados por id
-        
         $partido = Partido::withTrashed()->
         orderBy('id', 'ASC')->get();
+        $equipos1 = Equipo::orderBy('id', 'ASC')->get();
+        $partidosOnlyTrashed = Partido::onlyTrashed()
+        ->get();
+
+        //Se pasa la variable users a la vista
+        return view('admin.partido.borrados')
+        ->with('partido', $partido)
+        ->with('equipos1', $equipos1)
+        ->with('partidosOnlyTrashed', $partidosOnlyTrashed);
+    }
+
+    public function index()
+    {
+        //retorna todos los usuarios (hasta los borrados logicamente)
+        //ordenados por id
+
+        $partido = Partido::orderBy('id', 'ASC')->get();
+        $equipos1 = Equipo::orderBy('id', 'ASC')->get();
+        $partidosOnlyTrashed =Partido::onlyTrashed()
+        ->get();
+        
+
         //Se pasa la variable users a la vista
         return view('admin.partido.index')
-        ->with('partido', $partido);
+        ->with('partido', $partido)
+        ->with('equipos1', $equipos1)
+        ->with('partidosOnlyTrashed', $partidosOnlyTrashed);
     }
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -135,8 +163,7 @@ class PartidoController extends Controller
         $partido = Partido::find($id);
         $partido->delete();
         $partido->save();
-
-        return Redirect('admin/partido');
+        return Redirect(route('admin.partido.index'));
     }
 
     public function activar($id)
@@ -145,7 +172,36 @@ class PartidoController extends Controller
         ->where('id', '=', $id)
         ->restore();
 
-        return Redirect('admin/partido');
+        return Redirect(route('admin.partido.index'));
+
+    }
+
+    //Eliminar usuario de la base de datos
+    public function destroy_force($id)
+    {
+        PArtido::where('id',$id)->forceDelete();
+        return Redirect(route('admin.partido.borrados'));
+    }
+
+    //Borrar Varios usuarios de la base de datos.
+    public function deleteall(Request $request)
+    {
+        $ids = $request->ids;
+        Partido::whereIn('id',explode(",",$ids))->forceDelete();
+        return response()->json(['status'=>true,'message'=>"PArtidos Borrados Correctamente."]);
+
+
+    }
+
+    //Borrar Varios usuarios logicamente.
+    public function softdeleteAll(Request $request)
+    {
+        dd("llegó");
+        $ids = $request->ids;
+        Partido::whereIn('id',explode(",",$ids))->forceDelete();
+        return response()->json(['status'=>true,'message'=>"PArtido Borrados Correctamente."]);
+
+
     }
 
 
