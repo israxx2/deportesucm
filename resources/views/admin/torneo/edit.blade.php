@@ -14,7 +14,7 @@
         </div>
         <div class="form-group">
             <label>Descripcion</label>
-                <textarea name="descripcion" class="form-control" rows="3" value="{{$torneo->descripcion}}"> </textarea>
+                <textarea name="descripcion" class="form-control" rows="3" >{{$torneo->descripcion}} </textarea>
         </div>
         <div class="form-group">
             <label>Fecha</label>
@@ -48,7 +48,11 @@
                     <label>Modalidad</label>
                     <select name="modalidad">
                     @foreach($modalidades as $modalidad)
-                        <option value="{{$modalidad->id}}">{{ $modalidad->deporte->nombre }},{{ $modalidad->nombre }}</option>
+                        @if($torneo->modalidad_id == $modalidad->id)
+                            <option value="{{$modalidad->id}}" selected="selected">{{ $modalidad->deporte->nombre }},{{ $modalidad->nombre }}</option>
+                        @else
+                         <option value="{{$modalidad->id}}" >{{ $modalidad->deporte->nombre }},{{ $modalidad->nombre }}</option>
+                        @endif
                     @endforeach
                     </select>
             </div>

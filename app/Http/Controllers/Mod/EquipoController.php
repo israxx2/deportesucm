@@ -97,17 +97,28 @@ class EquipoController extends Controller
 
     public function filtro(Request $request)
     {
-        $deportes_sidebar = Deporte::all();
-        $equipos = DB::select('SELECT equipos.nombre, 
-        equipos.descripcion, 
-        equipos.victorias_totales,
-        equipos.derrotas_totales,
-        users.nombres as nombre_u,
-        users.apellidos as apellido_u FROM equipos join users
-        on equipos.user_id = users.id
-        where equipos.nombre = "'.$request->filtro.'" or users.nombres = "'.$request->filtro.'"
-        or users.apellidos = "'.$request->filtro.'"');
 
+        $deportes_sidebar = Deporte::all();
+        if($request->filto){
+            $equipos = DB::select('SELECT equipos.nombre, 
+            equipos.descripcion, 
+            equipos.victorias_totales,
+            equipos.derrotas_totales,
+            users.nombres as nombre_u,
+            users.apellidos as apellido_u FROM equipos join users
+            on equipos.user_id = users.id
+            where equipos.nombre = "'.$request->filtro.'" or users.nombres = "'.$request->filtro.'"
+            or users.apellidos = "'.$request->filtro.'"');
+        }
+        else{
+            $equipos = DB::select('SELECT equipos.nombre, 
+            equipos.descripcion, 
+            equipos.victorias_totales,
+            equipos.derrotas_totales,
+            users.nombres as nombre_u,
+            users.apellidos as apellido_u FROM equipos join users
+            on equipos.user_id = users.id');
+        }
         return view('mod.equipos.index')
         ->with('equipos', $equipos)
         ->with('deportes_sidebar', $deportes_sidebar);
