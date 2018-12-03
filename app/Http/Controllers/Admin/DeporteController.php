@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\User;
 use App\Carrera;
 use App\Deporte;
+use Illuminate\Support\Collection as Collection;
 
 class DeporteController extends Controller
 {
@@ -29,17 +30,37 @@ class DeporteController extends Controller
         
 
     }
+
+    public function borrados()
+    {
+        //retorna todos los usuarios (hasta los borrados logicamente)
+        //ordenados por id
+        $deporte = Deporte::withTrashed()->
+        orderBy('id', 'ASC')->get();
+        $deportesOnlyTrashed = Deporte::onlyTrashed()
+        ->get();
+
+        //Se pasa la variable users a la vista
+        return view('admin.deporte.borrados')
+        ->with('deporte', $deporte)
+        ->with('deportesOnlyTrashed', $deportesOnlyTrashed);
+    }
+
     public function index()
     {
         //retorna todos los deportes (hasta los borrados logicamente)
         //ordenados por id
         
-        $deporte = Deporte::withTrashed()->
-        orderBy('id', 'ASC')->get();
+        $deporte = Deporte:: orderBy('id', 'ASC')->get();
+        $deportesOnlyTrashed = Deporte::onlyTrashed()
+        ->get();
         //Se pasa la variable users a la vista
         return view('admin.deporte.index')
-        ->with('deporte', $deporte);
+        ->with('deporte', $deporte)
+        ->with('deportesOnlyTrashed', $deportesOnlyTrashed);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -66,7 +87,7 @@ class DeporteController extends Controller
 
         $deporte->save();
 
-        return Redirect('admin/deporte/');
+        return Redirect(Route('admin.deporte.index'));
 
     }
 
@@ -110,7 +131,7 @@ class DeporteController extends Controller
   
         $deporte->save();
 
-        return Redirect('/admin/deporte/');
+        return Redirect(Route('admin.deporte.index'));
     }
 
     /**
@@ -125,7 +146,7 @@ class DeporteController extends Controller
         $deporte->delete();
         $deporte->save();
 
-        return Redirect('admin/deporte');
+        return Redirect(Route('admin.deporte.index'));
     }
 
     public function activar($id)
@@ -134,7 +155,35 @@ class DeporteController extends Controller
         ->where('id', '=', $id)
         ->restore();
 
-        return Redirect('admin/deporte');
+        return Redirect(Route('admin.deporte.index'));
+    }
+
+    //Eliminar usuario de la base de datos
+     public function destroy_force($id)
+     {
+         Deporte::where('id',$id)->forceDelete();
+         return Redirect(route('admin.deporte.borrados'));
+     }
+    
+     //Borrar Varios usuarios de la base de datos.
+     public function deleteall(Request $request)
+     {
+        $ids = $request->ids;
+        Deporte::whereIn('id',explode(",",$ids))->forceDelete();
+        return response()->json(['status'=>true,'message'=>"Usuarios Borrados Correctamente."]);
+    
+    
+     }
+    
+    //Borrar Varios usuarios logicamente.
+    public function softdeleteAll(Request $request)
+    {
+         dd("llegó");
+        $ids = $request->ids;
+        Deporte::whereIn('id',explode(",",$ids))->forceDelete();
+        return response()->json(['status'=>true,'message'=>"Usuarios Borrados Correctamente."]);
+    
+    
     }
 
 

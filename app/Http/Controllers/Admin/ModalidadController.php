@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\Response;
 use App\User;
 use App\Modalidad;
 use App\Deporte;
+use Illuminate\Support\Collection as Collection;
 
 class ModalidadController extends Controller
 {
@@ -30,18 +32,77 @@ class ModalidadController extends Controller
         
 
     }
-    public function index()
+
+    public function borrados()
     {
-        //retorna todos los modalidads (hasta los borrados logicamente)
+        //retorna todos los usuarios (hasta los borrados logicamente)
         //ordenados por id
-        
         $modalidad = Modalidad::withTrashed()->
         orderBy('id', 'ASC')->get();
+        $deportes = Deporte::orderBy('id', 'ASC')->get();
+        $modalidadesOnlyTrashed = Modalidad::onlyTrashed()
+        ->get();
+
         //Se pasa la variable users a la vista
-        return view('admin.modalidad.index')
-        ->with('modalidad', $modalidad);
+        return view('admin.modalidad.borrados')
+        ->with('modalidad', $modalidad)
+        ->with('deportes', $deportes)
+        ->with('modalidadesOnlyTrashed', $modalidadesOnlyTrashed);
     }
 
+    public function index()
+    {
+        //retorna todos los usuarios (hasta los borrados logicamente)
+        //ordenados por id
+
+        $modalidad = Modalidad::orderBy('id', 'ASC')->get();
+        $deportes = Deporte::orderBy('id', 'ASC')->get();
+        $modalidadesOnlyTrashed =Modalidad::onlyTrashed()
+        ->get();
+
+        //Se pasa la variable users a la vista
+        return view('admin.modalidad.index')
+        ->with('modalidad', $modalidad)
+        ->with('deportes', $deportes)
+        ->with('modalidadesOnlyTrashed', $modalidadesOnlyTrashed);
+    }
+
+
+    public function filtro1(Request $request)
+    {
+        //retorna todos los usuarios (hasta los borrados logicamente)
+        //ordenados por id
+
+        if($request->id == 'null'){
+            $modalidad = Modalidad::orderBy('id', 'ASC')
+            ->get();
+        } else {
+            $modalidad = Modalidad::orderBy('id', 'ASC')
+            ->where('deporte_id', $request->id)
+            ->get();
+        }
+
+        //$a = response()->json(['success' => 'Pasó la prueba :3']);
+
+        return view('admin.modalidad.filtro_deporte',['modalidad'=>$modalidad])->render();
+        //->with('users', $users);
+    }
+
+    public function filtro2(Request $request)
+    {
+        //retorna todos los usuarios  borrados logicamente
+
+        if($request->id == 'null'){
+            $modalidad = Modalidad::onlyTrashed()->orderBy('id', 'ASC')
+            ->get();
+        } else {
+            $modalidad = Modalidad::onlyTrashed()->orderBy('id', 'ASC')
+            ->where('deporte_id', $request->id)
+            ->get();
+        }
+        return view('admin.modalidad.filtro_deporte',['modalidad'=>$modalidad])->render();
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -132,8 +193,7 @@ class ModalidadController extends Controller
         $modalidad = Modalidad::find($id);
         $modalidad->delete();
         $modalidad->save();
-
-        return Redirect('admin/modalidad');
+        return Redirect(route('admin.modalidad.index'));
     }
 
     public function activar($id)
@@ -142,7 +202,36 @@ class ModalidadController extends Controller
         ->where('id', '=', $id)
         ->restore();
 
-        return Redirect('admin/modalidad');
+        return Redirect(route('admin.modalidad.index'));
+
+    }
+
+    //Eliminar usuario de la base de datos
+    public function destroy_force($id)
+    {
+        Modalidad::where('id',$id)->forceDelete();
+        return Redirect(route('admin.modalidad.borrados'));
+    }
+
+    //Borrar Varios usuarios de la base de datos.
+    public function deleteall(Request $request)
+    {
+        $ids = $request->ids;
+        Modaliad::whereIn('id',explode(",",$ids))->forceDelete();
+        return response()->json(['status'=>true,'message'=>"Usuarios Borrados Correctamente."]);
+
+
+    }
+
+    //Borrar Varios usuarios logicamente.
+    public function softdeleteAll(Request $request)
+    {
+        dd("llegó");
+        $ids = $request->ids;
+        Modalidad::whereIn('id',explode(",",$ids))->forceDelete();
+        return response()->json(['status'=>true,'message'=>"Modalidad Borrados Correctamente."]);
+
+
     }
 
 
