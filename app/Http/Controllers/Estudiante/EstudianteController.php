@@ -84,12 +84,51 @@ class EstudianteController extends Controller
 
         $deportes_sidebar = Deporte::all();
         $deporte = Deporte::find($id);
+        $invitaciones = Invitacion::all()
+        ->where('receptor_id', null);
 
+        foreach($invitaciones as $invitacion){
 
-
+            if($invitacion->equipoEmisor->modalidad->deporte->id != $deporte->id)
+            {
+                $invitaciones->pull($invitacion->id - 1);
+            }
+        }
         return view('estudiante.deporte_show')
         ->with('deportes_sidebar', $deportes_sidebar)
+        ->with('invitaciones', $invitaciones)
         ->with('deporte', $deporte);
+    }
+
+    public function deporte_show_modalidad(Request $request){
+        $modalidad = Modalidad::find($request->id);
+        $deporte = Deporte::find($modalidad->deporte->id);
+        $invitaciones = Invitacion::all()
+        ->where('receptor_id', null);
+
+        if($request->id == 'null'){
+
+            foreach($invitaciones as $invitacion){
+
+                if($invitacion->equipoEmisor->modalidad->deporte->id != $deporte->id)
+                {
+                    $invitaciones->pull($invitacion->id - 1);
+                }
+            }
+        } else {
+            foreach($invitaciones as $invitacion){
+
+                if($invitacion->equipoEmisor->modalidad->deporte->id != $deporte->id || $invitacion->equipoEmisor->modalidad->id != $request->id)
+                {
+                    $invitaciones->pull($invitacion->id - 1);
+                }
+            }
+        }
+
+        //$a = response()->json(['success' => 'Pasó la prueba :3']);
+
+        return view('estudiante.deporte_show2',['invitaciones'=>$invitaciones])->render();
+        //->with('users', $users);
     }
 
 

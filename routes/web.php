@@ -112,8 +112,8 @@ Route::group(['prefix' => 'admin'], function () {
                 'uses'  =>'Admin\EquipoController@activar',
                 'as'    =>'admin.equipo.activar'
               ]);
-          
-             
+
+
 
               // Rutas de los partidos
             Route::resource('partido', 'Admin\PartidoController', ['names' => [
@@ -125,13 +125,13 @@ Route::group(['prefix' => 'admin'], function () {
               'edit' => 'admin.partido.edit',
               'update' => 'admin.partido.update',
               ]]);
-    
+
               Route::resource('reclamo','Admin\ReclamosController', ['names' => [
                 'index' => 'admin.reclamo.index',
                 'destroy' => 'admin.reclamo.destroy',
                 'estado'=> 'admin.reclamo.estado',
                 ]]);
-    
+
                 Route::post('partido/activar/{partido}',[
                   'uses'  =>'Admin\PartidoController@activar',
                   'as'    =>'admin.partido.activar'
@@ -139,16 +139,16 @@ Route::group(['prefix' => 'admin'], function () {
                   Route::post('partido/destroy_force/{partido}', [
                     'as'=>'admin.partido.destroy_force',
                     'uses'=>'Admin\PartidoController@destroy_force']);
-        
+
                   Route::get('deleteall', [
                     'as'=>'admin.partido.deleteall',
                     'uses'=>'Admin\PartidoController@deleteall']);
-        
+
                   Route::post('softdeleteall', [
                   'as'=>'admin.partido.softdeleteall',
                   'uses'=>'Admin\PartidoController@softdeleteAll']
                   );
-        
+
                   Route::get('partidoesTrashed',[
                       'uses'  =>'Admin\PartidoController@borrados',
                       'as'    =>'admin.partido.borrados'
@@ -157,7 +157,7 @@ Route::group(['prefix' => 'admin'], function () {
                       'uses'  =>'Admin\PartidoController@activar',
                       'as'    =>'admin.partido.activar'
                     ]);
-    
+
            //Rutas de las modalidades
            Route::resource('modalidad', 'Admin\ModalidadController', ['names' => [
             'index' => 'admin.modalidad.index',
@@ -172,7 +172,7 @@ Route::group(['prefix' => 'admin'], function () {
               'uses'  =>'Admin\ModalidadController@filtro1',
               'as'    =>'admin.modalidad.filtro1'
             ]);
-    
+
           Route::post('modalidad/aa/filtro2',[
           'uses'  =>'Admin\ModalidadController@filtro2',
           'as'    =>'admin.modalidad.filtro2'
@@ -184,16 +184,16 @@ Route::group(['prefix' => 'admin'], function () {
               Route::post('modalidad/destroy_force/{modalidad}', [
                 'as'=>'admin.modalidad.destroy_force',
                 'uses'=>'Admin\ModalidadController@destroy_force']);
-    
+
               Route::get('deleteall', [
                 'as'=>'admin.modalidad.deleteall',
                 'uses'=>'Admin\ModalidadController@deleteall']);
-    
+
               Route::post('softdeleteall', [
               'as'=>'admin.modalidad.softdeleteall',
               'uses'=>'Admin\ModalidadController@softdeleteAll']
               );
-    
+
               Route::get('modalidadesTrashed',[
                   'uses'  =>'Admin\ModalidadController@borrados',
                   'as'    =>'admin.modalidad.borrados'
@@ -202,8 +202,8 @@ Route::group(['prefix' => 'admin'], function () {
                   'uses'  =>'Admin\ModalidadController@activar',
                   'as'    =>'admin.modalidad.activar'
                 ]);
-    
-    
+
+
             // Rutas de los deportes
             Route::resource('deporte', 'Admin\DeporteController', ['names' => [
               'index' => 'admin.deporte.index',
@@ -214,7 +214,7 @@ Route::group(['prefix' => 'admin'], function () {
               'edit' => 'admin.deporte.edit',
               'update' => 'admin.deporte.update',
               ]]);
-    
+
               Route::post('deporte/activar/{deporte}',[
                 'uses'  =>'Admin\DeporteController@activar',
                 'as'    =>'admin.deporte.activar'
@@ -222,16 +222,16 @@ Route::group(['prefix' => 'admin'], function () {
               Route::post('deporte/destroy_force/{deporte}', [
                 'as'=>'admin.deporte.destroy_force',
                 'uses'=>'Admin\DeporteController@destroy_force']);
-    
+
               Route::get('deleteall', [
                 'as'=>'admin.deporte.deleteall',
                 'uses'=>'Admin\DeporteController@deleteall']);
-    
+
               Route::post('softdeleteall', [
               'as'=>'admin.deporte.softdeleteall',
               'uses'=>'Admin\DeporteController@softdeleteAll']
               );
-    
+
               Route::get('deportesTrashed',[
                   'uses'  =>'Admin\DeporteController@borrados',
                   'as'    =>'admin.deporte.borrados'
@@ -307,8 +307,11 @@ Route::group(['prefix' => 'e'], function () {
         'uses' => 'Estudiante\EstudianteController@modalidad_show',
         'as' => 'estudiante.modalidades.show'
     ]);
-
-
+    //ver invitaciones publicas del deporte filtrado por modalidad
+    Route::post('deporte/invipublicafiltro',[
+        'uses'  =>'Estudiante\EstudianteController@deporte_show_modalidad',
+        'as'    =>'estudiante.deportes.invitaciones.modalidad'
+    ]);
 
     //CREAR UN EQUIPO
     Route::post('equipo', [
@@ -386,6 +389,7 @@ Route::group(['prefix' => 'e'], function () {
       'uses'  =>'Estudiante\EstudianteController@filtro_deporte',
       'as'    =>'estudiante.filtro_deporte'
     ]);
+
 
     //Registrar  resultado (index)
     Route::get('registrar_resultado_index/',[

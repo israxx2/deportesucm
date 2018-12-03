@@ -17,16 +17,16 @@
         <div class="container">
             <p>Buscar por..</p>
             <div class="form-group">
-                    {!! Form::open(['route' => 'estudiante.comunidad.carreras' , 'method' => 'POST']) !!}
-                        <label>Carreras</label>
-                        <select class="form-control" id="carrera_id" name="carrera_id">
-                            <option value="null">Seleccione una carrera</option>
-                            @foreach($carreras as $carrera)
-                                <option value="{{ $carrera->id }}">{{ $carrera->nombre }}</option>
-                            @endforeach
-                        </select>
-                    {!! Form::close() !!}
-                  </div>
+                {!! Form::open(['route' => 'estudiante.comunidad.carreras' , 'method' => 'POST']) !!}
+                    <label>Carreras</label>
+                    <select class="form-control" id="carrera_id" name="carrera_id">
+                        <option value="null">Seleccione una carrera</option>
+                        @foreach($carreras as $carrera)
+                            <option value="{{ $carrera->id }}">{{ $carrera->nombre }}</option>
+                        @endforeach
+                    </select>
+                {!! Form::close() !!}
+            </div>
         </div>
 
     </div>

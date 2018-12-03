@@ -13,7 +13,7 @@
                     <div class="image">
                         <img src="{{ asset('img/portada.jpg') }}" alt="..." width="1100px" height="300px">
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" style="background-color: #cfe7ff33;">
                         <div class="author">
                              <a href="#">
                             <img class="avatar border-gray" src="{{ asset('estudiante/img_perfil/'.$user->avatar) }}" alt="...">
@@ -34,17 +34,25 @@
                         <br><br>
                         <hr>
 
-                        <div class="container" style="background-color: #E1F5FE; width: 70%; padding: 10px;">
+                        <div class="container" style="background-color: #0d00ff0f; width: 70%; padding: 10px;">
+                            <center>
+                                <h3>EQUIPOS</h3>
+                            </center>
                             <div class="card card-nav-tabs">
                                 @foreach($deportes as $deporte)
                                     <div class="card-header card-header-danger">
-                                        <h6>{{ $equipo->nombre }}</h6>
+                                        <h6>{{ $deporte->nombre }}</h6>
                                     </div>
                                     @foreach($deporte->modalidades as $modalidad)
                                         @foreach($modalidad->equipos as $equipo)
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">Cras justo odio</li>
-                                            </ul>
+                                            @foreach($equipo->users as $jugador)
+                                                @if($jugador->id == $user->id)
+                                                    <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item"><b>{{ $equipo->modalidad->nombre }}</b> <a href="{{ route('estudiante.equipos.show', ['id' => $equipo->id]) }}" class="btn btn-neutral btn-sm" style="position: relative; top: -1.29px; color: #0035ffc2;">{{ $equipo->nombre }} </a></li>
+                                                    </ul>
+                                                @endif
+                                            @endforeach
+
                                         @endforeach
                                     @endforeach
                                 @endforeach

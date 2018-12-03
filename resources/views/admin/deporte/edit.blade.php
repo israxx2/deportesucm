@@ -4,8 +4,9 @@
 
 @section('content')
 
-{!! Form::open(['route' => ['admin.deporte.update', $deporte->id] , 'method' => 'PUT']) !!}
-
+<br>
+<div class="container">
+    {!! Form::open(['route' => ['admin.deporte.update', $deporte->id] , 'method' => 'PUT', 'files' => true]) !!}
 
 
     <div class="form-group">
@@ -17,9 +18,16 @@
     {!! Form::label('descripcion', 'Descripcion') !!}
     {!! Form::input('text', 'descripcion', $deporte->descripcion, ['class' => 'form-control', 'placeholder' => 'Descripcion del deporte', 'required']) !!}
     </div>
-    
+
+    <div class="fileinput fileinput-new" data-provides="fileinput">
+        <span class="btn btn-default btn-file"><span class="fileinput-new">Seleccionar Imagen/</span><span class="fileinput-exists">Cambiar</span><input type="file" name="imagen"></span>
+        <span class="fileinput-filename"></span>
+        <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+    </div>
+
+
     <div class="form-group">
-    
+
     {!! Form::label('icono', 'Icono') !!}
     <br/>
     {!! Form::radio('icono','far fa-futbol')!!} Pelota de futbol
@@ -32,7 +40,7 @@
     <br/>
     {!! Form::radio('icono','fas fa-baseball')!!} Pelota de Baseball
     <br/>
-    
+
   </div>
 
     <center>
@@ -45,5 +53,7 @@
 
 
 {!! Form::close() !!}
+</div>
+
 
 @endsection

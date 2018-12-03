@@ -27,7 +27,7 @@ class DeporteController extends Controller
         $this->middleware('usuarioAdmin',['only'=>['update']]);
         $this->middleware('usuarioAdmin',['only'=>['destroy']]);
         $this->middleware('usuarioAdmin',['only'=>['activar']]);
-        
+
 
     }
 
@@ -50,7 +50,7 @@ class DeporteController extends Controller
     {
         //retorna todos los deportes (hasta los borrados logicamente)
         //ordenados por id
-        
+
         $deporte = Deporte:: orderBy('id', 'ASC')->get();
         $deportesOnlyTrashed = Deporte::onlyTrashed()
         ->get();
@@ -69,7 +69,7 @@ class DeporteController extends Controller
      */
     public function create()
     {
-        
+
         return view('admin.deporte.create');
     }
     /**
@@ -80,12 +80,19 @@ class DeporteController extends Controller
      */
     public function store(Request $request)
     {
-
         $deporte = new Deporte();
         $deporte->nombre = $request->nombre;
         $deporte->descripcion = $request->descripcion;
         $deporte->icon = $request->icono;
 
+        // ruta de las imagenes guardadas
+        $ruta = public_path().'/img/deporte';
+
+        // recogida del form
+        $imagenOriginal = $request->file('imagen');
+        $imagen = time().'.'.$imagenOriginal->getClientOriginalExtension();
+        $imagenOriginal->move($ruta, $imagen);
+        $deporte->imagen = $imagen;
         $deporte->save();
 
         return Redirect(Route('admin.deporte.index'));
@@ -108,9 +115,9 @@ class DeporteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
+    {
         $deporte = Deporte::find($id);
-       
+
         return view('admin.deporte.edit')
         ->with('deporte', $deporte);
     }
@@ -130,7 +137,17 @@ class DeporteController extends Controller
         $deporte->nombre = strtoupper($request->nombre);
         $deporte->descripcion = strtoupper($request->descripcion);
         $deporte->icon = $request->icono;
-  
+        if($request->imagen != null){
+            // ruta de las imagenes guardadas
+            $ruta = public_path().'/img/deporte';
+
+            // recogida del form
+            $imagenOriginal = $request->file('imagen');
+            $imagen = time().'.'.$imagenOriginal->getClientOriginalExtension();
+            $imagenOriginal->move($ruta, $imagen);
+            $deporte->imagen = $imagen;
+        }
+
         $deporte->save();
 
         return Redirect(Route('admin.deporte.index'));
@@ -166,17 +183,17 @@ class DeporteController extends Controller
          Deporte::where('id',$id)->forceDelete();
          return Redirect(route('admin.deporte.borrados'));
      }
-    
+
      //Borrar Varios usuarios de la base de datos.
      public function deleteall(Request $request)
      {
         $ids = $request->ids;
         Deporte::whereIn('id',explode(",",$ids))->forceDelete();
         return response()->json(['status'=>true,'message'=>"Usuarios Borrados Correctamente."]);
-    
-    
+
+
      }
-    
+
     //Borrar Varios usuarios logicamente.
     public function softdeleteAll(Request $request)
     {
@@ -184,8 +201,8 @@ class DeporteController extends Controller
         $ids = $request->ids;
         Deporte::whereIn('id',explode(",",$ids))->forceDelete();
         return response()->json(['status'=>true,'message'=>"Usuarios Borrados Correctamente."]);
-    
-    
+
+
     }
 
 

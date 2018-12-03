@@ -34,7 +34,7 @@
 
                       </blockquote>
 
-                            <a class="btn btn-link" href="#" role="button" data-toggle="modal" data-target="#descripcion">editar<i class="fas fa-pen"></i></a>
+                        <a class="btn btn-link" href="#" role="button" data-toggle="modal" data-target="#descripcion">editar<i class="fas fa-pen"></i></a>
 
 
                 </div>

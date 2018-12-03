@@ -68,7 +68,7 @@
 
                 @foreach($miembro_p as $pendiente)
                 <div class=row >
-               {{$pendiente->nombre_us}} , {{$pendiente->apellido_us}} 
+               {{$pendiente->nombre_us}} , {{$pendiente->apellido_us}}
                  <div class = "col-6">
                  {!! Form::open(['action' => 'Estudiante\EstudianteController@aceptar_soli' , 'method' => 'post']) !!}
                  <input name="id_us" type="hidden" value="{{$pendiente->id_usuario}}">
