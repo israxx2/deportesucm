@@ -27,9 +27,14 @@ class MDusuarioAlumno
             return redirect()->to('/login');
         }
 
-        if($this->auth->user()->tipo !='estudiante'){
+        if($this->auth->user()->tipo =='admin'){
             Session::flash('message_error','No tiene permisos suficientes para acceder');
-            return redirect()->to('/login');
+            return redirect()->to('/home');
+        }
+
+        if($this->auth->user()->tipo =='coordinador'){
+            Session::flash('message_error','No tiene permisos suficientes para acceder');
+            return redirect()->to('/mod/torneos');
         }
         return $next($request);
     }

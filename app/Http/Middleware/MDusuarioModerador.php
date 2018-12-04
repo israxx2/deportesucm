@@ -22,9 +22,19 @@ class MDusuarioModerador
      */
     public function handle($request, Closure $next)
     {
-        if($this->auth->user()->tipo !="moderador"){
-            Session::flash('message_error','No tiene permisos para acceder');
-            return redirect()->to('/');
+        if($this->auth->user() == null){
+            Session::flash('message_error','No tiene permisos suficientes para acceder');
+            return redirect()->to('/login');
+        }
+
+        if($this->auth->user()->tipo =='admin'){
+            Session::flash('message_error','No tiene permisos suficientes para acceder');
+            return redirect()->to('/home');
+        }
+
+        if($this->auth->user()->tipo =='alumno'){
+            Session::flash('message_error','No tiene permisos suficientes para acceder');
+            return redirect()->to('/e/inicio');
         }
         return $next($request);
     }
