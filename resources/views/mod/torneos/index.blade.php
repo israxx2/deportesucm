@@ -79,27 +79,27 @@
         {!! Form::open(['route' => 'mod.torneos.store' , 'method' => 'POST']) !!}
         <div class="form-group">
             <label>Nombre Del Torneo</label>
-                <input type="text" name="n_torneo" class="form-control" required> 
+                <input type="text" name="n_torneo" class="form-control" placeholder="ingrese un nombre..."required> 
         </div>
         <div class="form-group">
             <label>Descripcion</label>
-                <textarea name="descripcion" class="form-control" rows="3" required> </textarea>
+                <textarea name="descripcion" class="form-control" rows="3"  required >ingrese una descripcion...</textarea>
         </div>
         <div class="form-group">
             <label>Fecha</label>
-                <input type="text" name="fecha" class="form-control" required> 
+                <input type="text" name="fecha" class="form-control" placeholder="xxxx-xx-xx xx:xx"required> 
         </div>
         <div class="row">
             <div class="col-sm-5">
                 <div class="form-group">
                     <label>Min Jugadores</label>
-                        <input type="number" name="min" class="form-control" required> 
+                        <input type="number" name="min" class="form-control" placeholder="ingrese un min" required> 
                 </div>
             </div>
             <div class="col-sm-5">
                 <div class="form-group">
                     <label>Max Jugadores</label>
-                        <input type="number" name="max" class="form-control" required> 
+                        <input type="number" name="max" class="form-control" placeholder="ingrese un max" required> 
                 </div>
             </div>
         </div>
