@@ -5,9 +5,9 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <div class="card card-chart">
+        <div class="card card-chart bg-info">
             <div class="card-header">
-                <h4 class="card-title">Realizar una Invitacion <button type="button" class="btn btn-info" data-toggle="modal" data-target="#crearInvitacion"><i class="fas fa-plus"></i></button></h4>
+                <h4 class="card-title">Realizar una Invitacion <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crearInvitacion"><i class="fas fa-plus"></i></button></h4>
             </div>
 
         </div>

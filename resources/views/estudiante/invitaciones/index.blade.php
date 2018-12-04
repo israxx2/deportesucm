@@ -12,7 +12,9 @@
             </div>
 
         </div>
+        
     </div>
+
 
     <div class="col-sm-4">
         <div class="card card-chart ">
@@ -181,7 +183,7 @@
             </div>
             <div class="form-group">
                 <label>horario</label>
-                <input name="horario" id="horario" type="text" class="form-control" placeholder="ej: 28/10/2018 16:50" required>
+                <input name="horario" id="horario" type="date" class="form-control" placeholder="ej: 28/10/2018 16:50" required>
             </div>
             <div class="form-group">
                 <label>Nro de contacto</label>
@@ -197,8 +199,8 @@
             </div>
         </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
             </div>
         </div>
         {!! Form::close() !!}
