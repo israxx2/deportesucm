@@ -75,8 +75,15 @@ class TorneoController extends Controller
         $torneo->cerrado = 0;
         $torneo->finalizado = 0;
         $torneo->save();
+        $torneo = Torneo::all();
+        $modalidad = Modalidad::orderBy('id', 'DESC')->get();
+        foreach($torneo as $torneos){
+            $torneos['participantes_actuales'] = $torneos->equipos->count();
+        }  
         $deportes_sidebar = Deporte::all();
         return view('mod.torneos.index')
+        ->with('torneos', $torneo)
+        ->with('modalidades',$modalidad)
         ->with('deportes_sidebar', $deportes_sidebar);
     }
 
