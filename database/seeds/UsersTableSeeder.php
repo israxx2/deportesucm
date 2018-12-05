@@ -37,6 +37,19 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('1234'),
         ]);
 
+         //CREACION mod
+         DB::table('users')->insert([
+            'carrera_id' => 1,
+            'nombres' => 'cord1 1',
+            'apellidos' => 'APELLIDO 1',
+            'ciudad' =>'Talca',
+            'nick' => null,
+            'tipo' => 'coordinador',
+            'avatar' => 'default.png',
+            'email' => 'mod1@ucm.cl',
+            'password' => bcrypt('1234'),
+        ]);
+
         //CREACION ESTUDIANTE
         DB::table('users')->insert([
             'carrera_id' => 1,
