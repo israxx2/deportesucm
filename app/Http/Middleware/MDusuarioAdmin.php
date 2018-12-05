@@ -34,6 +34,11 @@ class MDusuarioAdmin
             return redirect()->to('/e/inicio');
         }
 
+        if($this->auth->user()->tipo =='coordinador'){
+            Session::flash('message_error','No tiene permisos suficientes para acceder');
+            return redirect()->to('/mod/torneos');
+        }
+
         return $next($request);
     }
 }

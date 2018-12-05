@@ -87,7 +87,7 @@
         </div>
         <div class="form-group">
             <label>Fecha</label>
-                <input type="text" name="fecha" class="form-control" placeholder="xxxx-xx-xx xx:xx"required> 
+                <input type="date" name="fecha" class="form-control" placeholder="xxxx-xx-xx xx:xx"required> 
         </div>
         <div class="row">
             <div class="col-sm-5">

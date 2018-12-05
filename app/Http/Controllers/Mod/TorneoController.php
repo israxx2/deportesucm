@@ -18,7 +18,19 @@ class TorneoController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * 
      */
+
+    public function __construct(){
+        $this->middleware('usuarioModerador',['only'=>['index']]);
+        $this->middleware('usuarioModerador',['only'=>['store']]);
+        $this->middleware('usuarioModerador',['only'=>['show']]);
+        $this->middleware('usuarioModerador',['only'=>['filtro']]);
+        $this->middleware('usuarioModerador',['only'=>['registrarenf']]);
+        $this->middleware('usuarioModerador',['only'=>['guardar']]);
+
+    }
+
     public function index()
     {
         $deportes_sidebar = Deporte::all();
@@ -63,8 +75,15 @@ class TorneoController extends Controller
         $torneo->cerrado = 0;
         $torneo->finalizado = 0;
         $torneo->save();
+        $torneo = Torneo::all();
+        $modalidad = Modalidad::orderBy('id', 'DESC')->get();
+        foreach($torneo as $torneos){
+            $torneos['participantes_actuales'] = $torneos->equipos->count();
+        }  
         $deportes_sidebar = Deporte::all();
         return view('mod.torneos.index')
+        ->with('torneos', $torneo)
+        ->with('modalidades',$modalidad)
         ->with('deportes_sidebar', $deportes_sidebar);
     }
 

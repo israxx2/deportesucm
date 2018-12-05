@@ -14,6 +14,14 @@ class EquipoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+        $this->middleware('usuarioModerador',['only'=>['index']]);
+        $this->middleware('usuarioModerador',['only'=>['show']]);
+        $this->middleware('usuarioModerador',['only'=>['filtro']]);
+
+    }
+
+    
     public function index()
     {
         $deportes_sidebar = Deporte::all();

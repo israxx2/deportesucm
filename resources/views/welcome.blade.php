@@ -61,7 +61,18 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        @if(auth::user()->tipo =='admin')
+                            <a href="{{ url('/home') }}">Home</a>
+                        @endif
+
+                        @if(auth::user()->tipo =='estudiante')
+                            <a href="{{ url('/e/inicio') }}">Inicio</a>
+                        @endif  
+                          
+                        @if(auth::user()->tipo =='moderador')
+                            <a href="{{ url('/mod/inicio') }}">Inicio</a>
+                        @endif
+
                     @else
                         <a href="{{ route('login') }}">Login</a>                   
                     @endauth

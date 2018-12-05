@@ -73,14 +73,35 @@
                     <p>Comunidad</p></a>
                   </li>
 
-                  {{-- BUZON --}}
-                <li class="@yield('Buzon', 'invitacion ')">
-                    <a href="{{ route('estudiante.invitaciones.index') }}">
-                    <i class="now-ui-icons ui-1_email-85"></i>
-                    <p>Buzon</p>
+                 {{-- BUZON --}}
+                <li class="@yield('deporte', ' ')">
+                    <a data-toggle="collapse" href="#buzon">
+                        <i class="now-ui-icons ui-1_email-85"></i>
+                        <p>BUZON
+                            <b class="caret"></b>
+                        </p>
                     </a>
-
                 </li>
+
+
+                <div class="collapse" id="buzon">
+                    <ul class="nav">
+                    <li class="@yield('Buzon', 'invitacion ')">
+                        <a href="{{ route('estudiante.invitaciones.index') }}">
+                        <i class="now-ui-icons ui-1_email-85"></i>
+                        <p>PRIVADO</p>
+                        </a>
+                    </li>
+                    <li class="@yield('Buzon', 'invitacion ')">
+                        <a href="{{ route('estudiante.invitaciones.publico') }}">
+                        <i class="now-ui-icons ui-1_email-85"></i>
+                        <p>PUBLICO</p>
+                        </a>
+                    </li>
+                    </ul>
+                </div>
+
+               
 
                 {{-- INFORMACION --}}
                 <li class="@yield('informacion', ' ')">
