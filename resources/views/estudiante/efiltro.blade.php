@@ -44,7 +44,7 @@
             </div> 
     </div>
     </div>
-        @if($user->equipos->isEmpty())
+        @if(!$equipos)
         <div class="card card-nav-tabs">
 
             <div class="card-body">
@@ -52,16 +52,18 @@
             </div>
         </div>
         @else
-            @foreach($user->equipos as $equipo)
+            @foreach($equipos as $equipo)
             <div class="card card-nav-tabs">
                 <div class="card-header card-header-warning">
-                {{ $equipo->modalidad->deporte->nombre.'/'.$equipo->modalidad->nombre }}
                 <div class="card">
                 <div class="card-body">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-4">
                                 <p><b>Equipo:</b> {{$equipo->nombre}}</p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p><b>Lider Equipo:</b> {{$equipo->nombre_u}}, {{$equipo->apellido_u}}</p>
                             </div>
                         </div>
                         <div class="row">

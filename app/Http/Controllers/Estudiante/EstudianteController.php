@@ -586,6 +586,34 @@ class EstudianteController extends Controller
         return redirect('e/equipos');
 
     }
-
+    public function filtro(Request $request)
+    {
+        $deportes_sidebar = Deporte::all();
+        $deportes= $deportes_sidebar;
+        if($request->filtro){
+            $equipos = DB::select('SELECT equipos.nombre, 
+            equipos.descripcion, 
+            equipos.victorias_totales,
+            equipos.derrotas_totales,
+            users.nombres as nombre_u,
+            users.apellidos as apellido_u FROM equipos join users
+            on equipos.user_id = users.id
+            where equipos.nombre = "'.$request->filtro.'" or users.nombres = "'.$request->filtro.'"
+            or users.apellidos = "'.$request->filtro.'" and users.id= '.Auth::user()->id);
+        }
+        else{
+            $equipos = DB::select('SELECT equipos.nombre, 
+            equipos.descripcion, 
+            equipos.victorias_totales,
+            equipos.derrotas_totales,
+            users.nombres as nombre_u,
+            users.apellidos as apellido_u FROM equipos join users
+            on equipos.user_id = users.id and users.id= '.Auth::user()->id);
+        }
+        return view('estudiante.efiltro')
+        ->with('equipos', $equipos)
+        ->with('deportes', $deportes)
+        ->with('deportes_sidebar', $deportes_sidebar);
+    }
 
 }

@@ -434,6 +434,11 @@ Route::group(['prefix' => 'e'], function () {
       'uses'  =>'Estudiante\EstudianteController@solicitud_equipo',
       'as'    =>'estudiante.solicitud_equipo'
     ]);
+    //filtro estudiante
+    Route::post('filtro',[
+      'uses'  =>'Estudiante\EstudianteController@filtro',
+      'as'    =>'estudiante.filtro'
+    ]);
 
     //Abandonar un  equipo
     Route::post('abandonar_equipo/',[
