@@ -409,7 +409,6 @@ class EstudianteController extends Controller
         $user=Auth::user()->id;
 
         $deportes_sidebar = Deporte::all();
-
         $resultado = DB::select('SELECT
         invitaciones.id as invitacion_id,
         deportes.nombre as nombre,

@@ -82,7 +82,7 @@ class LoginController extends Controller
                      ]);
 
            auth()->login($socialuser);
-           return redirect()->To('home');
+           return redirect()->To('/e/inicio');
 
          }
 
